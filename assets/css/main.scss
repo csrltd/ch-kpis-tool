@@ -1,0 +1,46 @@
+input {
+    width: 30vw;
+    height: 35px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+  }
+  a{
+    text-decoration: none;
+    color: #07AEEF;
+  }
+  .half{
+    gap: 6px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-button{
+    background-color: #07AEEF;
+    padding: 17px 35px;
+    gap: 10px;
+    width: 212px;
+    height: 61px;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    color: white;
+  }
+  .check input {
+    height: 15px;
+    width: 15px;
+   
+  }/*# sourceMappingURL=main.css.map */
+
+  .light-blue {
+    background: #00AEEF;
+    border-radius: 5px;
+    border: none;
+    color: white;
+}
+.blue-btn {
+  background: #0F76BC;
+  border-radius: 5px;
+  border: none;
+  color: white;
+}
