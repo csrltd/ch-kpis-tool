@@ -6,6 +6,12 @@ input {
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
+select {
+  width: 35vw;
+  padding: 10px;
+  border-radius: 10px;
+}
+
 a {
   text-decoration: none;
   color: #07AEEF;

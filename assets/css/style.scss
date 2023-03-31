@@ -16,8 +16,9 @@
     .col {
         .sidebar {
             width: 20%;
-            height: 100vh;
+            height: 140vh;
             background-color: black;
+            
 
             .logo {
                 display: flex;
@@ -30,20 +31,27 @@
                 }
             }
 
+            .sidebar-details {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                overflow-y: scroll;
+            }
+
             .sidebar--content {
                 padding-left: 25px;
 
                 .row {
                     display: flex;
                     flex-direction: column;
-                    gap: 12px;
+                    gap: 24px;
                 }
 
                 p {
                     color: white;
                     font-weight: bold;
                     font-size: 24px;
-                    padding-top: 10px;
+                    padding-top: 48px;
                 }
 
                 ul {
@@ -165,7 +173,7 @@
                 position: absolute;
                 top: 8%;
                 left: 20%;
-                background: #F8F8F8;
+                
 
                 width: 80%;
                 height: 92vh;
@@ -278,6 +286,11 @@
                             width: 35vw;
                             padding: 20px;
                         }
+                        select{
+                            width: 35vw;
+                            padding: 10px; 
+                            border-radius: 10px;
+                        }
                     }
                 }
             }
@@ -287,6 +300,16 @@
                 display: flex;
                 gap: 24px;
                 align-items: center;
+                // .input-icon{
+                //     width: 100%;
+                //     .ri-save-2-fill{
+                //         position: absolute;
+                //         left: 13.5%;
+                //         color: rgb(247, 242, 242);
+                //         font-size: 20px;
+                //         top: 64%;
+                //     }
+                // }
 
                 input{
                     

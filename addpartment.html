@@ -5,15 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/index-dashboard.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/adddepartment.css">
     <script src="/assets/javascripts/main.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <title>Over View Dashboard</title>
-    
-
+    <title>Add Patient</title>
 </head>
 <body>
-
     <div class="container">
         <div class="col">
             <div class="sidebar">
@@ -23,7 +21,7 @@
                 </div>
                 <div class="sidebar--content">
                     <div class="row">
-                    <p>Over View</p>
+                    <p>Adding User</p>
                     <ul>
                         <li>
                             <img src="/assets/images/Vector.svg" alt="">
@@ -141,9 +139,9 @@
                 
                 <a href="" class="black"><p>KPI Tool</p></a>
                 <i class="ri-arrow-right-s-line"></i>
-               <a href="" class="black"><p>Hospital</p></a> 
+               <a href="" class="black"><p>Users</p></a> 
                 <i class="ri-arrow-right-s-line"></i>
-                <a href=""><p>Add New Hospital</p></a>
+                <a href=""><p>Add New User</p></a>
                 
             </div>
             <div class="nav-text">
@@ -162,100 +160,68 @@
             </div>
             </div>
         </div>
-        <div class="row-card">
-            <div class="card-1"></div>
-            <div class="card-2"></div>
-        </div>
-        <div class="row-table">
-            <div class="upper-table">
-                <table style="width:100%">
-                    
-                    <tr>
-                        <th rowspan="2">New Hires</th>
-                        <th>Jan</th>
-                        <th>Feb</th>
-                        <th>Mar</th>
-                        <th>Apr</th>
-                        <th>May</th>
-                        <th>Jun</th>
-                        <th>Jul</th>
-                        <th>Aug</th>
-                        <th>Sep</th>
-                        <th>Oct</th>
-                        <th>Nov</th>
-                        <th>Dec</th>
-                    </tr>
-                   
-                    <tr>
-                        <td>30</td>
-                        <td>2</td>
-                        <td>4</td>
-                        <td>4</td>
-                        <td>0</td>
-                        <td>9</td>
-                        <td>7</td>
-                        <td>4</td>
-                        <td>3</td>
-                        <td>2</td>
-                        <td>2</td>
-                        <td>2</td>
-                    </tr>
-                </table>
+            <div class="row">
+            <div class="content">
+                <div class="content-btn">
+                <div class="btn">
+                <a href="">
+                    <i class="ri-arrow-left-line"></i>
+                    <input type="button" class="blue-btn" value="Back">
+                </a>
+                <a href="">
+                    <input type="button" class="light-blue" value="Next">
+                    <i class="ri-arrow-right-line"></i>
+                </a>
+                </div>
+            <div class="home-btn">
+            <a href="">
+                <input type="button" class="white-button" value="Home">
+            </a>
             </div>
-            <div class="lower-table">
-                <table style="width:100%">
-                    
-                    <tr>
-                        <th rowspan="2">Turn Over</th>
-                        <th>Jan</th>
-                        <th>Feb</th>
-                        <th>Mar</th>
-                        <th>Apr</th>
-                        <th>May</th>
-                        <th>Jun</th>
-                        <th>Jul</th>
-                        <th>Aug</th>
-                        <th>Sep</th>
-                        <th>Oct</th>
-                        <th>Nov</th>
-                        <th>Dec</th>
-                    </tr>
-                   
-                    <tr>
-                        <td>30</td>
-                        <td>2</td>
-                        <td>4</td>
-                        <td>4</td>
-                        <td>0</td>
-                        <td>9</td>
-                        <td>7</td>
-                        <td>4</td>
-                        <td>3</td>
-                        <td>2</td>
-                        <td>2</td>
-                        <td>2</td>
-                    </tr>
-                </table>
+            </div>
+        
+        <div class="row--content">
+            <div class="content-button">
+                
+                <input type="button" value="Add User">
+            </div>
+            <form action="">
+            <div class="hospital-fields">
+            <div class="label-input">
+                <label for="departmentid">Department ID</label>
+                <input type="number" name="departmentid" id="">
+            </div>
+            <div class="label-input">
+                <label for="departmentname">Department  Name</label>
+                <input type="text" name="departmentname" id="">
+            </div>
+    
+            </div>
+            <div class="hospital-fields">
+            <div class="label-input">
+                <label for="hospital">Hospital</label>
+                <select name="hospital" id="hospital" >
+                    <option value="">Select Hospital</option>
+                    <option value="hospital">King faisar</option>
+                    <option value="hospital">CHK</option>
+                    <option value="hospital">Rwamagana</option>
+                    <option value="hospital">Kacyiru</option>
+                  </select>
             </div>
         </div>
-        <div class="row-cards">
-            <p>Labor Tracker</p>
-            <div class="index-cards">
-            <div class="first-card"><p>Mangum</p></div>
-            <div class="second-card"><p>Prague</p></div>
-            <div class="third-card"><p>Pawhuska</p></div>
-            <div class="fourth-card"><p>Carnegie</p></div>
-            <div class="fifth-card"><p>Seiling</p></div>
+               
+            </form>
+            <div class="save-action-button">
+                
+                <input type="button" value="Save Record" class="blue-btn">
+                <i class="ri-save-2-fill"></i>
+                <input type="button" value="Save Draft" class="light-blue" >
+                <i class="ri-file-4-line"></i>
+            </div>
         </div>
+            </div>
         </div>
         </div>
     </div>
-   
-   
-    
-   
-
 </body>
-
-
 </html>

@@ -8,7 +8,7 @@
 
 .container .col .sidebar {
   width: 20%;
-  height: 100vh;
+  height: 140vh;
   background-color: black;
 }
 .container .col .sidebar .logo {
@@ -20,19 +20,25 @@
   font-size: 32px;
   color: white;
 }
+.container .col .sidebar .sidebar-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: scroll;
+}
 .container .col .sidebar .sidebar--content {
   padding-left: 25px;
 }
 .container .col .sidebar .sidebar--content .row {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 24px;
 }
 .container .col .sidebar .sidebar--content p {
   color: white;
   font-weight: bold;
   font-size: 24px;
-  padding-top: 10px;
+  padding-top: 48px;
 }
 .container .col .sidebar .sidebar--content ul {
   padding-left: 20px;
@@ -120,7 +126,6 @@
   position: absolute;
   top: 8%;
   left: 20%;
-  background: #F8F8F8;
   width: 80%;
   height: 92vh;
 }
@@ -204,6 +209,11 @@
 .container .col .row--content form .hospital-fields .label-input input {
   width: 35vw;
   padding: 20px;
+}
+.container .col .row--content form .hospital-fields .label-input select {
+  width: 35vw;
+  padding: 10px;
+  border-radius: 10px;
 }
 .container .col .row--content .save-action-button {
   padding-left: 40px;
