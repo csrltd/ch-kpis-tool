@@ -1,5 +1,5 @@
 .container .col .sidebar {
-  height: 150vh;
+  height: 100%;
 }
 .container .col .row .content .row--add-patient .content-button {
   padding: 30px;
@@ -10,8 +10,8 @@
 .container .col .row .content .row--add-patient .hospital-fields {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 30px;
+  gap: 12px;
+  padding: 20px;
 }
 .container .col .row .content .row--add-patient .hospital-fields .label-input {
   display: flex;
@@ -34,11 +34,11 @@
   padding: 0;
 }
 .container .col .row .content .row--content {
-  height: 60vw;
+  height: 113vh;
 }
 .container .col .row .content .row--content .save-action-button .ri-save-2-fill {
-  top: 127.5vh;
+  top: 123vh;
 }
 .container .col .row .content .row--content .save-action-button .ri-file-4-line {
-  top: 127.5vh;
+  top: 123vh;
 }/*# sourceMappingURL=addpatient.css.map */

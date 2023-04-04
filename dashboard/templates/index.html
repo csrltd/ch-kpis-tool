@@ -6,9 +6,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/index-dashboard.css">
-    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index-dashboard.css' %} ">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <title>Over View Dashboard</title>
@@ -16,12 +17,12 @@
 
 </head>
 <body>
-
+    {% block content %}
     <div class="container">
         <div class="col">
             <div class="sidebar">
                 <div class="logo">
-                    <img src="/assets/images/logo (3) 2 (1) 1.png" alt="">
+                    <img src="{% static 'images/logo (3) 2 (1) 1.png' %}" alt="">
                     <p>KPIs</p>
                 </div>
                 <div class="sidebar-content-links">
@@ -31,32 +32,32 @@
                     <p>Over View</p>
                     <ul>
                         <li>
-                            <img src="/assets/images/Vector.svg" alt="">
+                            <img src="{% static 'images/Vector.svg' %}" alt="">
                             <a href="">Margum</a>
                         </li>
                     </ul>
                 
                     <ul>
                         <li>
-                            <img src="/assets/images/Vector.svg" alt="">
+                            <img src="{% static 'images/Vector.svg' %}" alt="">
                             <a href="">Prague</a>
                         </li>
                     </ul>
                     <ul>
                         <li>
-                            <img src="/assets/images/Vector.svg" alt="">
+                            <img src="{% static 'images/Vector.svg' %}" alt="">
                             <a href="">Prague</a>
                         </li>
                     </ul>
                     <ul>
                         <li>
-                            <img src="/assets/images/Vector.svg" alt="">
+                            <img src="{% static 'images/Vector.svg' %}" alt="">
                             <a href="">Carnegie</a>
                         </li>
                     </ul>
                     <ul>
                         <li>
-                            <img src="/assets/images/Vector.svg" alt="">
+                            <img src="{% static 'images/Vector.svg' %}" alt="">
                             <a href="">Seiling</a>
                         </li>
                     </ul>
@@ -67,31 +68,31 @@
                     <p>RHC</p>
                     <ul>
                         <li>
-                            <img src="/assets/images/Vector.svg" alt="">
+                            <img src="{% static 'images/Vector.svg' %}" alt="">
                             <a href="">Margum</a>
                         </li>
                     </ul>
                     <ul>
                         <li>
-                            <img src="/assets/images/Vector.svg" alt="">
+                            <img src="{% static 'images/Vector.svg' %}" alt="">
                             <a href="">Prague</a>
                         </li>
                     </ul>
                     <ul>
                         <li>
-                            <img src="/assets/images/Vector.svg" alt="">
+                            <img src="{% static 'images/Vector.svg' %}" alt="">
                             <a href="">Prague</a>
                         </li>
                     </ul>
                     <ul>
                         <li>
-                            <img src="/assets/images/Vector.svg" alt="">
+                            <img src="{% static 'images/Vector.svg' %}" alt="">
                             <a href="">Carnegie</a>
                         </li>
                     </ul>
                     <ul>
                         <li>
-                            <img src="/assets/images/Vector.svg" alt="">
+                            <img src="{% static 'images/Vector.svg' %}" alt="">
                             <a href="">Seiling</a>
                         </li>
                     </ul>
@@ -102,31 +103,31 @@
                     <p>Labor Tracker</p>
                     <ul>
                         <li>
-                            <img src="/assets/images/Vector.svg" alt="">
+                            <img src="{% static 'images/Vector.svg' %}" alt="">
                             <a href="">Margum</a>
                         </li>
                     </ul>
                     <ul>
                         <li>
-                            <img src="/assets/images/Vector.svg" alt="">
+                            <img src="{% static 'images/Vector.svg' %}" alt="">
                             <a href="">Prague</a>
                         </li>
                     </ul>
                     <ul>
                         <li>
-                            <img src="/assets/images/Vector.svg" alt="">
+                            <img src="{% static 'images/Vector.svg' %}" alt="">
                             <a href=""> Prague</a>
                         </li>
                     </ul>
                     <ul>
                         <li>
-                            <img src="/assets/images/Vector.svg" alt="">
+                            <img src="{% static 'images/Vector.svg' %}" alt="">
                             <a href="">Carnegie</a>
                         </li>
                     </ul>
                     <ul>
                         <li>
-                            <img src="/assets/images/Vector.svg" alt="">
+                            <img src="{% static 'images/Vector.svg' %}" alt="">
                             <a href="">Seiling</a>
                         </li>
                     </ul>
@@ -161,7 +162,8 @@
                 <div class="bell">
                     <i class="ri-notification-fill"></i>
                 </div>
-                <img src="/assets/images/jeshoots-com-LAwsF-VnFzc-unsplash.jpg" alt="">
+                
+                <img src="{% static 'images/jeshoots-com-LAwsF-VnFzc-unsplash.jpg' %}" alt="">
                 <div class="position">
                     <p>Godwin Feh</p>
                     <h3>CEO</h3>
@@ -274,8 +276,8 @@
    
    
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
-   <script src="/assets/javascripts/main.js"></script>
-
+   <script src="{%static 'javascripts/main.js' %}"></script>
+   {% endblock %}
 </body>
 
 

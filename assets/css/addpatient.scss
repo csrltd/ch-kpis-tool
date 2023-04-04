@@ -3,7 +3,7 @@
 .container {
     .col {
         .sidebar {
-            height: 150vh;
+            height: 100%;
 
         }
 
@@ -22,8 +22,8 @@
                     .hospital-fields {
                         display: flex;
                         flex-direction: column;
-                        gap: 24px;
-                        padding: 30px;
+                        gap: 12px;
+                        padding: 20px;
                         .label-input {
                             display: flex;
                             flex-direction: column;
@@ -57,16 +57,16 @@
                 }
 
                 .row--content {
-                    height: 60vw;
+                    height: 113vh;
 
                     .save-action-button {
                         .ri-save-2-fill{
                         
-                            top: 127.5vh;
+                            top: 123vh;
                         }
                         .ri-file-4-line{
                             
-                            top: 127.5vh;
+                            top: 123vh;
                         }
                     }
                 }
