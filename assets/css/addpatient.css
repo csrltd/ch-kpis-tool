@@ -1,0 +1,44 @@
+.container .col .sidebar {
+  height: 100%;
+}
+.container .col .row .content .row--add-patient .content-button {
+  padding: 30px;
+}
+.container .col .row .content .row--add-patient .content-button input {
+  background-color: #0F76BC;
+}
+.container .col .row .content .row--add-patient .hospital-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+}
+.container .col .row .content .row--add-patient .hospital-fields .label-input {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.container .col .row .content .row--add-patient .hospital-fields .label-input input {
+  width: 35vw;
+  padding: 20px;
+}
+.container .col .row .content .row--add-patient .hospital-fields .label-input select {
+  width: 35vw;
+  padding: 10px;
+  border-radius: 10px;
+}
+.container .col .row .content .row--add-patient .hospital-fields .radio-input input {
+  margin: 10px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+}
+.container .col .row .content .row--content {
+  height: 113vh;
+}
+.container .col .row .content .row--content .save-action-button .ri-save-2-fill {
+  top: 123vh;
+}
+.container .col .row .content .row--content .save-action-button .ri-file-4-line {
+  top: 123vh;
+}/*# sourceMappingURL=addpatient.css.map */

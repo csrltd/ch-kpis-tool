@@ -1,8 +1,10 @@
 from django.db import models
 from django.urls import reverse
 
-# Create your models here.
+from django.urls import reverse
 
+
+# Create your models here.
 
 class Hospital(models.Model):
     hospitalId = models.IntegerField
