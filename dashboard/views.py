@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-
+from django.urls import reverse
 from .forms import UserRegistration
+from django.contrib.auth import authenticate, login
 
 
 
@@ -21,7 +22,26 @@ def signup(request):
     return render(request, 'authentication/signup.html', {'form': form})
 
 
-def login(request):
+
+def loginPage(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('add-user')
+        # if user is not None:
+        #     login(request, user)
+        #     print(f"User {email} authenticated successfully!")
+        #     redirect_url = reverse('add-user')
+        #     print(f"Redirecting to URL: {redirect_url}")
+        #     return redirect(redirect_url)
+        # else:
+        #     print(f"Failed to authenticate user {email}!")
+    
     return render(request, 'authentication/login.html')
 
 def addUser(request):

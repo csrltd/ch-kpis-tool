@@ -21,22 +21,21 @@
                     <h1>Welcome back!!</h1>
                     <p>Welcome back! Please enter your details</p>
                 </div>
-                <form action="">
+                <form method="POST" action="">
+                    {% csrf_token %}
                     <div class="email">
-                        <label for="email">Email</label>
-                        <input type="email">
+                        <label for="email">Username</label>
+                        <input type="text" name="username">
                     </div>
                     <div class="password">
                         <label for="password">Password</label>
-                        <input type="password" placeholder=".........">
+                        <input type="password" name="password" placeholder="*********">
                     </div>
                     <div class="remember">
                        <div class="check"> <input type="checkbox" name="" id="">Remember for 30 days </div>
                         <span><a href="">Forget password</a></span>
                     </div>
-                    <a href="">
-                        <input type="button" class="signin-btn" value="Sign in">
-                    </a>
+                        <input type="submit" class="signin-btn" value="Sign in">
                 </form>
                 <div class="signup">
                     <p>Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
