@@ -349,25 +349,15 @@
 
 
 
-
-
-
-
-
-
-
-
-
 //sign up
 .container {
     .row {
         display: flex;
-        flex-direction: row;
         gap: 48px;
 
         .col-1 {
 
-            background: linear-gradient(0deg, rgba(7, 174, 239, 0.7), rgba(7, 174, 239, 0.7)), url(/assets/images/jeshoots-com-LAwsF-VnFzc-unsplash.jpg);
+            background: linear-gradient(0deg, rgba(7, 174, 239, 0.7), rgba(7, 174, 239, 0.7)), url('/static/images/jeshoots-com-LAwsF-VnFzc-unsplash.jpg');
             background-repeat: no-repeat;
             background-size: cover;
             width: 30%;
@@ -384,8 +374,10 @@
         }
 
         .col-2 {
-
+            display: flex;
+            flex-direction: column;
             padding-top: 40px;
+            width: 70%;
 
             .text {
                 display: flex;
@@ -406,68 +398,86 @@
                 }
             }
 
+            // form {
+            //     display: flex;
+            //     flex-wrap: wrap;
+            //     gap: 8px;
+              
+            //     input {
+            //       width: 95%;
+            //       padding: 12px 25px;
+            //       border-radius: 10px;
+            //       border: 1px solid black;
+            //     }
+            //     .input-field {
+            //       width: 40%;
+            //     }
+
+            //     .checkbox-input {
+            //         padding-top: 10px;
+            //     }
+            //   }
+
             form {
-                padding-top: 20px;
                 display: flex;
                 flex-direction: column;
-                gap: 24px;
+                gap: 20px;
 
-
-                .names {
-                    display: flex;
-                    gap: 24px;
-
+                input {
+                    padding: 10px 20px;
+                    border-radius: 10px;
+                    border: 1px solid black;
                 }
 
-                .phone-email {
+                .input-fields {
                     display: flex;
-                    gap: 24px;
-
-                }
-
-                .password {
-                    display: flex;
-                    gap: 24px;
-
-                }
-
-                .check {
-                    span {
-                        color: #07AEEF;
+                    flex-wrap: wrap;
+                    gap: 12px;
+                    input {
+                        width: 100%;
+                    }
+                    .field {
+                        width: 45%;
                     }
                 }
 
-                .signin-link {
-                    display: flex;
-                    gap: 24px;
+                .check-box {
+                    .checkbox-input {
+                        padding: 8px;
 
-                    a {
-                        text-decoration: none;
-                        color: #07AEEF;
-                    }
-                }
-
-
-                .goback {
-
-                    padding-top: 20px;
-
-                    a {
-                        text-decoration: none;
-                        color: #07AEEF;
-                        display: flex;
-
-                        p {
-                            top: 70%;
-
-                        }
-
-                        i {
-                            top: 69.53%;
-                            font-size: 24px;
-
+                        a {
+                            color: #00AEEF;
                         }
                     }
+                }
+
+                .signup-btn {
+                    max-width: 200px;
+                    border: none;
+                    background-color: #00AEEF;
+                    color: #FFF;
+                    font-size: 18px;
+                    cursor: pointer;
+                    transition: linear 0.2s;
+
+                    &:hover {
+                        background: transparent;
+                        border: 1px solid #00AEEF;
+                        color: #00AEEF;
+                    }
+                }
+            }
+
+            .links {
+                margin-top: 10px;
+
+                p {
+                    font-size: 24px;
+                }
+
+                a {
+                    color: #00AEEF;
+                    font-size: 18px;
                 }
             }
         }
@@ -522,7 +532,7 @@
                     flex-direction: column;
                 }
 
-                .password {
+                .password{
                     gap: 14px;
                     display: flex;
                     flex-direction: column;

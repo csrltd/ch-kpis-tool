@@ -250,11 +250,10 @@
 
 .container .row {
   display: flex;
-  flex-direction: row;
   gap: 48px;
 }
 .container .row .col-1 {
-  background: linear-gradient(0deg, rgba(7, 174, 239, 0.7), rgba(7, 174, 239, 0.7)), url(/assets/images/jeshoots-com-LAwsF-VnFzc-unsplash.jpg);
+  background: linear-gradient(0deg, rgba(7, 174, 239, 0.7), rgba(7, 174, 239, 0.7)), url("/static/images/jeshoots-com-LAwsF-VnFzc-unsplash.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   width: 30%;
@@ -268,7 +267,10 @@
   text-align: center;
 }
 .container .row .col-2 {
+  display: flex;
+  flex-direction: column;
   padding-top: 40px;
+  width: 70%;
 }
 .container .row .col-2 .text {
   display: flex;
@@ -286,48 +288,55 @@
   font-size: 25px;
 }
 .container .row .col-2 form {
-  padding-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
-.container .row .col-2 form .names {
+.container .row .col-2 form input {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+.container .row .col-2 form .input-fields {
   display: flex;
-  gap: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
 }
-.container .row .col-2 form .phone-email {
-  display: flex;
-  gap: 24px;
+.container .row .col-2 form .input-fields input {
+  width: 100%;
 }
-.container .row .col-2 form .password {
-  display: flex;
-  gap: 24px;
+.container .row .col-2 form .input-fields .field {
+  width: 45%;
 }
-.container .row .col-2 form .check span {
-  color: #07AEEF;
+.container .row .col-2 form .check-box .checkbox-input {
+  padding: 8px;
 }
-.container .row .col-2 form .signin-link {
-  display: flex;
-  gap: 24px;
+.container .row .col-2 form .check-box .checkbox-input a {
+  color: #00AEEF;
 }
-.container .row .col-2 form .signin-link a {
-  text-decoration: none;
-  color: #07AEEF;
+.container .row .col-2 form .signup-btn {
+  max-width: 200px;
+  border: none;
+  background-color: #00AEEF;
+  color: #FFF;
+  font-size: 18px;
+  cursor: pointer;
+  transition: linear 0.2s;
 }
-.container .row .col-2 form .goback {
-  padding-top: 20px;
+.container .row .col-2 form .signup-btn:hover {
+  background: transparent;
+  border: 1px solid #00AEEF;
+  color: #00AEEF;
 }
-.container .row .col-2 form .goback a {
-  text-decoration: none;
-  color: #07AEEF;
-  display: flex;
+.container .row .col-2 .links {
+  margin-top: 10px;
 }
-.container .row .col-2 form .goback a p {
-  top: 70%;
-}
-.container .row .col-2 form .goback a i {
-  top: 69.53%;
+.container .row .col-2 .links p {
   font-size: 24px;
+}
+.container .row .col-2 .links a {
+  color: #00AEEF;
+  font-size: 18px;
 }
 
 .container .row-login {

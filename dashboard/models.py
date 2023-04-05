@@ -1,7 +1,6 @@
 from django.db import models
 from django.urls import reverse
-
-from django.urls import reverse
+# from django.contrib.auth.models import AbstractUser
 
 
 # Create your models here.
@@ -34,14 +33,9 @@ class Department(models.Model):
         return reverse("model_detail", kwargs={"pk": self.pk})
 
 
-class User(models.Model):
+class CustomUser(models.Model):
     ROLE_CHOICE = [('doctor', 'Doctor'), ('nurse', 'Nurse'),
                    ('patient', 'Patient')]
-    userId = models.IntegerField
-    first_name = models.CharField(max_length=255, null=False, blank=False)
-    last_name = models.CharField(max_length=255, null=False, blank=False)
-    email = models.EmailField(null=False, blank=False)
-    username = models.CharField(max_length=255, null=False, blank=False)
     hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
     role = models.CharField(max_length=255, null=False,
                             blank=False, choices=ROLE_CHOICE, default='doctor')
@@ -54,6 +48,7 @@ class User(models.Model):
 
     def get_absolute_url(self):
         return reverse("model_detail", kwargs={"pk": self.pk})
+
 
 
 class Diagnosis(models.Model):
@@ -89,7 +84,7 @@ class Patient(models.Model):
     birthday = models.DateField(null=False, blank=False)
     hospital = models.ForeignKey(
         Hospital, on_delete=models.CASCADE, default='')
-    doctor = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default='')
+    doctor = models.ForeignKey(CustomUser, on_delete=models.SET_DEFAULT, default='')
     status = models.CharField(
         max_length=255, choices=PATIENT_STATUS, null=False, default='Inpatient')
     date_created = models.DateTimeField(auto_now_add=True, null=True)
@@ -136,7 +131,7 @@ class Measures(models.Model):
     bed_transfers = models.ForeignKey(
         Bed, on_delete=models.SET_NULL, null=True)
     medication_errors = models.ForeignKey(
-        User, on_delete=models.SET_NULL, null=True)
+        CustomUser, on_delete=models.SET_NULL, null=True)
     benchmark = models.DateTimeField()
 
     class Meta:

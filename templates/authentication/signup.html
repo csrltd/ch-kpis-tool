@@ -1,0 +1,81 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static '/css/main.css' %}">
+    <link rel="stylesheet" href="{% static '/css/style.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-1">
+                <p>CH KPIs Tool</p>
+            </div>
+            <div class="col-2">
+                <div class="text">
+                    <h1>Register Here</h1>
+                    <h3>Manage your account</h3>
+                    <p>Welcome here! please provide your details</p>
+                </div>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="input-fields">
+                        <div class="field">
+                            {{form.username.label}}
+                            {{form.username}}
+                        </div>
+                        <div class="field">
+                            {{form.first_name.label}}
+                            {{form.first_name}}
+                        </div>
+                        <div class="field">
+                            {{form.last_name.label}}
+                            {{form.last_name}}
+                        </div>
+                        <div class="field">
+                            {{form.phone_number.label}}
+                            {{form.phone_number}}
+                        </div>
+                        <div class="field">
+                            {{form.email.label}}
+                            {{form.email}}
+                        </div>
+                        <div class="field">
+                            {{form.password1.label}}
+                            {{form.password1}}
+                        </div>
+                        <div class="field">
+                            {{form.password2.label}}
+                            {{form.password2}}
+                        </div>
+                    </div>
+
+                    <div class="check-box">
+                        <div class="checkbox-input">
+                            <input type="checkbox"> Yes I want to receive emails
+                        </div>
+                        <div class="checkbox-input">
+                            <input type="checkbox"> I agree to all <a href="">Terms, privacy policy</a> and 
+                            <a href="">Conditions</a>
+                        </div>
+                    </div>
+                    <input type="submit" value="Create account" class="signup-btn">
+                </form>
+                <div class="links">
+                    <p>Already have an account? <a href="">Login</a> </p>
+                    <a href="" class="go-back-link">Go back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
