@@ -6,12 +6,8 @@
   font-family: "Roboto", sans-serif;
 }
 
-.container .col {
-  height: 100%;
-}
 .container .col .sidebar {
   width: 20%;
-  height: 100%;
   background-color: black;
 }
 .container .col .sidebar .logo {

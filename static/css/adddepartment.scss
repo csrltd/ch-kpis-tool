@@ -1,14 +1,13 @@
-
 .container{
     .col{
         .row--content{
             .save-action-button {
                 .ri-save-2-fill{
-               
+
                     top: 53%;
                 }
                 .ri-file-4-line{
-                    
+
                     top: 53%;
                 }
             }
@@ -16,4 +15,38 @@
     }
 }
 
+// .container {
+//     .row {
+//         display: flex;
+//         gap: 12px;
 
+//         .sidebar {
+//             position: fixed;
+//             background-color: black;
+//             width: 20%;
+//             top: 0;
+//             left: 0;
+//             bottom: 0;
+//         }
+
+//         .col-2 {
+//             width: 80%;
+
+//             .top-nav {
+//                 display: flex;
+//                 align-items: center;
+//                 justify-content: space-between;
+
+//                 .top-nav-2 {
+//                     display: flex;
+//                     gap: 10px;
+//                     .profile-img {
+//                         width: 32px;
+//                         height: 32px;
+//                         border-radius: 50%;
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }

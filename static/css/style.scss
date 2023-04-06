@@ -13,21 +13,12 @@
 
 
 .container {
-    
     .col {
-        height: 100%;
         .sidebar {
-            // overflow-y: scroll;
-            
             width: 20%;
-            height: 100%;
             background-color: black;
-            
-           
-            
 
             .logo {
-            //    position: fixed;
                 display: flex;
                 gap: 12px;
                 padding: 30px;
