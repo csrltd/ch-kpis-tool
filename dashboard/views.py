@@ -47,3 +47,5 @@ def loginPage(request):
 def addUser(request):
     return render(request, 'dashboard/adduser.html')
 
+def patient(request):
+    return render(request, 'dashboard/addpatient.html')
