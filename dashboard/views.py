@@ -58,3 +58,6 @@ def hospitalDashboard(request):
 
 def metrics(request):
     return render(request, 'dashboard/addmetrics.html')
+
+def newEntry(request):
+    return render(request, 'dashboard/new-entry.html')
