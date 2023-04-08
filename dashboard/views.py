@@ -52,3 +52,6 @@ def patient(request):
 
 def departement(request):
     return render(request, 'dashboard/add-departement.html')
+
+def hospitalDashboard(request):
+    return render(request, 'dashboard/hospitaldashboard.html')
