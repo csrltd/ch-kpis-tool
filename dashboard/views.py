@@ -55,3 +55,6 @@ def departement(request):
 
 def hospitalDashboard(request):
     return render(request, 'dashboard/hospitaldashboard.html')
+
+def metrics(request):
+    return render(request, 'dashboard/addmetrics.html')
