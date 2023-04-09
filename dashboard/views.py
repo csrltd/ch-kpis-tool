@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse
 from .forms import UserRegistration
 from django.contrib.auth import authenticate, login
-
 
 
 def index(request):
@@ -15,11 +13,10 @@ def signup(request):
         if form.is_valid():
             form.save()
             return redirect('login')
-        else:
-            print(form.errors)
     else:
         form = UserRegistration()
     return render(request, 'authentication/signup.html', {'form': form})
+
 
 
 

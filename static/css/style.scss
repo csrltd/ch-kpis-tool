@@ -335,7 +335,8 @@
         }
 
     }
-
+    
+    
 }
 
 
@@ -370,6 +371,13 @@
             padding-top: 40px;
             width: 70%;
 
+            .error-message {
+                color: red;
+                font-size: 18px;
+                font-weight: bold;
+                margin: 10px 0;
+            }
+
             .text {
                 display: flex;
                 flex-direction: column;
@@ -388,26 +396,6 @@
                     font-size: 25px;
                 }
             }
-
-            // form {
-            //     display: flex;
-            //     flex-wrap: wrap;
-            //     gap: 8px;
-              
-            //     input {
-            //       width: 95%;
-            //       padding: 12px 25px;
-            //       border-radius: 10px;
-            //       border: 1px solid black;
-            //     }
-            //     .input-field {
-            //       width: 40%;
-            //     }
-
-            //     .checkbox-input {
-            //         padding-top: 10px;
-            //     }
-            //   }
 
             form {
                 display: flex;

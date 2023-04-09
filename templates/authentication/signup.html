@@ -25,6 +25,18 @@
                     <h3>Manage your account</h3>
                     <p>Welcome here! please provide your details</p>
                 </div>
+                {% if form.errors %}
+                <div class="error-message" role="alert">
+                    <ul>
+                        {% for field in form %}
+                        {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
                 <form method="POST">
                     {% csrf_token %}
                     <div class="input-fields">
@@ -63,7 +75,7 @@
                             <input type="checkbox"> Yes I want to receive emails
                         </div>
                         <div class="checkbox-input">
-                            <input type="checkbox"> I agree to all <a href="">Terms, privacy policy</a> and 
+                            <input type="checkbox"> I agree to all <a href="">Terms, privacy policy</a> and
                             <a href="">Conditions</a>
                         </div>
                     </div>
@@ -76,6 +88,9 @@
             </div>
         </div>
     </div>
+
+
+
 </body>
 
 </html>
