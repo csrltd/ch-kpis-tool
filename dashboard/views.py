@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import UserRegistration, HospitalForm
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from .models import Hospital, Department
 
 
 def index(request):
@@ -17,8 +18,6 @@ def signup(request):
     else:
         form = UserRegistration()
     return render(request, 'authentication/signup.html', {'form': form})
-
-
 
 
 def loginPage(request):
@@ -44,17 +43,27 @@ def hospitalDashboard(request):
             return redirect('index')
         else:
             form = HospitalForm()
-            print(form.errors)
     return render(request, 'dashboard/hospitaldashboard.html', {'form': form})
 
-def addUser(request):
-    return render(request, 'dashboard/adduser.html')
+def departement(request):
+    if request.method == 'POST':
+        department_Id = request.POST.get('departmentid')
+        name = request.POST.get('name')
+        hospital_id = request.POST.get('hospital')
+        hospital = Hospital.objects.get(id=hospital_id)
+        department = Department(department_Id=department_Id, name=name, hospital=hospital)
+        department.save()
+        return redirect('index')
+
+    hospitals = Hospital.objects.all()
+    return render(request, 'dashboard/add-departement.html', {'hospitals': hospitals})
 
 def patient(request):
     return render(request, 'dashboard/addpatient.html')
 
-def departement(request):
-    return render(request, 'dashboard/add-departement.html')
+def addUser(request):
+    return render(request, 'dashboard/adduser.html')
+
 
 def metrics(request):
     return render(request, 'dashboard/addmetrics.html')

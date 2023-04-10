@@ -26,7 +26,7 @@ class Hospital(models.Model):
 
 
 class Department(models.Model):
-    departmentId = models.IntegerField
+    department_Id = models.IntegerField(null=True)
     name = models.CharField(max_length=255, null=False, blank=False)
     hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
 
