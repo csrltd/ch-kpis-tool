@@ -23,4 +23,11 @@ button {
 
 ul {
   list-style-type: none;
+}
+
+.error-message {
+  color: red;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0;
 }/*# sourceMappingURL=main.css.map */

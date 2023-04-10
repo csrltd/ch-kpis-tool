@@ -268,12 +268,6 @@
   padding-top: 40px;
   width: 70%;
 }
-.container .row .col-2 .error-message {
-  color: red;
-  font-size: 18px;
-  font-weight: bold;
-  margin: 10px 0;
-}
 .container .row .col-2 .text {
   display: flex;
   flex-direction: column;
