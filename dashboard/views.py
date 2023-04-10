@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import UserRegistration
+from .forms import UserRegistration, HospitalForm
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 
@@ -35,6 +35,18 @@ def loginPage(request):
             messages.error(request, 'Invalid credentials!!! Please enter correct username or password')
     return render(request, 'authentication/login.html')
 
+def hospitalDashboard(request):
+    form = HospitalForm()
+    if request.method == 'POST':
+        form = HospitalForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+        else:
+            form = HospitalForm()
+            print(form.errors)
+    return render(request, 'dashboard/hospitaldashboard.html', {'form': form})
+
 def addUser(request):
     return render(request, 'dashboard/adduser.html')
 
@@ -43,9 +55,6 @@ def patient(request):
 
 def departement(request):
     return render(request, 'dashboard/add-departement.html')
-
-def hospitalDashboard(request):
-    return render(request, 'dashboard/hospitaldashboard.html')
 
 def metrics(request):
     return render(request, 'dashboard/addmetrics.html')

@@ -1,260 +1,267 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static '/css/style.css' %}">
     <link rel="stylesheet" href="{% static '/css/main.css' %}">
-    <script src="/assets/javascripts/main.js"></script>
+    <script src="{% static '/javascripts/main.js' %}"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <title>Dashboard</title>
-    
+
 
 </head>
 
-  
+
 <body>
     <div class="container">
-    <div class="col">
-        <div class="sidebar">
-            <div class="logo">
-                <img src="{% static '/images/logo (3) 2 (1) 1.png' %}" alt="">
-                <p>KPIs</p>
-            </div>
-            <div class="sidebar--content">
-                <div class="row">
-                <p>Adding Hospital</p>
-                <ul>
-                    <li>
-                        <img src="{% static '/images/Vector.svg' %}" alt="">
-                        <a href="">Margum</a>
-                    </li>
-                </ul>
-            
-                <ul>
-                    <li>
-                        <img src="{% static '/images/Vector.svg' %}" alt="">
-                        <a href="">Prague</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li>
-                        <img src="{% static '/images/Vector.svg' %}" alt="">
-                        <a href="">Prague</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li>
-                        <img src="{% static '/images/Vector.svg' %}" alt="">
-                        <a href="">Carnegie</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li>
-                        <img src="{% static '/images/Vector.svg' %}" alt="">
-                        <a href="">Seiling</a>
-                    </li>
-                </ul>
-            </div>
-            </div>
-            <div class="sidebar--content">
-                <div class="row">
-                <p>RHC</p>
-                <ul>
-                    <li>
-                        <img src="{% static '/images/Vector.svg' %}" alt="">
-                        <a href="">Margum</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li>
-                        <img src="{% static '/images/Vector.svg' %}" alt="">
-                        <a href="">Prague</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li>
-                        <img src="{% static '/images/Vector.svg' %}" alt="">
-                        <a href="">Prague</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li>
-                        <img src="{% static '/images/Vector.svg' %}" alt="">
-                        <a href="">Carnegie</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li>
-                        <img src="{% static '/images/Vector.svg' %}" alt="">
-                        <a href="">Seiling</a>
-                    </li>
-                </ul>
-            </div>
-            </div>
-            <div class="sidebar--content">
-                <div class="row">
-                <p>Labor Tracker</p>
-                <ul>
-                    <li>
-                        <img src="{% static '/images/Vector.svg' %}" alt="">
-                        <a href="">Margum</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li>
-                        <img src="{% static '/images/Vector.svg' %}" alt="">
-                        <a href="">Prague</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li>
-                        <img src="{% static '/images/Vector.svg' %}" alt="">
-                        <a href=""> Prague</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li>
-                        <img src="{% static '/images/Vector.svg' %}" alt="">
-                        <a href="">Carnegie</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li>
-                        <img src="{% static '/images/Vector.svg' %}" alt="">
-                        <a href="">Seiling</a>
-                    </li>
-                </ul>
-            </div>
-            </div>
-            <div class="help">
-                <h1>Need Support?</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. </p>
-                <a href="">Contact Admin</a>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="row">
-        <div class="navbar">
-        <div class="nav-item">
-            
-            <a href="" class="black"><p>KPI Tool</p></a>
-            <i class="ri-arrow-right-s-line"></i>
-           <a href="" class="black"><p>Hospital</p></a> 
-            <i class="ri-arrow-right-s-line"></i>
-            <a href=""><p>Add New Hospital</p></a>
-            
-        </div>
-        <div class="nav-text">
-            <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. </p>
-        </div>
-        
-        <div class="profile">
-            <div class="bell">
-                <i class="ri-notification-fill"></i>
-            </div>
-            <img src="{% static '/images/jeshoots-com-LAwsF-VnFzc-unsplash.jpg' %}" alt="">
-            <div class="position">
-                <p>Godwin Feh</p>
-                <h3>CEO</h3>
-            </div>
-        </div>
-        </div>
-    </div>
-        <div class="row">
-        <div class="content">
-            <div class="content-btn">
-            <div class="btn">
-            <a href="">
-                <i class="ri-arrow-left-line"></i>
-                <input type="button" class="blue-btn" value="Back">
-            </a>
-            <a href="">
-                <input type="button" class="light-blue" value="Next">
-                <i class="ri-arrow-right-line"></i>
-            </a>
-            </div>
-        <div class="home-btn">
-        <a href="">
-            <input type="button" class="white-button" value="Home">
-        </a>
-        </div>
-        </div>
-    
-    <div class="row--content">
-        <div class="content-button">
-            
-            <input type="button" value="Add a hospital">
-        </div>
-        <form action="">
-        <div class="hospital-fields">
-        <div class="label-input">
-            <label for="hospitalid">Hospital ID</label>
-            <input type="number" name="hospitalid" id="">
-        </div>
-        <div class="label-input">
-            <label for="hospitalname">Hospital Name</label>
-            <input type="text" name="hospitalname" id="">
-        </div>
+        <div class="col">
+            <div class="sidebar">
+                <div class="logo">
+                    <img src="{% static '/images/logo (3) 2 (1) 1.png' %}" alt="">
+                    <p>KPIs</p>
+                </div>
+                <div class="sidebar--content">
+                    <div class="row">
+                        <p>Adding Hospital</p>
+                        <ul>
+                            <li>
+                                <img src="{% static '/images/Vector.svg' %}" alt="">
+                                <a href="">Margum</a>
+                            </li>
+                        </ul>
 
-        </div>
-            <div class="hospital-fields">
-            <div class="label-input">
-            <label for="address">Address</label>
-            <input type="text" name="address" id="">
-        </div>
-        <div class="label-input">
-            <label for="phone">Phone Number</label>
-            <input type="text" name="phone" id="">
-        </div>
+                        <ul>
+                            <li>
+                                <img src="{% static '/images/Vector.svg' %}" alt="">
+                                <a href="">Prague</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <img src="{% static '/images/Vector.svg' %}" alt="">
+                                <a href="">Prague</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <img src="{% static '/images/Vector.svg' %}" alt="">
+                                <a href="">Carnegie</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <img src="{% static '/images/Vector.svg' %}" alt="">
+                                <a href="">Seiling</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="sidebar--content">
+                    <div class="row">
+                        <p>RHC</p>
+                        <ul>
+                            <li>
+                                <img src="{% static '/images/Vector.svg' %}" alt="">
+                                <a href="">Margum</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <img src="{% static '/images/Vector.svg' %}" alt="">
+                                <a href="">Prague</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <img src="{% static '/images/Vector.svg' %}" alt="">
+                                <a href="">Prague</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <img src="{% static '/images/Vector.svg' %}" alt="">
+                                <a href="">Carnegie</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <img src="{% static '/images/Vector.svg' %}" alt="">
+                                <a href="">Seiling</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="sidebar--content">
+                    <div class="row">
+                        <p>Labor Tracker</p>
+                        <ul>
+                            <li>
+                                <img src="{% static '/images/Vector.svg' %}" alt="">
+                                <a href="">Margum</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <img src="{% static '/images/Vector.svg' %}" alt="">
+                                <a href="">Prague</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <img src="{% static '/images/Vector.svg' %}" alt="">
+                                <a href=""> Prague</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <img src="{% static '/images/Vector.svg' %}" alt="">
+                                <a href="">Carnegie</a>
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <img src="{% static '/images/Vector.svg' %}" alt="">
+                                <a href="">Seiling</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="help">
+                    <h1>Need Support?</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna.
+                    </p>
+                    <a href="">Contact Admin</a>
+                </div>
             </div>
-            <div class="hospital-fields">
-                <div class="label-input">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="" placeholder="example@example.com">
-                </div>
-                <div class="label-input">
-                    <label for="mortality">Mortality Rate</label>
-                    <input type="text" name="mortality" id="">
-                </div>
-        
-                </div>
-                    <div class="hospital-fields">
-                    <div class="label-input">
-                    <label for="covid"> Covid vaccination</label>
-                    <input type="text" name="covid" id="">
-                </div>
-                <div class="label-input">
-                    <label for="pressure">Pressure Ulcers</label>
-                    <input type="number" name="pressure" id="">
-                </div>
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="navbar">
+                    <div class="nav-item">
+
+                        <a href="" class="black">
+                            <p>KPI Tool</p>
+                        </a>
+                        <i class="ri-arrow-right-s-line"></i>
+                        <a href="" class="black">
+                            <p>Hospital</p>
+                        </a>
+                        <i class="ri-arrow-right-s-line"></i>
+                        <a href="">
+                            <p>Add New Hospital</p>
+                        </a>
+
                     </div>
-                    <div class="hospital-fields">
-                        <div class="label-input">
-                        <label for="complaints">Complaints</label>
-                        <input type="number" name="complaints" id="">
+                    <div class="nav-text">
+                        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. </p>
                     </div>
-                    <div class="label-input">
-                        <label for="hire">Hires</label>
-                        <input type="text" name="hire" id="">
-                    </div>
+
+                    <div class="profile">
+                        <div class="bell">
+                            <i class="ri-notification-fill"></i>
                         </div>
-        </form>
-        <div class="save-action-button">
-            
-            <input type="button" value="Save Record" class="blue-btn">
-            <i class="ri-save-2-fill"></i>
-            <input type="button" value="Save Draft" class="light-blue" >
-            <i class="ri-file-4-line"></i>
+                        <img src="{% static '/images/jeshoots-com-LAwsF-VnFzc-unsplash.jpg' %}" alt="">
+                        <div class="position">
+                            <p>Godwin Feh</p>
+                            <h3>CEO</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="content">
+                    <div class="content-btn">
+                        <div class="btn">
+                            <a href="">
+                                <i class="ri-arrow-left-line"></i>
+                                <input type="button" class="blue-btn" value="Back">
+                            </a>
+                            <a href="">
+                                <input type="button" class="light-blue" value="Next">
+                                <i class="ri-arrow-right-line"></i>
+                            </a>
+                        </div>
+                        <div class="home-btn">
+                            <a href="">
+                                <input type="button" class="white-button" value="Home">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row--content">
+                        <div class="content-button">
+
+                            <input type="button" value="Add a hospital">
+                        </div>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="hospital-fields">
+                                <div class="label-input">
+                                    {{form.hospitalId.label}}
+                                    {{form.hospitalId}}
+                                </div>
+                                <div class="label-input">
+                                    {{form.name.label}}
+                                    {{form.name}}
+                                </div>
+
+                            </div>
+                            <div class="hospital-fields">
+                                <div class="label-input">
+                                    {{form.address.label}}
+                                    {{form.address}}
+                                </div>
+                                <div class="label-input">
+                                    {{form.phone_number.label}}
+                                    {{form.phone_number}}
+                                </div>
+                            </div>
+                            <div class="hospital-fields">
+                                <div class="label-input">
+                                    {{form.email.label}}
+                                    {{form.email}}
+                                </div>
+                                <div class="label-input">
+                                    {{form.mortality_rate.label}}
+                                    {{form.mortality_rate}}
+                                </div>
+
+                            </div>
+                            <div class="hospital-fields">
+                                <div class="label-input">
+                                    {{form.covid_vaccination.label}}
+                                    {{form.covid_vaccination}}
+                                </div>
+                                <div class="label-input">
+                                    {{form.pressure_ulcers.label}}
+                                    {{form.pressure_ulcers}}
+                                </div>
+                            </div>
+                            <div class="hospital-fields">
+                                <div class="label-input">
+                                    {{form.complaints.label}}
+                                    {{form.complaints}}
+                                </div>
+                                <div class="label-input">
+                                    {{form.hires.label}}
+                                    {{form.hires}}
+                                </div>
+                            </div>
+                            <div class="save-action-button">
+
+                                <input type="submit" value="Save Record" class="blue-btn">
+                                <input type="button" value="Save Draft" class="light-blue">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-        </div>
-    </div>
-    </div>
-</div>
 </body>
 
 </html>

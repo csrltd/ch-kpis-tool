@@ -6,12 +6,16 @@ from django.urls import reverse
 # Create your models here.
 
 class Hospital(models.Model):
-    hospitalId = models.IntegerField
-    name = models.CharField(max_length=255, null=False, blank=False)
-    address = models.CharField(max_length=255, null=False, blank=False)
-    phone = models.CharField(max_length=255, null=False, blank=False)
-    email = models.EmailField(null=False, blank=False)
-    emergency_room = models.IntegerField(null=False, blank=False, default=1)
+    hospitalId = models.IntegerField(null=True)
+    name = models.CharField(max_length=255, null=True)
+    address = models.CharField(max_length=255, null=True)
+    phone_number = models.CharField(max_length=255, null=True)
+    email = models.EmailField(null=False, blank=True)
+    mortality_rate = models.CharField(max_length=4, null=True)
+    covid_vaccination = models.CharField(max_length=255, null=True)
+    pressure_ulcers = models.CharField(max_length=255, null=True)
+    complaints = models.CharField(max_length=255, null=True)
+    hires = models.CharField(max_length=255, null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
@@ -36,7 +40,7 @@ class Department(models.Model):
 class CustomUser(models.Model):
     ROLE_CHOICE = [('doctor', 'Doctor'), ('nurse', 'Nurse'),
                    ('patient', 'Patient')]
-    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE, null=True)
     role = models.CharField(max_length=255, null=False,
                             blank=False, choices=ROLE_CHOICE, default='doctor')
     department = models.ForeignKey(

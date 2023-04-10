@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import Hospital
 
 
 class UserRegistration(UserCreationForm):
@@ -30,3 +31,7 @@ class UserRegistration(UserCreationForm):
             raise forms.ValidationError('Please enter your last name', code='invalid_last_name')
         return last_name
 
+class HospitalForm(forms.ModelForm):
+    class Meta:
+        model = Hospital
+        fields = ['hospitalId', 'name', 'address', 'phone_number', 'email', 'mortality_rate', 'covid_vaccination', 'pressure_ulcers', 'complaints', 'complaints', 'hires']
