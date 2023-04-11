@@ -8,6 +8,7 @@ urlpatterns = [
     path('login/', views.loginPage, name='login'),
     path('add-user/', views.addUser, name='add-user'),
     path('patient/', views.patient, name='patient'),
+    path('new-bed/', views.bed, name='new-bed'),
     path('add-department/', views.departement, name='add-department'),
     path('hospital-dashboard/', views.hospitalDashboard, name='hospital-dashboard'),
     path('metrics/', views.metrics, name='metrics'),

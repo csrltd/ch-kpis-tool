@@ -82,7 +82,7 @@ class Patient(models.Model):
     EMERGENCY_ROOM = [('yes', 'Yes'), ('no', 'No')]
     MEDICAL_ADVICE = [('against medical advice', 'Against medical advice'),
                       ('with medical advice', 'With medical advice')]
-    patientId = models.IntegerField
+    patientId = models.IntegerField(null=True)
     first_name = models.CharField(max_length=255, null=False, blank=False)
     last_name = models.CharField(max_length=255, null=False, blank=False)
     phone = models.CharField(max_length=255, null=False, blank=False)

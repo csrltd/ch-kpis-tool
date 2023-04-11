@@ -184,14 +184,12 @@
                 position: absolute;
                 top: 8%;
                 left: 20%;
-                
-
                 width: 80%;
-                height: 92vh;
 
                 .content-btn {
                     display: flex;
                     gap: 67%;
+                    margin-bottom: 10px;
                     .white-button {
                         background: #FFFFFF;
                         border: 1px solid rgba(0, 0, 0, 0.5);
@@ -306,6 +304,7 @@
                 display: flex;
                 gap: 24px;
                 align-items: center;
+                padding-bottom: 20px;
                
 
                 input{

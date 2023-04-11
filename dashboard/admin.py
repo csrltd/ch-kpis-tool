@@ -6,3 +6,4 @@ from .models import *
 admin.site.register(CustomUser)
 admin.site.register(Hospital)
 admin.site.register(Department)
+admin.site.register(Bed)

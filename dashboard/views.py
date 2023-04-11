@@ -66,6 +66,8 @@ def addUser(request):
 def patient(request):
     return render(request, 'dashboard/addpatient.html')
 
+def bed(request):
+    return render(request, 'dashboard/addnewbed.html')
 
 def metrics(request):
     return render(request, 'dashboard/addmetrics.html')
