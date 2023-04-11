@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-# from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -38,6 +38,7 @@ class Department(models.Model):
 
 
 class CustomUser(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     ROLE_CHOICE = [('doctor', 'Doctor'), ('nurse', 'Nurse'),
                    ('patient', 'Patient')]
     hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE, null=True)

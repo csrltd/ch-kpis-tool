@@ -14,7 +14,8 @@ def signup(request):
         form = UserRegistration(request.POST)
         if form.is_valid():
             user = form.save()
-            if user.customUser.is_profile_completed:
+            custom_user = CustomUser.objects.create(user=user)
+            if not custom_user.is_profile_completed:
                 return redirect('add-user')
             return redirect('login')
     else:
@@ -31,7 +32,6 @@ def loginPage(request):
 
         if user is not None:
             login(request, user)
-            return redirect('add-user')
         else:
             messages.error(request, 'Invalid credentials!!! Please enter correct username or password')
     return render(request, 'authentication/login.html')
