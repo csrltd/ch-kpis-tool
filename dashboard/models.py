@@ -45,6 +45,7 @@ class CustomUser(models.Model):
                             blank=False, choices=ROLE_CHOICE, default='doctor')
     department = models.ForeignKey(
         Department, on_delete=models.CASCADE, null=True)
+    is_profile_completed = models.BooleanField(default=False)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):

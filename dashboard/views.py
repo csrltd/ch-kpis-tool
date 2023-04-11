@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import UserRegistration, HospitalForm
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
-from .models import Hospital, Department
+from .models import Hospital, Department, CustomUser
 
 
 def index(request):
@@ -13,7 +13,9 @@ def signup(request):
     if request.method == 'POST':
         form = UserRegistration(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            if user.customUser.is_profile_completed:
+                return redirect('add-user')
             return redirect('login')
     else:
         form = UserRegistration()
@@ -58,11 +60,11 @@ def departement(request):
     hospitals = Hospital.objects.all()
     return render(request, 'dashboard/add-departement.html', {'hospitals': hospitals})
 
-def patient(request):
-    return render(request, 'dashboard/addpatient.html')
-
 def addUser(request):
     return render(request, 'dashboard/adduser.html')
+
+def patient(request):
+    return render(request, 'dashboard/addpatient.html')
 
 
 def metrics(request):
