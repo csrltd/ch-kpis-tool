@@ -37,7 +37,7 @@ class Department(models.Model):
         return reverse("model_detail", kwargs={"pk": self.pk})
 
 
-class CustomUser(models.Model):
+class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     ROLE_CHOICE = [('doctor', 'Doctor'), ('nurse', 'Nurse'),
                    ('patient', 'Patient')]
@@ -47,10 +47,10 @@ class CustomUser(models.Model):
     department = models.ForeignKey(
         Department, on_delete=models.CASCADE, null=True)
     is_profile_completed = models.BooleanField(default=False)
-    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    date_created = models.DateTimeField(auto_now_add=True, null=True) 
 
     def __str__(self):
-        return self.username
+        return self.user.username
 
     def get_absolute_url(self):
         return reverse("model_detail", kwargs={"pk": self.pk})
@@ -90,7 +90,7 @@ class Patient(models.Model):
     birthday = models.DateField(null=False, blank=False)
     hospital = models.ForeignKey(
         Hospital, on_delete=models.CASCADE, default='')
-    doctor = models.ForeignKey(CustomUser, on_delete=models.SET_DEFAULT, default='')
+    doctor = models.ForeignKey(Profile, on_delete=models.SET_DEFAULT, default='')
     status = models.CharField(
         max_length=255, choices=PATIENT_STATUS, null=False, default='Inpatient')
     date_created = models.DateTimeField(auto_now_add=True, null=True)
@@ -137,7 +137,7 @@ class Measures(models.Model):
     bed_transfers = models.ForeignKey(
         Bed, on_delete=models.SET_NULL, null=True)
     medication_errors = models.ForeignKey(
-        CustomUser, on_delete=models.SET_NULL, null=True)
+        Profile, on_delete=models.SET_NULL, null=True)
     benchmark = models.DateTimeField()
 
     class Meta:
