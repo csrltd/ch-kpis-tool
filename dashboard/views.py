@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import UserRegistration, HospitalForm
+from .forms import *
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from .models import Hospital, Department, Profile
@@ -11,6 +11,7 @@ def index(request):
 
 def signup(request):
     form = UserRegistration()
+    context = {'form': form}
     if request.method == 'POST':
         form = UserRegistration(request.POST)
         if form.is_valid():
@@ -21,7 +22,7 @@ def signup(request):
             return redirect('login')
     else:
         form = UserRegistration()
-    context = {'form': form}
+
     return render(request, 'authentication/signup.html', context)
 
 
@@ -43,6 +44,7 @@ def loginPage(request):
 
 def hospitalDashboard(request):
     form = HospitalForm()
+    context = {'form': form}
     if request.method == 'POST':
         form = HospitalForm(request.POST)
         if form.is_valid():
@@ -50,7 +52,7 @@ def hospitalDashboard(request):
             return redirect('index')
         else:
             form = HospitalForm()
-    context = {'form': form}
+
     return render(request, 'dashboard/hospitaldashboard.html', context)
 
 
@@ -73,6 +75,8 @@ def departement(request):
 def complete_profile(request):
     hospitals = Hospital.objects.all()
     departments = Department.objects.all()
+    form = HospitalForm()
+    
     if request.method == 'POST':
         form = HospitalForm(request.POST)
         if form.is_valid():
@@ -92,7 +96,7 @@ def complete_profile(request):
         return redirect('login')
     else:
         form = HospitalForm()
-
+    
     context = {
         'form': form,
         'hospitals': hospitals,
@@ -103,7 +107,23 @@ def complete_profile(request):
 
 
 def patient(request):
-    return render(request, 'dashboard/addpatient.html')
+    users = Profile.objects.filter(role='doctor')
+    form = patientForm()
+    
+    if request.method == 'POST':
+        form = patientForm(request.POST)
+        if form.is_valid():
+            print("form is valid")
+            patient = form.save(commit=False)
+            patient.hospital = Hospital.objects.get(id=request.POST.get('hospital'))
+            patient.doctor = Profile.objects.get(id=request.POST.get('doctor'))
+
+            patient.save()
+            return redirect('index')
+        else:
+            print(form.errors)
+    context = {'users': users, 'form': form}
+    return render(request, 'dashboard/addpatient.html', context)
 
 
 def bed(request):

@@ -83,24 +83,19 @@ class Patient(models.Model):
     EMERGENCY_ROOM = [('yes', 'Yes'), ('no', 'No')]
     MEDICAL_ADVICE = [('against medical advice', 'Against medical advice'),
                       ('with medical advice', 'With medical advice')]
-    patientId = models.IntegerField(null=True)
-    first_name = models.CharField(max_length=255, null=False, blank=False)
-    last_name = models.CharField(max_length=255, null=False, blank=False)
-    phone = models.CharField(max_length=255, null=False, blank=False)
-    birthday = models.DateField(null=False, blank=False)
-    hospital = models.ForeignKey(
-        Hospital, on_delete=models.CASCADE, default='')
-    doctor = models.ForeignKey(Profile, on_delete=models.SET_DEFAULT, default='')
-    status = models.CharField(
-        max_length=255, choices=PATIENT_STATUS, null=False, default='Inpatient')
-    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    status = models.CharField(max_length=255, choices=PATIENT_STATUS, null=True)
+    emergency_room = models.CharField(max_length=255, choices=EMERGENCY_ROOM, null=True)
+    medical_advice = models.CharField(max_length=255, choices=MEDICAL_ADVICE, null=True)
+    patient_id = models.IntegerField(null=True)
+    first_name = models.CharField(max_length=255, null=True)
+    last_name = models.CharField(max_length=255, null=True)
+    phone_number = models.CharField(max_length=255, null=True)
+    birthday = models.DateTimeField(null=True)
+    doctor = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
+    hospital = models.ForeignKey(Hospital, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return self.lastName
-
-    def get_absolute_url(self):
-        return reverse("model_detail", kwargs={"pk": self.pk})
-
+        return self.first_name
 
 class Complaint(models.Model):
     complainer = models.ForeignKey(Patient, on_delete=models.CASCADE)
