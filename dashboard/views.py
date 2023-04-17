@@ -6,6 +6,8 @@ from .models import Hospital, Department, Profile
 
 
 def index(request):
+    variable_name = "Hahaha"
+    print(variable_name)
     return render(request, 'dashboard/index.html')
 
 
