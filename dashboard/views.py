@@ -3,14 +3,37 @@ from .forms import *
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from .models import Hospital, Department, Profile
-
+from .models import *
+import json
+from django.db.models import Count
 
 def index(request):
-    variable_name = "Hahaha"
-    print(variable_name)
-    return render(request, 'dashboard/index.html')
+    
+    bed_data = Bed.objects.all().count()
+    acute_bed = Bed.objects.filter(type="acute bed").count()
+    swing_bed = Bed.objects.filter(type="swing bed").count()
+    print("acuteBed data",acute_bed, "swingBed data",swing_bed)
+    bed_labels = list(Bed.objects.values('type').annotate(count=Count('type')).values_list('type', flat=True))
+    patient_data = Patient.objects.all().count()
+    inpatient = Patient.objects.filter(status="inpatient").count()
+    outpatient = Patient.objects.filter(status="outpatient").count()
+    print("Inpatient data:",inpatient, "outpatient data",outpatient)
+    patient_labels = list(Patient.objects.values('status').annotate(count=Count('status')).values_list('status', flat=True))
 
 
+    context = {
+        'patient_data': (patient_data),
+        'patient_labels': json.dumps(patient_labels),
+        'bed_data': (bed_data, swing_bed),
+        'bed_labels': json.dumps(bed_labels),
+        'acute_bed':(acute_bed),
+        'swing_bed':(swing_bed),
+        'inpatient':(inpatient),
+    }
+    
+    return render(request, 'dashboard/index.html', context)
+
+     
 def signup(request):
     form = UserRegistration()
     context = {'form': form}

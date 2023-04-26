@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,12 +10,15 @@
     <link rel="stylesheet" href="{% static '/css/style.css' %}">
     <link rel="stylesheet" href="{% static '/css/index-dashboard.css' %}">
     <link rel="stylesheet" href="{% static '/css/main.css' %}">
-    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <title>Over View Dashboard</title>
-    
+
 
 </head>
+
 <body>
 
     <div class="container">
@@ -25,256 +29,284 @@
                     <p>KPIs</p>
                 </div>
                 <div class="sidebar-content-links">
-                <div class="sidebar--content">
-                    <div class="row">
-                        
-                    <p>Over View</p>
-                    <ul>
-                        <li>
-                            <img src="{% static '/images/Vector.svg' %}" alt="">
-                            <a href="">Margum</a>
-                        </li>
-                    </ul>
-                
-                    <ul>
-                        <li>
-                            <img src="{% static '/images/Vector.svg' %}" alt="">
-                            <a href="">Prague</a>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <img src="{% static '/images/Vector.svg' %}" alt="">
-                            <a href="">Prague</a>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <img src="{% static '/images/Vector.svg' %}" alt="">
-                            <a href="">Carnegie</a>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <img src="{% static '/images/Vector.svg' %}" alt="">
-                            <a href="">Seiling</a>
-                        </li>
-                    </ul>
+                    <div class="sidebar--content">
+                        <div class="row">
+
+                            <p>Over View</p>
+                            <ul>
+                                <li>
+                                    <img src="{% static '/images/Vector.svg' %}" alt="">
+                                    <a href="">Margum</a>
+                                </li>
+                            </ul>
+
+                            <ul>
+                                <li>
+                                    <img src="{% static '/images/Vector.svg' %}" alt="">
+                                    <a href="">Prague</a>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    <img src="{% static '/images/Vector.svg' %}" alt="">
+                                    <a href="">Prague</a>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    <img src="{% static '/images/Vector.svg' %}" alt="">
+                                    <a href="">Carnegie</a>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    <img src="{% static '/images/Vector.svg' %}" alt="">
+                                    <a href="">Seiling</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sidebar--content">
+                        <div class="row">
+                            <p>RHC</p>
+                            <ul>
+                                <li>
+                                    <img src="{% static '/images/Vector.svg' %}" alt="">
+                                    <a href="">Margum</a>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    <img src="{% static '/images/Vector.svg' %}" alt="">
+                                    <a href="">Prague</a>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    <img src="{% static '/images/Vector.svg' %}" alt="">
+                                    <a href="">Prague</a>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    <img src="{% static '/images/Vector.svg' %}" alt="">
+                                    <a href="">Carnegie</a>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    <img src="{% static '/images/Vector.svg' %}" alt="">
+                                    <a href="">Seiling</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sidebar--content">
+                        <div class="row">
+                            <p>Labor Tracker</p>
+                            <ul>
+                                <li>
+                                    <img src="{% static '/images/Vector.svg' %}" alt="">
+                                    <a href="">Margum</a>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    <img src="{% static '/images/Vector.svg' %}" alt="">
+                                    <a href="">Prague</a>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    <img src="{% static '/images/Vector.svg' %}" alt="">
+                                    <a href=""> Prague</a>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    <img src="{% static '/images/Vector.svg' %}" alt="">
+                                    <a href="">Carnegie</a>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    <img src="{% static '/images/Vector.svg' %}" alt="">
+                                    <a href="">Seiling</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                </div>
-                <div class="sidebar--content">
-                    <div class="row">
-                    <p>RHC</p>
-                    <ul>
-                        <li>
-                            <img src="{% static '/images/Vector.svg' %}" alt="">
-                            <a href="">Margum</a>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <img src="{% static '/images/Vector.svg' %}" alt="">
-                            <a href="">Prague</a>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <img src="{% static '/images/Vector.svg' %}" alt="">
-                            <a href="">Prague</a>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <img src="{% static '/images/Vector.svg' %}" alt="">
-                            <a href="">Carnegie</a>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <img src="{% static '/images/Vector.svg' %}" alt="">
-                            <a href="">Seiling</a>
-                        </li>
-                    </ul>
-                </div>
-                </div>
-                <div class="sidebar--content">
-                    <div class="row">
-                    <p>Labor Tracker</p>
-                    <ul>
-                        <li>
-                            <img src="{% static '/images/Vector.svg' %}" alt="">
-                            <a href="">Margum</a>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <img src="{% static '/images/Vector.svg' %}" alt="">
-                            <a href="">Prague</a>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <img src="{% static '/images/Vector.svg' %}" alt="">
-                            <a href=""> Prague</a>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <img src="{% static '/images/Vector.svg' %}" alt="">
-                            <a href="">Carnegie</a>
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <img src="{% static '/images/Vector.svg' %}" alt="">
-                            <a href="">Seiling</a>
-                        </li>
-                    </ul>
-                </div>
+                <div class="help">
+                    <h1>Need Support?</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna.
+                    </p>
+                    <a href="">Contact Admin</a>
                 </div>
             </div>
-            <div class="help">
-                <h1>Need Support?</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna. </p>
-                <a href="">Contact Admin</a>
-            </div>
-            </div>
-           
+
         </div>
         <div class="col">
             <div class="row">
-            <div class="navbar" id="navbar" >
-            <div class="nav-item">
-                
-                <a href="" class="black"><p>KPI Tool</p></a>
-                <i class="ri-arrow-right-s-line"></i>
-               <a href="" class="black"><p>Godwin Feh</p></a> 
-                <i class="ri-arrow-right-s-line"></i>
-                <a href=""><p>Overview</p></a>
-                
-            </div>
-            <div class="nav-text">
-                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. </p>
-            </div>
-            
-            <div class="profile">
-                <div class="bell">
-                    <i class="ri-notification-fill"></i>
+                <div class="navbar" id="navbar">
+                    <div class="nav-item">
+
+                        <a href="" class="black">
+                            <p>KPI Tool</p>
+                        </a>
+                        <i class="ri-arrow-right-s-line"></i>
+                        <a href="" class="black">
+                            <p>Godwin Feh</p>
+                        </a>
+                        <i class="ri-arrow-right-s-line"></i>
+                        <a href="">
+                            <p>Overview</p>
+                        </a>
+
+                    </div>
+                    <div class="nav-text">
+                        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. </p>
+                    </div>
+
+                    <div class="profile">
+                        <div class="bell">
+                            <i class="ri-notification-fill"></i>
+                        </div>
+                        <img src="{% static '/images/jeshoots-com-LAwsF-VnFzc-unsplash.jpg' %}" alt="">
+                        <div class="position">
+                            <p>Godwin Feh</p>
+                            <h3>CEO</h3>
+                        </div>
+                    </div>
                 </div>
-                <img src="{% static '/images/jeshoots-com-LAwsF-VnFzc-unsplash.jpg' %}" alt="">
-                <div class="position">
-                    <p>Godwin Feh</p>
-                    <h3>CEO</h3>
+            </div>
+            <div class="row-card">
+                <div class="card-1">
+                    <div class="doughnut">
+                        <canvas id='myChart'></canvas>
+                        <script>
+                            
+                            var patient_data = JSON.parse('{{ patient_data|safe }}');
+                            var patient_labels = JSON.parse('{{ patient_labels|safe}}'); 
+                            <!-- var bed_data = JSON.parse('{{ bed_data|safe }}'); -->
+                            var bed_labels = JSON.parse('{{ bed_labels|safe}}');
+                            var acute_bed = ('{{acute_bed}}');
+                            var swing_bed = ('{{swing_bed}}');
+                            var inpatient = ('{{inpatient}}');
+
+                        </script>
+                    </div>
+                    <div class="text-part">
+                        <h1>Census</h1>
+                        <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                    </div>
+
                 </div>
-            </div>
-            </div>
-        </div>
-        <div class="row-card">
-            <div class="card-1">
-                <div class="doughnut"><canvas id='myChart'></canvas></div>
-                <div class="text-part">
-                    <h1>Census</h1>
-                    <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                </div>
-                
-            </div>
-            <div class="card-2">
-                <div class="text-part-card-2">
-                    <h1>Measures</h1>
-                    <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                </div> 
+                <div class="card-2">
+                    <div class="text-part-card-2">
+                        <h1>Measures</h1>
+                        <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                    </div>
                     <div class="chart-bar"><canvas id='earning'></canvas></div>
-                
+
+                </div>
             </div>
-        </div>
-        <div class="row-table">
-            <div class="upper-table">
-                <table style="width:100%">
-                    
-                    <tr>
-                        <th rowspan="2">New Hires</th>
-                        <th>Jan</th>
-                        <th>Feb</th>
-                        <th>Mar</th>
-                        <th>Apr</th>
-                        <th>May</th>
-                        <th>Jun</th>
-                        <th>Jul</th>
-                        <th>Aug</th>
-                        <th>Sep</th>
-                        <th>Oct</th>
-                        <th>Nov</th>
-                        <th>Dec</th>
-                    </tr>
-                   
-                    <tr>
-                        <td>30</td>
-                        <td>2</td>
-                        <td>4</td>
-                        <td>4</td>
-                        <td>0</td>
-                        <td>9</td>
-                        <td>7</td>
-                        <td>4</td>
-                        <td>3</td>
-                        <td>2</td>
-                        <td>2</td>
-                        <td>2</td>
-                    </tr>
-                </table>
+            <div class="row-table">
+                <div class="upper-table">
+                    <table style="width:100%">
+
+                        <tr>
+                            <th rowspan="2">New Hires</th>
+                            <th>Jan</th>
+                            <th>Feb</th>
+                            <th>Mar</th>
+                            <th>Apr</th>
+                            <th>May</th>
+                            <th>Jun</th>
+                            <th>Jul</th>
+                            <th>Aug</th>
+                            <th>Sep</th>
+                            <th>Oct</th>
+                            <th>Nov</th>
+                            <th>Dec</th>
+                        </tr>
+
+                        <tr>
+                            <td>30</td>
+                            <td>2</td>
+                            <td>4</td>
+                            <td>4</td>
+                            <td>0</td>
+                            <td>9</td>
+                            <td>7</td>
+                            <td>4</td>
+                            <td>3</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="lower-table">
+                    <table style="width:100%">
+
+                        <tr>
+                            <th rowspan="2">Turn Over</th>
+                            <th>Jan</th>
+                            <th>Feb</th>
+                            <th>Mar</th>
+                            <th>Apr</th>
+                            <th>May</th>
+                            <th>Jun</th>
+                            <th>Jul</th>
+                            <th>Aug</th>
+                            <th>Sep</th>
+                            <th>Oct</th>
+                            <th>Nov</th>
+                            <th>Dec</th>
+                        </tr>
+
+                        <tr>
+                            <td>30</td>
+                            <td>2</td>
+                            <td>4</td>
+                            <td>4</td>
+                            <td>0</td>
+                            <td>9</td>
+                            <td>7</td>
+                            <td>4</td>
+                            <td>3</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-            <div class="lower-table">
-                <table style="width:100%">
-                    
-                    <tr>
-                        <th rowspan="2">Turn Over</th>
-                        <th>Jan</th>
-                        <th>Feb</th>
-                        <th>Mar</th>
-                        <th>Apr</th>
-                        <th>May</th>
-                        <th>Jun</th>
-                        <th>Jul</th>
-                        <th>Aug</th>
-                        <th>Sep</th>
-                        <th>Oct</th>
-                        <th>Nov</th>
-                        <th>Dec</th>
-                    </tr>
-                   
-                    <tr>
-                        <td>30</td>
-                        <td>2</td>
-                        <td>4</td>
-                        <td>4</td>
-                        <td>0</td>
-                        <td>9</td>
-                        <td>7</td>
-                        <td>4</td>
-                        <td>3</td>
-                        <td>2</td>
-                        <td>2</td>
-                        <td>2</td>
-                    </tr>
-                </table>
+            <div class="row-cards">
+                <p>Labor Tracker</p>
+                <div class="index-cards">
+                    <div class="first-card">
+                        <p>Mangum</p>
+                    </div>
+                    <div class="second-card">
+                        <p>Prague</p>
+                    </div>
+                    <div class="third-card">
+                        <p>Pawhuska</p>
+                    </div>
+                    <div class="fourth-card">
+                        <p>Carnegie</p>
+                    </div>
+                    <div class="fifth-card">
+                        <p>Seiling</p>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row-cards">
-            <p>Labor Tracker</p>
-            <div class="index-cards">
-            <div class="first-card"><p>Mangum</p></div>
-            <div class="second-card"><p>Prague</p></div>
-            <div class="third-card"><p>Pawhuska</p></div>
-            <div class="fourth-card"><p>Carnegie</p></div>
-            <div class="fifth-card"><p>Seiling</p></div>
-        </div>
-        </div>
         </div>
     </div>
-   
-   
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
-   <script src="{% static '/javascripts/main.js' %}"></script>
+
+    <script src="{% static '/javascripts/main.js' %}"></script>
 
 </body>
 
