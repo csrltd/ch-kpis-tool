@@ -184,20 +184,11 @@
                 <div class="card-1">
                     <div class="doughnut">
                         <canvas id='myChart'></canvas>
-                        <script>
-                            
-                            var patient_data = JSON.parse('{{ patient_data|safe }}');
-                            var patient_labels = JSON.parse('{{ patient_labels|safe}}'); 
-                            <!-- var bed_data = JSON.parse('{{ bed_data|safe }}'); -->
-                            var bed_labels = JSON.parse('{{ bed_labels|safe}}');
-                            var acute_bed = ('{{acute_bed}}');
-                            var swing_bed = ('{{swing_bed}}');
-                            var inpatient = ('{{inpatient}}');
-
-                        </script>
+                        
                     </div>
                     <div class="text-part">
                         <h1>Census</h1>
+                        
                         <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                     </div>
 
@@ -208,7 +199,6 @@
                         <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                     </div>
                     <div class="chart-bar"><canvas id='earning'></canvas></div>
-
                 </div>
             </div>
             <div class="row-table">
