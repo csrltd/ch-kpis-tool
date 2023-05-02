@@ -4,9 +4,10 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from .models import Hospital, Department, Profile
 from .models import *
-import json
+from django.core import serializers
 from django.http import JsonResponse
 from django.db.models import Count
+from django .http import HttpResponse
 
 def index(request):
     
@@ -22,8 +23,7 @@ def chart_data(request):
     patient_data = Patient.objects.all().count()
     inpatient = Patient.objects.filter(status="inpatient").count()
     outpatient = Patient.objects.filter(status="outpatient").count()
-    
-   
+     
     context = {
         'patient_data': patient_data, 
         'bed_data':bed_data,
@@ -36,7 +36,13 @@ def chart_data(request):
 
     return JsonResponse(context)
 
-     
+def linechart_data(request):
+    hospital = Hospital.objects.all()
+    context = {'hospital':hospital}
+    
+    return render(request, 'dashboard/index.html', context)
+    
+    
 def signup(request):
     form = UserRegistration()
     context = {'form': form}

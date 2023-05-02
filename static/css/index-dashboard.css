@@ -43,7 +43,7 @@ td {
   padding: 20px;
 }
 .container .col .row-card .card-2 .chart-bar {
-  height: 100%;
+  height: 60%;
   width: 80%;
 }
 .container .col .row-table .upper-table {
@@ -72,6 +72,10 @@ td {
   left: 21%;
   top: 65%;
 }
+.container .col .row-cards p {
+  padding: 40px;
+  font-weight: bold;
+}
 .container .col .row-cards .index-cards {
   position: absolute;
   display: flex;
@@ -87,36 +91,7 @@ td {
   font-weight: 100;
   padding: 20px;
 }
-.container .col .row-cards p {
-  font-size: 24px;
-  padding: 48px;
-  font-weight: bold;
-}
-.container .col .row-cards .first-card {
-  width: 50%;
-  height: 80%;
-  background-color: #0E76BC;
-  border-radius: 6px;
-}
-.container .col .row-cards .second-card {
-  width: 50%;
-  height: 80%;
-  background-color: #0E76BC;
-  border-radius: 6px;
-}
-.container .col .row-cards .third-card {
-  width: 50%;
-  height: 80%;
-  background-color: #0E76BC;
-  border-radius: 6px;
-}
-.container .col .row-cards .fourth-card {
-  width: 50%;
-  height: 80%;
-  background-color: #0E76BC;
-  border-radius: 6px;
-}
-.container .col .row-cards .fifth-card {
+.container .col .row-cards .index-cards .card {
   width: 50%;
   height: 80%;
   background-color: #0E76BC;
