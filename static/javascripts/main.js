@@ -32,14 +32,59 @@ $.ajax({
 });
 
 
+// let lineData = {
+//   labels: ['Mangum', 'Prague', 'Carnegie', 'Pawhuska'],
+//   datasets: [{
+//     label:["Hospitals"],
+//     data: [0, 0, 0, 0],
+//     borderWidth: 1,
+//   }],
+//   backgroundColor: ['#FF6384', '#36A2EB', '#FF456', '#23A2AB']
+// };
+
+// $.ajax({
+//   url: '/linechart_data/',
+//   type: 'GET',
+//   dataType: 'json',
+//   success: function (response) {
+//     lineData.labels = response.hospital_names;
+//     lineData.datasets[0].data = response.mortality_rates;
+//     const ctx = document.getElementById('earning');
+//     new Chart(ctx, {
+//       type: 'bar',
+//       data: lineData,
+//       options: {
+//         responsive: true,
+//         scales: {
+//           y: {
+//             beginAtZero: true,
+//           }
+//         }
+//       }
+//     });
+//   }
+// });
+
+
 let lineData = {
-  labels: ['Mangum', 'Prague', 'Carnegie', 'Pawhuska'],
+  labels: [],
   datasets: [{
-    label:["Hospitals"],
-    data: [0, 0, 0, 0],
+    label: 'Inpatients',
+    data: [],
     borderWidth: 1,
+    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+    borderColor: 'rgba(255, 99, 132, 1)',
+    hoverBackgroundColor: 'rgba(255, 99, 132, 0.4)',
+    hoverBorderColor: 'rgba(255, 99, 132, 1)',
+  }, {
+    label: 'Outpatients',
+    data: [],
+    borderWidth: 1,
+    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+    borderColor: 'rgba(54, 162, 235, 1)',
+    hoverBackgroundColor: 'rgba(54, 162, 235, 0.4)',
+    hoverBorderColor: 'rgba(54, 162, 235, 1)',
   }],
-  backgroundColor: ['#FF6384', '#36A2EB', '#FF456', '#23A2AB']
 };
 
 $.ajax({
@@ -48,22 +93,26 @@ $.ajax({
   dataType: 'json',
   success: function (response) {
     lineData.labels = response.hospital_names;
-    lineData.datasets[0].data = response.mortality_rates;
+    lineData.datasets[0].data = response.inpatient_data;
+    lineData.datasets[1].data = response.outpatient_data;
     const ctx = document.getElementById('earning');
     new Chart(ctx, {
-      type: 'bar',
+      type: 'line',
       data: lineData,
       options: {
         responsive: true,
         scales: {
-          y: {
-            beginAtZero: true,
-          }
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
         }
       }
     });
   }
 });
+
 
 
 
