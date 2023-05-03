@@ -24,7 +24,13 @@ $.ajax({
       type: 'doughnut',
       data: chartData,
       options: {
-        display: true,
+        Plugins: {
+          legend: {
+            labels: {
+              usePointStyle : true
+            }
+          }
+        },
 
       }
     });
@@ -37,9 +43,11 @@ let lineData = {
   datasets: [{
     label:["Hospitals"],
     data: [0, 0, 0, 0],
+    backgroundColor: ['#FF5384', '#36A2EB', '#FF456', '#23A2AB'],
     borderWidth: 1,
+    
   }],
-  backgroundColor: ['#FF6384', '#36A2EB', '#FF456', '#23A2AB']
+  
 };
 
 $.ajax({
