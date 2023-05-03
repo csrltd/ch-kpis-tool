@@ -31,48 +31,6 @@ $.ajax({
   }
 });
 
-//Measures chart
-
-// var lineData = {
-//   labels: ['Mangum', 'Prague', 'Carnegie', 'Pawhuska'],
-
-//   datasets: [{
-
-//     data: [0, 0, 0, 0],
-//     borderWidth: 1
-//   }],
-//   backgroundColor: [
-//     'rgba(255, 99, 132, 0.2)',
-//     'rgba(255, 159, 64, 0.2)',
-//     'rgba(255, 205, 86, 0.2)',
-//     'rgba(201, 203, 207, 0.2)'
-//   ],
-// };
-// $.ajax({
-//   url: '/linechart/',
-//   type: 'GET',
-//   dataType: 'json',
-//   success: function (linechart_data) {
-
-//     lineData.datasets[0].data = [linechart_data.hospital, linechart_data.mortality_rate];
-
-//     const ctx = document.getElementById('earning');
-
-//     new Chart(ctx, {
-//       type: 'line',
-//       data: lineData,
-
-//       options: {
-//         responsive: true,
-//         scales: {
-//           y: {
-//             beginAtZero: true
-//           }
-//         }
-//       }
-//     });
-//   }
-// });
 
 let lineData = {
   labels: ['Mangum', 'Prague', 'Carnegie', 'Pawhuska'],
