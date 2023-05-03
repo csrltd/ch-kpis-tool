@@ -36,12 +36,34 @@ def chart_data(request):
 
     return JsonResponse(context)
 
+# def linechart_data(request):
+#     hospital = Hospital.objects.all().count()
+#     mortality_rate = list(Hospital.objects.values('name', 'mortality_rate')).count()
+#     print(hospital)
+#     print(mortality_rate)
+#     context = {'hospital':hospital, 'mortality_rate': mortality_rate}
+
+#     return JsonResponse(context)
+    
+
+# def linechart_data(request):
+#     hospitals = Hospital.objects.all()
+#     hospital_name = [h.name for h in hospitals]
+#     mortality_rates = [float(h.mortality_rate) for h in hospitals]
+
+#     print(mortality_rates, hospital_name)
+
+#     context = {'hospital_name': hospital_name, 'mortality_rates': mortality_rates}
+
+#     return JsonResponse(context)  
+
 def linechart_data(request):
-    hospital = Hospital.objects.all()
-    context = {'hospital':hospital}
-    
-    return render(request, 'dashboard/index.html', context)
-    
+    hospital_names = list(Hospital.objects.values_list('name', flat=True))
+    mortality_rates = list(Hospital.objects.values_list('mortality_rate', flat=True))
+    print(hospital_names, mortality_rates)
+    context = {'hospital_names': hospital_names, 'mortality_rates': mortality_rates}
+    return JsonResponse(context)
+
     
 def signup(request):
     form = UserRegistration()
