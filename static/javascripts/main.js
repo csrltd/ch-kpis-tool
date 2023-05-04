@@ -68,7 +68,6 @@ $.ajax({
     const datasets = Object.keys(response).map((hospital) => ({
       label: hospital,
       data: response[hospital]['totals'],
-      borderColor: getRandomColor(),
       fill: false
     }));
     const months = response[Object.keys(response)[0]]['months'];
@@ -98,13 +97,3 @@ $.ajax({
     });
   }
 });
-
-function getRandomColor() {
-  // generate a random color for each hospital
-  const letters = '0123456789ABCDEF';
-  let color = '#';
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
