@@ -37,20 +37,14 @@ def chart_data(request):
 
 # New way to get data
 
-
 def filter_inpatients_by_month(request):
     hospital_names = Hospital.objects.all()
     print("these are the hospital names", hospital_names)
     data = {}
     for hospital_name in hospital_names:
         patient_hospital = Patient.objects.filter(hospital=hospital_name, status='inpatient')
-        print("Hospital is: ", patient_hospital)
-        #patient_data = Patient.objects.filter(status='inpatient', hospital=hospital_name)
-        #print("patient data: ", patient_data)
         inpatient_data = patient_hospital.values_list('admission_date', flat=True)
-        print("patient date", inpatient_data)
         inpatient_data = [date.strftime('%B') for date in inpatient_data]
-        print("patient date", inpatient_data)
         inpatient_data_by_month = {}
         for month in inpatient_data:
             if month not in inpatient_data_by_month:
@@ -58,10 +52,8 @@ def filter_inpatients_by_month(request):
             inpatient_data_by_month[month] += 1
         if hospital_name not in data:
             data[hospital_name.name] = {}
-        print("last print", hospital_name.name)
         data[hospital_name.name]['months'] = list(inpatient_data_by_month.keys())
         data[hospital_name.name]['totals'] = list(inpatient_data_by_month.values())
-    print(data)
     return JsonResponse(data)
 
 def signup(request):
