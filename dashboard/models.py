@@ -11,7 +11,7 @@ class Hospital(models.Model):
     address = models.CharField(max_length=255, null=True)
     phone_number = models.CharField(max_length=255, null=True)
     email = models.EmailField(null=False, blank=True)
-    mortality_rate = models.CharField(max_length=4, null=True)
+    mortality_rate = models.FloatField(null=True)
     covid_vaccination = models.CharField(max_length=255, null=True)
     pressure_ulcers = models.CharField(max_length=255, null=True)
     complaints = models.CharField(max_length=255, null=True)
@@ -93,6 +93,8 @@ class Patient(models.Model):
     birthday = models.DateTimeField(null=True)
     doctor = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
     hospital = models.ForeignKey(Hospital, null=True, on_delete=models.SET_NULL)
+    date_created = models.DateTimeField(null=True)
+    admission_date = models.DateTimeField(null=True)
 
     def __str__(self):
         return self.first_name

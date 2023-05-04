@@ -53,10 +53,13 @@ td {
                 left: 55%;
                 padding: 20px;
 
-                .chart-bar{
-                    height: 60%;
-                    width: 80%;
-                }
+               #earning {
+                width:50px; 
+                height:50px;
+                 display: block; 
+                 box-sizing: border-box;
+                 
+               }
             }
         }
 

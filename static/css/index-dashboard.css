@@ -42,9 +42,11 @@ td {
   left: 55%;
   padding: 20px;
 }
-.container .col .row-card .card-2 .chart-bar {
-  height: 60%;
-  width: 80%;
+.container .col .row-card .card-2 #earning {
+  width: 50px;
+  height: 50px;
+  display: block;
+  box-sizing: border-box;
 }
 .container .col .row-table .upper-table {
   position: absolute;
