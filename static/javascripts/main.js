@@ -5,7 +5,7 @@ var chartData = {
   labels: ['Swing Bed', 'Acute Bed', 'inpatient', 'outpatient'],
   datasets: [{
     data: [0, 0, 0, 0],
-    backgroundColor: ['#FF6384', '#36A2EB', '#FF456', '#23A2AB'],
+    backgroundColor: ['#FF6384', '#36A2EB', '#463333', '#23A2AB'],
     borderWidth: 1,
   }]
 };
@@ -42,7 +42,7 @@ $.ajax({
 let lineData = {
   labels: [],
   datasets: [{
-    label: 'Inpatients',
+    label: [],
     data: [],
     borderWidth: 1,
     backgroundColor: 'rgba(255, 99, 132, 0.2)',
@@ -50,7 +50,7 @@ let lineData = {
     hoverBackgroundColor: 'rgba(255, 99, 132, 0.4)',
     hoverBorderColor: 'rgba(255, 99, 132, 1)',
   }, {
-    label: 'Outpatients',
+    label: [],
     data: [],
     borderWidth: 1,
     backgroundColor: 'rgba(54, 162, 235, 0.2)',
@@ -59,15 +59,21 @@ let lineData = {
     hoverBorderColor: 'rgba(54, 162, 235, 1)',
   }],
 };
-
 $.ajax({
   url: '/linechart_data/',
   type: 'GET',
   dataType: 'json',
   success: function (response) {
-    lineData.labels = response.hospital_names;
-    lineData.datasets[0].data = response.inpatient_data;
-    lineData.datasets[1].data = response.outpatient_data;
+    // create an array of objects for each hospital
+    const datasets = Object.keys(response).map((hospital) => ({
+      label: hospital,
+      data: response[hospital]['totals'],
+      borderColor: getRandomColor(),
+      fill: false
+    }));
+    const months = response[Object.keys(response)[0]]['months'];
+    lineData.labels = months;
+    lineData.datasets = datasets;
     const ctx = document.getElementById('earning');
     new Chart(ctx, {
       type: 'line',
@@ -80,10 +86,25 @@ $.ajax({
               beginAtZero: true
             }
           }]
+        },
+        legend: {
+          display: true,
+          position: 'bottom',
+          labels: {
+            usePointStyle: true
+          }
         }
       }
     });
   }
 });
 
-
+function getRandomColor() {
+  // generate a random color for each hospital
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
