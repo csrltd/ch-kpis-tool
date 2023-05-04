@@ -28,7 +28,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = ['csrtesting.com', 'kpi.csrtesting.com',
-                 'www.csrtesting.com', '170.187.152.92']
+                 'www.csrtesting.com', '170.187.152.92', '127.0.0.1']
 
 
 # Application definition
