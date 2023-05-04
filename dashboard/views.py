@@ -37,12 +37,35 @@ def chart_data(request):
     return JsonResponse(context)
 
 
+# def linechart_data(request):
+#     hospital_names = list(Hospital.objects.values_list('name', flat=True))
+#     mortality_rates = list(Hospital.objects.values_list('mortality_rate', flat=True))
+#     print(hospital_names, mortality_rates)
+#     context = {'hospital_names': hospital_names, 'mortality_rates': mortality_rates}
+#     return JsonResponse(context)
+
 def linechart_data(request):
-    hospital_names = list(Hospital.objects.values_list('name', flat=True))
-    mortality_rates = list(Hospital.objects.values_list('mortality_rate', flat=True))
-    print(hospital_names, mortality_rates)
-    context = {'hospital_names': hospital_names, 'mortality_rates': mortality_rates}
+    hospital_names = []
+    inpatient_data = []
+    outpatient_data = []
+
+    hospitals = Hospital.objects.all()
+
+    for hospital in hospitals:
+        hospital_names.append(hospital.name)
+
+        # get the number of inpatient patients for the hospital
+        inpatient_count = Patient.objects.filter(hospital=hospital, status='inpatient').count()
+        inpatient_data.append(inpatient_count)
+
+        # get the number of outpatient patients for the hospital
+        outpatient_count = Patient.objects.filter(hospital=hospital, status='outpatient').count()
+        outpatient_data.append(outpatient_count)
+
+    context = {'hospital_names': hospital_names, 'inpatient_data': inpatient_data, 'outpatient_data': outpatient_data}
     return JsonResponse(context)
+
+
 
     
 def signup(request):
