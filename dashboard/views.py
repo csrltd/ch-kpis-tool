@@ -39,7 +39,6 @@ def chart_data(request):
 
 # New way to get data
 
-
 def filter_inpatients_by_month(request):
     hospital_names = Hospital.objects.all()
     data = {}
