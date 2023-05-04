@@ -1,0 +1,99 @@
+body {
+  background-color: #F8F8F8;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.container .col .sidebar {
+  height: 100%;
+}
+.container .col .sidebar .sidebar-content-links {
+  overflow: auto;
+}
+.container .col .row-card .card-1 {
+  background-color: white;
+  position: absolute;
+  width: 33%;
+  height: 310px;
+  top: 9%;
+  left: 21%;
+  padding: 20px;
+  display: flex;
+  gap: 24px;
+}
+.container .col .row-card .card-1 .doughnut {
+  width: 70%;
+}
+.container .col .row-card .card-1 .text-part {
+  width: 60%;
+  top: 0;
+}
+.container .col .row-card .card-2 {
+  width: 43%;
+  height: 310px;
+  position: absolute;
+  background: white;
+  top: 9%;
+  left: 55%;
+  padding: 20px;
+}
+.container .col .row-card .card-2 .chart-bar {
+  height: 60%;
+  width: 80%;
+}
+.container .col .row-table .upper-table {
+  position: absolute;
+  background: #FFFFFF;
+  width: 77%;
+  height: 76px;
+  top: 45%;
+  left: 21%;
+  padding: 20px;
+}
+.container .col .row-table .lower-table {
+  position: absolute;
+  background: #FFFFFF;
+  width: 77%;
+  height: 76px;
+  top: 55%;
+  left: 21%;
+  padding: 20px;
+}
+.container .col .row-cards {
+  width: 77%;
+  height: 50%;
+  position: absolute;
+  background: white;
+  left: 21%;
+  top: 65%;
+}
+.container .col .row-cards p {
+  padding: 40px;
+  font-weight: bold;
+}
+.container .col .row-cards .index-cards {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  width: 95%;
+  height: 57%;
+  left: 3%;
+  gap: 12px;
+}
+.container .col .row-cards .index-cards p {
+  color: white;
+  font-size: 20px;
+  font-weight: 100;
+  padding: 20px;
+}
+.container .col .row-cards .index-cards .card {
+  width: 50%;
+  height: 80%;
+  background-color: #0E76BC;
+  border-radius: 6px;
+}/*# sourceMappingURL=index-dashboard.css.map */

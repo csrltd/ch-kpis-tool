@@ -1,0 +1,126 @@
+body {
+    background-color: #F8F8F8;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+
+}
+
+.container {
+    .col {
+        .sidebar {
+            height: 100%;
+
+            .sidebar-content-links{
+                overflow: auto;
+            }
+        }
+    }
+
+    .col {
+        .row-card {
+
+            .card-1 {
+                background-color: white;
+                position: absolute;
+                width: 33%;
+                height: 310px;
+                top: 9%;
+                left: 21%;
+                padding: 20px;
+                display: flex;
+                gap: 24px;
+                
+                .doughnut {
+                    width: 70%;
+                }
+                .text-part{
+                    width: 60%;
+                    top: 0;
+                }
+            }
+
+            .card-2 {
+                width: 43%;
+                height: 310px;
+                position: absolute;
+                background: white;
+                top: 9%;
+                left: 55%;
+                padding: 20px;
+
+                .chart-bar{
+                    height: 60%;
+                    width: 80%;
+                }
+            }
+        }
+
+        .row-table {
+
+            .upper-table {
+                position: absolute;
+                background: #FFFFFF;
+                width: 77%;
+                height: 76px;
+                top: 45%;
+                left: 21%;
+                padding: 20px;
+            }
+
+            .lower-table {
+                position: absolute;
+                background: #FFFFFF;
+                width: 77%;
+                height: 76px;
+                top: 55%;
+                left: 21%;
+                padding: 20px;
+            }
+        }
+
+        .row-cards {
+            width: 77%;
+            height: 50%;
+            position: absolute;
+            background: white;
+            left: 21%;
+            top: 65%;
+
+            p{
+                padding: 40px; 
+                font-weight: bold;
+            }
+
+            .index-cards {
+                
+                position: absolute;
+                display: flex;
+                flex-direction: row;
+                width: 95%;
+                height: 57%;
+                left: 3%;
+                gap: 12px;
+
+                p {
+                    color: white;
+                    font-size: 20px;
+                    font-weight: 100;
+                    padding: 20px;
+                }
+            .card {
+                width: 50%;
+                height: 80%;
+                background-color: #0E76BC;
+                border-radius: 6px;
+            }
+
+            
+        }
+    }
+    }
+}
