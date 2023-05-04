@@ -46,7 +46,7 @@ class patientForm(ModelForm):
     class Meta:
         model = Patient
         fields = ['status', 'emergency_room', 'medical_advice', 'patient_id',
-                  'first_name', 'last_name', 'phone_number', 'birthday', 'doctor', 'hospital']
+                  'first_name', 'last_name', 'phone_number', 'birthday', 'admission_date', 'doctor', 'hospital']
         widgets = {
             'status': Select(),
             'emergency_room': Select(),
@@ -56,5 +56,6 @@ class patientForm(ModelForm):
             'last_name': TextInput(),
             'phone_number': TextInput(),
             'birthday': DateTimeInput(attrs={'type': 'datetime-local'}),
+            'admission_date': DateTimeInput(attrs={'type': 'datetime-local'}),
             'emergency_room': RadioSelect(),
             }

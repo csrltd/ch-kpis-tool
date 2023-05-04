@@ -93,6 +93,8 @@ class Patient(models.Model):
     birthday = models.DateTimeField(null=True)
     doctor = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
     hospital = models.ForeignKey(Hospital, null=True, on_delete=models.SET_NULL)
+    date_created = models.DateTimeField(null=True)
+    admission_date = models.DateTimeField(null=True)
 
     def __str__(self):
         return self.first_name

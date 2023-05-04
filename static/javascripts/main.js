@@ -38,39 +38,6 @@ $.ajax({
 });
 
 
-// let lineData = {
-//   labels: ['Mangum', 'Prague', 'Carnegie', 'Pawhuska'],
-//   datasets: [{
-//     label:["Hospitals"],
-//     data: [0, 0, 0, 0],
-//     borderWidth: 1,
-//   }],
-//   backgroundColor: ['#FF6384', '#36A2EB', '#FF456', '#23A2AB']
-// };
-
-// $.ajax({
-//   url: '/linechart_data/',
-//   type: 'GET',
-//   dataType: 'json',
-//   success: function (response) {
-//     lineData.labels = response.hospital_names;
-//     lineData.datasets[0].data = response.mortality_rates;
-//     const ctx = document.getElementById('earning');
-//     new Chart(ctx, {
-//       type: 'bar',
-//       data: lineData,
-//       options: {
-//         responsive: true,
-//         scales: {
-//           y: {
-//             beginAtZero: true,
-//           }
-//         }
-//       }
-//     });
-//   }
-// });
-
 
 let lineData = {
   labels: [],
@@ -118,8 +85,5 @@ $.ajax({
     });
   }
 });
-
-
-
 
 

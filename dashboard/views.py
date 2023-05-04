@@ -1,13 +1,11 @@
+from datetime import timezone
 from django.shortcuts import render, redirect
 from .forms import *
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from .models import Hospital, Department, Profile
 from .models import *
-from django.core import serializers
 from django.http import JsonResponse
-from django.db.models import Count
-from django .http import HttpResponse
 
 def index(request):
     
@@ -38,33 +36,52 @@ def chart_data(request):
 
 
 # def linechart_data(request):
-#     hospital_names = list(Hospital.objects.values_list('name', flat=True))
-#     mortality_rates = list(Hospital.objects.values_list('mortality_rate', flat=True))
-#     print(hospital_names, mortality_rates)
-#     context = {'hospital_names': hospital_names, 'mortality_rates': mortality_rates}
+#     hospital_names = []
+#     inpatient_data = []
+#     outpatient_data = []
+#     admission_date = []
+
+#     hospitals = Hospital.objects.all()
+
+#     for hospital in hospitals:
+#         hospital_names.append(hospital.name)
+
+#         # get the number of inpatient patients for the hospital
+#         inpatient_count = Patient.objects.filter(hospital=hospital, status='inpatient').count()
+#         inpatient_data.append(inpatient_count)
+
+#         # get the number of outpatient patients for the hospital
+#         outpatient_count = Patient.objects.filter(hospital=hospital, status='outpatient').count()
+#         outpatient_data.append(outpatient_count)
+
+#     context = {'hospital_names': hospital_names, 'inpatient_data': inpatient_data, 'outpatient_data': outpatient_data}
 #     return JsonResponse(context)
 
 def linechart_data(request):
-    hospital_names = []
-    inpatient_data = []
-    outpatient_data = []
-
-    hospitals = Hospital.objects.all()
-
-    for hospital in hospitals:
-        hospital_names.append(hospital.name)
-
-        # get the number of inpatient patients for the hospital
-        inpatient_count = Patient.objects.filter(hospital=hospital, status='inpatient').count()
-        inpatient_data.append(inpatient_count)
-
-        # get the number of outpatient patients for the hospital
-        outpatient_count = Patient.objects.filter(hospital=hospital, status='outpatient').count()
-        outpatient_data.append(outpatient_count)
-
-    context = {'hospital_names': hospital_names, 'inpatient_data': inpatient_data, 'outpatient_data': outpatient_data}
-    return JsonResponse(context)
-
+    hospital_names = Hospital.objects.all()
+    print("these are the hospital names", hospital_names)
+    data = {}
+    for hospital_name in hospital_names:
+        patient_hospital = Patient.objects.filter(hospital=hospital_name)
+        print("Hospital is: ", patient_hospital)
+        patient_data = Patient.objects.filter(status='inpatient')
+        print("patient data: ", patient_data)
+        inpatient_data = patient_data.values_list('admission_date', flat=True)
+        print("patient date", inpatient_data)
+        inpatient_data = [date.strftime('%B') for date in inpatient_data]
+        print("patient date", inpatient_data)
+        inpatient_data_by_month = {}
+        for month in inpatient_data:
+            if month not in inpatient_data_by_month:
+                inpatient_data_by_month[month] = 0
+            inpatient_data_by_month[month] += 1
+        if hospital_name not in data:
+            data[hospital_name.name] = {}
+        print("last print", hospital_name.name)
+        data[hospital_name.name]['months'] = list(inpatient_data_by_month.keys())
+        data[hospital_name.name]['totals'] = list(inpatient_data_by_month.values())
+    print(data)
+    return JsonResponse(data)
 
 
     
