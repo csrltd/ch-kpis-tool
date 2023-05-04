@@ -3,8 +3,9 @@ from django.shortcuts import render, redirect
 from .forms import *
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
-from .models import Hospital, Department, Profile
+from .models import Hospital, Department, Profile, Hospital
 from .models import *
+from .models import Patient, Hospital
 from django.http import JsonResponse
 
 def index(request):
@@ -34,39 +35,19 @@ def chart_data(request):
 
     return JsonResponse(context)
 
+# New way to get data
 
-# def linechart_data(request):
-#     hospital_names = []
-#     inpatient_data = []
-#     outpatient_data = []
-#     admission_date = []
 
-#     hospitals = Hospital.objects.all()
-
-#     for hospital in hospitals:
-#         hospital_names.append(hospital.name)
-
-#         # get the number of inpatient patients for the hospital
-#         inpatient_count = Patient.objects.filter(hospital=hospital, status='inpatient').count()
-#         inpatient_data.append(inpatient_count)
-
-#         # get the number of outpatient patients for the hospital
-#         outpatient_count = Patient.objects.filter(hospital=hospital, status='outpatient').count()
-#         outpatient_data.append(outpatient_count)
-
-#     context = {'hospital_names': hospital_names, 'inpatient_data': inpatient_data, 'outpatient_data': outpatient_data}
-#     return JsonResponse(context)
-
-def linechart_data(request):
+def filter_inpatients_by_month(request):
     hospital_names = Hospital.objects.all()
     print("these are the hospital names", hospital_names)
     data = {}
     for hospital_name in hospital_names:
-        patient_hospital = Patient.objects.filter(hospital=hospital_name)
+        patient_hospital = Patient.objects.filter(hospital=hospital_name, status='inpatient')
         print("Hospital is: ", patient_hospital)
-        patient_data = Patient.objects.filter(status='inpatient')
-        print("patient data: ", patient_data)
-        inpatient_data = patient_data.values_list('admission_date', flat=True)
+        #patient_data = Patient.objects.filter(status='inpatient', hospital=hospital_name)
+        #print("patient data: ", patient_data)
+        inpatient_data = patient_hospital.values_list('admission_date', flat=True)
         print("patient date", inpatient_data)
         inpatient_data = [date.strftime('%B') for date in inpatient_data]
         print("patient date", inpatient_data)
@@ -83,8 +64,6 @@ def linechart_data(request):
     print(data)
     return JsonResponse(data)
 
-
-    
 def signup(request):
     form = UserRegistration()
     context = {'form': form}

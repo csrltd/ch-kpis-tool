@@ -93,16 +93,15 @@ class Patient(models.Model):
     birthday = models.DateTimeField(null=True)
     doctor = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
     hospital = models.ForeignKey(Hospital, null=True, on_delete=models.SET_NULL)
-    date_created = models.DateTimeField(null=True)
-    admission_date = models.DateTimeField(null=True)
-
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    admission_date = models.DateTimeField(auto_now_add=False, null=True)
     def __str__(self):
         return self.first_name
 
 class Complaint(models.Model):
     complainer = models.ForeignKey(Patient, on_delete=models.CASCADE)
     complaint = models.TextField(max_length=1000)
-    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    date_created = models.DateTimeField(auto_now_add=False, null=True)
 
     def get_absolute_url(self):
         return reverse("model_detail", kwargs={"pk": self.pk})
