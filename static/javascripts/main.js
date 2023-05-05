@@ -39,6 +39,80 @@ $.ajax({
 
 
 
+// let lineData = {
+//   labels: [],
+//   datasets: [{
+//     label: [],
+//     data: [],
+//     borderWidth: 1,
+//     backgroundColor: 'rgba(255, 99, 132, 0.2)',
+//     borderColor: 'rgba(255, 99, 132, 1)',
+//     hoverBackgroundColor: 'rgba(255, 99, 132, 0.4)',
+//     hoverBorderColor: 'rgba(255, 99, 132, 1)',
+//   }, {
+//     label: [],
+//     data: [],
+//     borderWidth: 1,
+//     backgroundColor: 'rgba(54, 162, 235, 0.2)',
+//     borderColor: 'rgba(54, 162, 235, 1)',
+//     hoverBackgroundColor: 'rgba(54, 162, 235, 0.4)',
+//     hoverBorderColor: 'rgba(54, 162, 235, 1)',
+//   }],
+// };
+
+
+
+// $.ajax({
+//   url: '/filter_patients_by_month/',
+//   type: 'GET',
+//   dataType: 'json',
+//   success: function (response) {
+//     // create an array of objects for each hospital
+//     const datasets = Object.keys(response).map((hospital) => ({
+//       label: hospital + ' - Inpatient',
+//       data: response[hospital]['inpatient_totals'],
+//       borderWidth: 1,
+//       backgroundColor: ['#FF6384', '#36A2EB', '#463333', '#23A2AB'],
+//       borderColor: ['#FF6384', '#36A2EB', '#463333', '#23A2AB'],
+      
+//       fill: false
+//     }), Object.keys(response).map((hospital) => ({
+//       label: hospital + ' - Outpatient',
+//       data: response[hospital]['outpatient_totals'],
+//       borderWidth: 1,
+//       backgroundColor: ['#F96384', '#F6A2EB', '#4A3333', '#2FA2AB'],
+//       borderColor: ['#F36384', '#36A5EB', '#463F33', '#2332AB'],
+      
+//       fill: false
+//     }))).flat();
+//     const months = response[Object.keys(response)[0]]['months'];
+//     lineData.labels = months;
+//     lineData.datasets = datasets;
+//     const ctx = document.getElementById('earning');
+//     new Chart(ctx, {
+//       type: 'line',
+//       data: lineData,
+//       options: {
+//         responsive: true,
+//         scales: {
+//           yAxes: [{
+//             ticks: {
+//               beginAtZero: true
+//             }
+//           }]
+//         },
+//         legend: {
+//           display: true,
+//           position: 'bottom',
+//           labels: {
+//             usePointStyle: true
+//           }
+//         }
+//       }
+//     });
+//   }
+// });
+
 let lineData = {
   labels: [],
   datasets: [{
@@ -60,17 +134,26 @@ let lineData = {
   }],
 };
 $.ajax({
-  url: '/linechart_data/',
+  url: '/filter_patients_by_month/',
   type: 'GET',
   dataType: 'json',
   success: function (response) {
     // create an array of objects for each hospital
-    const datasets = Object.keys(response).map((hospital) => ({
-      label: hospital,
-      data: response[hospital]['totals'],
-      borderColor: getRandomColor(),
+    const datasets = Object.keys(response).flatMap((hospital, index) => [{
+      label: `${hospital} - Inpatient`,
+      data: response[hospital]['inpatient_totals'],
+      borderWidth: 1,
+      backgroundColor: [`rgba(255, 99, 132, ${(index + 1) / (Object.keys(response).length + 1)})`],
+      borderColor: [`rgba(255, 99, 132, 1)`],
       fill: false
-    }));
+    }, {
+      label: `${hospital} - Outpatient`,
+      data: response[hospital]['outpatient_totals'],
+      borderWidth: 1,
+      backgroundColor: [`rgba(54, 162, 235, ${(index + 1) / (Object.keys(response).length + 1)})`],
+      borderColor: [`rgba(54, 162, 235, 1)`],
+      fill: false
+    }]);
     const months = response[Object.keys(response)[0]]['months'];
     lineData.labels = months;
     lineData.datasets = datasets;
@@ -98,13 +181,3 @@ $.ajax({
     });
   }
 });
-
-function getRandomColor() {
-  // generate a random color for each hospital
-  const letters = '0123456789ABCDEF';
-  let color = '#';
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}

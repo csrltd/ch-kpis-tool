@@ -39,23 +39,53 @@ def chart_data(request):
 
 # New way to get data
 
-def filter_inpatients_by_month(request):
+# def filter_inpatients_by_month(request):
+#     hospital_names = Hospital.objects.all()
+#     data = {}
+#     for hospital_name in hospital_names:
+#         patient_hospital = Patient.objects.filter(hospital=hospital_name, status='inpatient')
+#         inpatient_data = patient_hospital.values_list('admission_date', flat=True)
+#         inpatient_data_by_month = defaultdict(int)
+#         for date in inpatient_data:
+#             month = date.month
+#             inpatient_data_by_month[month] += 1
+#         months = [calendar.month_name[month] for month in range(1, 13)]
+#         totals = [inpatient_data_by_month[month] for month in range(1, 13)]
+#         if hospital_name.name not in data:
+#             data[hospital_name.name] = {}
+#         data[hospital_name.name]['months'] = months
+#         data[hospital_name.name]['totals'] = totals
+#     return JsonResponse(data)
+
+
+def filter_patients_by_month(request):
     hospital_names = Hospital.objects.all()
     data = {}
     for hospital_name in hospital_names:
-        patient_hospital = Patient.objects.filter(hospital=hospital_name, status='inpatient')
-        inpatient_data = patient_hospital.values_list('admission_date', flat=True)
+        inpatient_hospital = Patient.objects.filter(hospital=hospital_name, status='inpatient')
+        inpatient_data = inpatient_hospital.values_list('admission_date', flat=True)
         inpatient_data_by_month = defaultdict(int)
         for date in inpatient_data:
             month = date.month
             inpatient_data_by_month[month] += 1
+        
+        outpatient_hospital = Patient.objects.filter(hospital=hospital_name, status='outpatient')
+        outpatient_data = outpatient_hospital.values_list('admission_date', flat=True)
+        outpatient_data_by_month = defaultdict(int)
+        for date in outpatient_data:
+            month = date.month
+            outpatient_data_by_month[month] += 1
+        
         months = [calendar.month_name[month] for month in range(1, 13)]
-        totals = [inpatient_data_by_month[month] for month in range(1, 13)]
+        inpatient_totals = [inpatient_data_by_month[month] for month in range(1, 13)]
+        outpatient_totals = [outpatient_data_by_month[month] for month in range(1, 13)]
         if hospital_name.name not in data:
             data[hospital_name.name] = {}
         data[hospital_name.name]['months'] = months
-        data[hospital_name.name]['totals'] = totals
+        data[hospital_name.name]['inpatient_totals'] = inpatient_totals
+        data[hospital_name.name]['outpatient_totals'] = outpatient_totals
     return JsonResponse(data)
+
 
 def signup(request):
     form = UserRegistration()
