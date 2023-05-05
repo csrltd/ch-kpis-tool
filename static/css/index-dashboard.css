@@ -27,7 +27,15 @@ td {
   gap: 24px;
 }
 .container .col .row-card .card-1 .doughnut {
-  width: 70%;
+  width: 100%;
+}
+.container .col .row-card .card-1 .doughnut h1, .container .col .row-card .card-1 .doughnut p {
+  float: right;
+  padding-left: 50px;
+}
+.container .col .row-card .card-1 .doughnut .chart_part {
+  width: 50%;
+  margin-right: 250px;
 }
 .container .col .row-card .card-1 .text-part {
   width: 60%;

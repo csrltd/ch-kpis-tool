@@ -36,7 +36,17 @@ td {
                 gap: 24px;
                 
                 .doughnut {
-                    width: 70%;
+                    h1,p{
+                        float: right;
+                        padding-left: 50px;
+                    }
+                    width: 100%;
+
+                    .chart_part{
+                        
+                        width: 50%;
+                        margin-right: 250px;
+                    }
                 }
                 .text-part{
                     width: 60%;

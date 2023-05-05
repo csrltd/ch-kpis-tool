@@ -24,15 +24,28 @@ $.ajax({
       type: 'doughnut',
       data: chartData,
       options: {
-        Plugins: {
-          legend: {
-            labels: {
-              usePointStyle : true
+        plugins:{
+            legend: {
+                rtl: true,
+                
+                display: true,
+                position: 'right',
+                labels: {
+                    usePointStyle: true
+                    
+                }
+                
+            },
+           
+        } ,
+       
+       layout: {
+            padding: {
+                left : 0,
             }
-          }
-        },
+          }   
+      },
 
-      }
     });
   }
 });
