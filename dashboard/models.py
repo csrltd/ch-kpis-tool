@@ -1,12 +1,16 @@
+import random
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 
+from django.dispatch import receiver
+from django.utils.crypto import get_random_string
+from django.db.models.signals import pre_save
 
 # Create your models here.
 
 class Hospital(models.Model):
-    hospitalId = models.IntegerField(null=True)
+    hospitalId = models.CharField(max_length=6, unique=True, null=True)
     name = models.CharField(max_length=255, null=True)
     address = models.CharField(max_length=255, null=True)
     phone_number = models.CharField(max_length=255, null=True)
@@ -23,6 +27,12 @@ class Hospital(models.Model):
 
     def get_absolute_url(self):
         return reverse("model_detail", kwargs={"pk": self.pk})
+
+class Turnover(models.Model):
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
+    turnover_date = models.DateField(auto_now_add=False, null=True)
+    turnover = models.IntegerField(max_length=255, null=True)
+    
 
 
 class Department(models.Model):

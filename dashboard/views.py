@@ -9,10 +9,15 @@ from .models import Patient, Hospital
 from django.http import JsonResponse
 from collections import defaultdict
 import calendar
+from django.db.models.functions import TruncMonth
+from django.db.models import Sum
 
 def index(request):
     
-    return render(request, 'dashboard/index.html')
+    # return render(request, 'dashboard/index.html')
+    # return render(request, 'base.html')
+    return render(request, 'tailwind/index.html')
+    # return render(request, 'authentication/tailwind/login.html')
 
 def chart_data(request):
     
@@ -38,8 +43,6 @@ def chart_data(request):
     return JsonResponse(context)
 
 # New way to get data
-
-
 
 def filter_patients_by_month(request):
     hospital_names = Hospital.objects.all()
@@ -68,7 +71,6 @@ def filter_patients_by_month(request):
         data[hospital_name.name]['inpatient_totals'] = inpatient_totals
         data[hospital_name.name]['outpatient_totals'] = outpatient_totals
     return JsonResponse(data)
-
 
 def signup(request):
     form = UserRegistration()
@@ -197,3 +199,11 @@ def metrics(request):
 
 def newEntry(request):
     return render(request, 'dashboard/new-entry.html')
+
+
+def HospitalCreateView(request):
+    form = ""
+    if form.is_valid():
+        id_suffix = str(random.randint(0, 999)).zfill(4)
+        id_prefix="CH"
+        hospital_id=f"{id_prefix}{id_suffix}"
