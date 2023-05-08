@@ -14,9 +14,9 @@ from django.db.models import Sum
 
 def index(request):
     
-    # return render(request, 'dashboard/index.html')
+    return render(request, 'dashboard/index.html')
     # return render(request, 'base.html')
-    return render(request, 'tailwind/index.html')
+    # return render(request, 'tailwind/index.html')
     # return render(request, 'authentication/tailwind/login.html')
 
 def chart_data(request):
@@ -24,6 +24,8 @@ def chart_data(request):
     bed_data = Bed.objects.all().count()
     acute_bed = Bed.objects.filter(type="acute bed").count()
     swing_bed = Bed.objects.filter(type="swing bed").count()
+    hospitals = Hospital.objects.all().count()
+    print(hospitals)
     
     
     patient_data = Patient.objects.all().count()
