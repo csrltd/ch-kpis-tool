@@ -1,7 +1,7 @@
 
 //census chart
 
-var chartData = {
+let chartData = {
   labels: ['Swing Bed', 'Acute Bed', 'inpatient', 'outpatient'],
   datasets: [{
     data: [0, 0, 0, 0],
@@ -19,7 +19,7 @@ $.ajax({
     chartData.datasets[0].data = [chart_data.swing_bed, chart_data.acute_bed, chart_data.inpatient, chart_data.outpatient];
 
 
-    var ctx = document.getElementById('myChart').getContext('2d');
+    let ctx = document.getElementById('myChart').getContext('2d');
     new Chart(ctx, {
       type: 'doughnut',
       data: chartData,
