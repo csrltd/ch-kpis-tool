@@ -1,0 +1,342 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200;400;500;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+li {
+  list-style: none;
+}
+
+body {
+  font-family: "Mulish", sans-serif;
+  background-color: #DEEEFA;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.branding {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.branding .logo {
+  height: 21px;
+}
+.branding .system-title {
+  font-size: 18px;
+}
+
+.left-menu {
+  background-color: #0E76BC;
+  width: 300px;
+  color: white;
+  padding: 20px;
+  height: 100vh;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.left-menu .menu {
+  display: grid;
+  gap: 24px;
+}
+.left-menu .menu .menu-items {
+  display: grid;
+  gap: 24px;
+}
+.left-menu .menu .menu-items hr {
+  color: white;
+}
+.left-menu .menu .menu-items li {
+  font-size: 18px;
+  font-weight: bold;
+}
+.left-menu .menu .menu-items li a {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.left-menu .menu .menu-items .dropdwon .dropdown-text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.left-menu .menu .menu-items .dropdwon .dropdown-content {
+  padding: 12px 0;
+  display: grid;
+  gap: 12px;
+}
+.left-menu .menu .menu-items .dropdwon .dropdown-content a {
+  font-size: 16px;
+  font-weight: lighter;
+}
+.left-menu .menu .menu-items .dropdwon .dropdown-content .button {
+  background-color: white;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 12px 35px;
+  color: #0E76BC;
+  border-radius: 6px;
+}
+.left-menu .menu .menu-items .dropdwon .hidden {
+  display: none;
+}
+.left-menu .site-info {
+  background-color: white;
+  color: gray;
+  padding: 30px;
+  border-radius: 6px;
+  display: grid;
+  gap: 6px;
+  margin-top: 20px;
+}
+.left-menu .site-info .title {
+  color: #0E76BC;
+}
+.left-menu .site-info a {
+  color: #0E76BC;
+}
+
+.content {
+  height: 100vh;
+  overflow-y: scroll;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding-bottom: 20px;
+  position: relative;
+}
+.content .top-nav {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  border-bottom-left-radius: 6px;
+  z-index: 100;
+}
+.content .top-nav .mobile-menu-icon,
+.content .top-nav .close-mobile-menu-icon,
+.content .top-nav .branding {
+  display: none;
+}
+.content .top-nav .right-content {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.content .top-nav .right-content .notification {
+  position: relative;
+}
+.content .top-nav .right-content .notification .bell path {
+  fill: black !important;
+}
+.content .top-nav .right-content .notification .red-dot {
+  position: absolute;
+  right: 3px;
+}
+.content .top-nav .right-content .profile {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.content .top-nav .right-content .profile .info .name {
+  font-weight: bold;
+}
+.content .top-nav .right-content .profile .info .position {
+  font-weight: lighter;
+  font-size: 12px;
+}
+.content .main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 20px;
+}
+.content .numbers .cards {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+}
+.content .numbers .cards .card {
+  background-color: white;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-radius: 6px;
+}
+.content .numbers .cards .card .card-img {
+  width: 40px;
+}
+.content .numbers .cards .card .number-content .text {
+  color: gray;
+}
+.content .numbers .cards .card .number-content .number p {
+  font-weight: bold;
+  font-size: 22px;
+}
+.content .charts .charts-container {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 24px;
+}
+.content .charts .charts-container .chart {
+  background-color: white;
+  max-height: 350px;
+  border-radius: 6px;
+  padding: 24px;
+}
+.content .charts .charts-container .census {
+  width: 40%;
+}
+.content .charts .charts-container .turnovers {
+  background-color: white;
+  width: 60%;
+}
+.content .measures table {
+  background-color: white;
+  border-radius: 6px;
+  padding: 12px;
+}
+.content .measures table th,
+.content .measures table td {
+  padding: 3px 6px;
+  text-align: start;
+}
+
+@media screen and (max-width: 1360px) {
+  .content .numbers {
+    padding-left: 20px;
+  }
+  .content .numbers .cards {
+    justify-content: start;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .content .numbers .cards .card {
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+  .content .charts {
+    padding-left: 20px;
+  }
+  .content .measures {
+    padding-left: 20px;
+  }
+}
+@media screen and (max-width: 1001px) {
+  .left-menu {
+    position: absolute;
+    display: none;
+    z-index: 100;
+    top: 70px;
+  }
+  .left-menu .branding {
+    display: none;
+  }
+  .content .top-nav {
+    background-color: #0E76BC;
+    color: white;
+    border-bottom-left-radius: 0;
+  }
+  .content .top-nav .bread-crumbs {
+    display: none;
+  }
+  .content .top-nav .branding,
+  .content .top-nav .mobile-menu-icon {
+    display: block;
+  }
+  .content .top-nav .branding:hover,
+  .content .top-nav .mobile-menu-icon:hover {
+    cursor: pointer;
+  }
+  .content .top-nav .close-mobile-menu-icon:hover {
+    cursor: pointer;
+  }
+  .content .top-nav .right-content .notification-text {
+    display: none;
+  }
+  .content .top-nav .right-content .notification {
+    position: relative;
+  }
+  .content .top-nav .right-content .notification .bell path {
+    fill: white !important;
+  }
+  .content .top-nav .right-content .profile .info .name {
+    font-size: 12px;
+  }
+  .content .top-nav .right-content .profile .info .position {
+    font-size: 10px;
+  }
+  .content .charts .charts-container .turnovers {
+    width: 55%;
+  }
+}
+@media screen and (max-width: 760px) {
+  .left-menu {
+    position: absolute;
+    display: none;
+    z-index: 100;
+    top: 70px;
+  }
+  .left-menu .branding {
+    display: none;
+  }
+  .content {
+    height: auto;
+    overflow-y: unset;
+  }
+  .content .top-nav {
+    background-color: #0E76BC;
+    color: white;
+    border-bottom-left-radius: 0;
+  }
+  .content .top-nav .bread-crumbs {
+    display: none;
+  }
+  .content .top-nav .right-content .notification-text,
+  .content .top-nav .right-content .notification {
+    display: none;
+  }
+  .content .top-nav .right-content .profile .info .name {
+    font-size: 12px;
+  }
+  .content .top-nav .right-content .profile .info .position {
+    font-size: 10px;
+  }
+  .content .main-content {
+    padding: 10px;
+  }
+  .content .numbers .cards {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .content .numbers .cards .card {
+    width: 48%;
+  }
+  .content .charts .charts-container {
+    flex-direction: column;
+  }
+  .content .charts .charts-container .census {
+    width: 100%;
+  }
+  .content .charts .charts-container .turnovers {
+    width: 100%;
+  }
+  .content .measures {
+    overflow-x: scroll;
+  }
+}/*# sourceMappingURL=index.css.map */
