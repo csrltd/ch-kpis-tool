@@ -125,8 +125,8 @@ class Census(models.Model):
     date_entered = models.DateTimeField()
     date_created = models.DateTimeField()
 
-    def __str__(self) -> str:
-        return self.hospital
+    def __str__(self):
+        return self.hospital.name
 
     class Meta:
         verbose_name_plural = ('Census')
