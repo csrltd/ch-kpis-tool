@@ -17,6 +17,7 @@ li {
 body {
     font-family: 'Mulish', sans-serif;
     background-color: $cSecondary;
+    color: rgb(55, 55, 55);
 }
 
 .row {
@@ -24,6 +25,10 @@ body {
     align-items: center;
     justify-content: space-between;
     gap: 20px;
+}
+
+.link {
+    cursor: pointer;
 }
 
 .branding {
@@ -40,6 +45,7 @@ body {
     }
 }
 
+
 .left-menu {
     background-color: $cPrimary;
     width: 300px;
@@ -50,6 +56,14 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    scrollbar-width: none;
+    /* hide the scrollbar */
+    scrollbar-color: $cPrimary transparent;
+    /* set scrollbar color */
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 
     .menu {
         display: grid;
@@ -77,6 +91,8 @@ body {
             }
 
             .dropdwon {
+                cursor: pointer;
+
                 .dropdown-text {
                     display: flex;
                     align-items: center;
@@ -99,6 +115,55 @@ body {
                         padding: 12px 35px;
                         color: $cPrimary;
                         border-radius: 6px;
+                    }
+                }
+
+                .dropdown-content-class {
+                    animation-name: dropDownAmimation;
+                    animation-duration: 0.2s;
+                    animation-fill-mode: both;
+                    animation-iteration-count: initial;
+                }
+
+                @keyframes dropDownAmimation {
+                    0% {
+                        height: 0;
+                    }
+
+                    20% {
+                        height: 100px;
+                    }
+
+                    30% {
+                        height: 110px;
+                    }
+
+                    40% {
+                        height: 130px;
+                    }
+
+                    50% {
+                        height: 150px;
+                    }
+
+                    60% {
+                        height: 150px;
+                    }
+
+                    70% {
+                        height: 150px;
+                    }
+
+                    85% {
+                        height: 170px;
+                    }
+
+                    95% {
+                        height: 175px;
+                    }
+
+                    100% {
+                        height: fit-content;
                     }
                 }
 
@@ -157,6 +222,7 @@ body {
         }
 
         .right-content {
+            position: relative;
             display: flex;
             align-items: center;
             gap: 24px;
@@ -178,6 +244,7 @@ body {
             }
 
             .profile {
+                cursor: pointer;
                 display: flex;
                 align-items: center;
                 gap: 6px;
@@ -190,6 +257,67 @@ body {
                     .position {
                         font-weight: lighter;
                         font-size: 12px;
+                    }
+                }
+            }
+
+            .profile-popup {
+                visibility: hidden;
+                position: absolute;
+                background-color: white;
+                box-shadow: 8px 8px 32px rgba(0, 0, 0, 0.25);
+                width: 267px;
+                top: 40px;
+                right: 0;
+                padding: 30px 20px;
+                border-radius: 6px;
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+                align-items: end;
+
+                .close-text {
+                    cursor: pointer;
+
+                    p {
+                        text-decoration: underline;
+                    }
+                }
+
+                .profile-summary,
+                .profile-links {
+                    width: 100%;
+                }
+
+                .profile-summary {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 6px;
+
+                    .summary-items {
+                        padding: 12px 20px;
+                        border: 1px solid rgb(196, 196, 196);
+                        border-radius: 6px;
+
+
+                        .summart-item {
+                            display: flex;
+                            gap: 6px;
+
+                            span {
+                                font-weight: bold;
+                            }
+                        }
+                    }
+                }
+
+                .profile-links {
+                    display: grid;
+                    gap: 24px;
+
+                    .link {
+                        border-bottom: 1px solid rgb(196, 196, 196);
+                        padding-bottom: 3px;
                     }
                 }
             }
@@ -423,6 +551,10 @@ body {
                             font-size: 10px;
                         }
                     }
+                }
+
+                .profile-popup {
+                    color: rgb(56, 56, 56);
                 }
             }
         }

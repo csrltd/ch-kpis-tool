@@ -12,6 +12,7 @@ li {
 body {
   font-family: "Mulish", sans-serif;
   background-color: #DEEEFA;
+  color: rgb(55, 55, 55);
 }
 
 .row {
@@ -19,6 +20,10 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
+}
+
+.link {
+  cursor: pointer;
 }
 
 .branding {
@@ -43,6 +48,13 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  scrollbar-width: none;
+  /* hide the scrollbar */
+  scrollbar-color: #0E76BC transparent;
+  /* set scrollbar color */
+}
+.left-menu::-webkit-scrollbar {
+  display: none;
 }
 .left-menu .menu {
   display: grid;
@@ -66,6 +78,9 @@ body {
   align-items: center;
   gap: 6px;
 }
+.left-menu .menu .menu-items .dropdwon {
+  cursor: pointer;
+}
 .left-menu .menu .menu-items .dropdwon .dropdown-text {
   display: flex;
   align-items: center;
@@ -87,6 +102,45 @@ body {
   padding: 12px 35px;
   color: #0E76BC;
   border-radius: 6px;
+}
+.left-menu .menu .menu-items .dropdwon .dropdown-content-class {
+  animation-name: dropDownAmimation;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-iteration-count: initial;
+}
+@keyframes dropDownAmimation {
+  0% {
+    height: 0;
+  }
+  20% {
+    height: 100px;
+  }
+  30% {
+    height: 110px;
+  }
+  40% {
+    height: 130px;
+  }
+  50% {
+    height: 150px;
+  }
+  60% {
+    height: 150px;
+  }
+  70% {
+    height: 150px;
+  }
+  85% {
+    height: 170px;
+  }
+  95% {
+    height: 175px;
+  }
+  100% {
+    height: -moz-fit-content;
+    height: fit-content;
+  }
 }
 .left-menu .menu .menu-items .dropdwon .hidden {
   display: none;
@@ -132,6 +186,7 @@ body {
   display: none;
 }
 .content .top-nav .right-content {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 24px;
@@ -147,6 +202,7 @@ body {
   right: 3px;
 }
 .content .top-nav .right-content .profile {
+  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -157,6 +213,56 @@ body {
 .content .top-nav .right-content .profile .info .position {
   font-weight: lighter;
   font-size: 12px;
+}
+.content .top-nav .right-content .profile-popup {
+  visibility: hidden;
+  position: absolute;
+  background-color: white;
+  box-shadow: 8px 8px 32px rgba(0, 0, 0, 0.25);
+  width: 267px;
+  top: 40px;
+  right: 0;
+  padding: 30px 20px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: end;
+}
+.content .top-nav .right-content .profile-popup .close-text {
+  cursor: pointer;
+}
+.content .top-nav .right-content .profile-popup .close-text p {
+  text-decoration: underline;
+}
+.content .top-nav .right-content .profile-popup .profile-summary,
+.content .top-nav .right-content .profile-popup .profile-links {
+  width: 100%;
+}
+.content .top-nav .right-content .profile-popup .profile-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.content .top-nav .right-content .profile-popup .profile-summary .summary-items {
+  padding: 12px 20px;
+  border: 1px solid rgb(196, 196, 196);
+  border-radius: 6px;
+}
+.content .top-nav .right-content .profile-popup .profile-summary .summary-items .summart-item {
+  display: flex;
+  gap: 6px;
+}
+.content .top-nav .right-content .profile-popup .profile-summary .summary-items .summart-item span {
+  font-weight: bold;
+}
+.content .top-nav .right-content .profile-popup .profile-links {
+  display: grid;
+  gap: 24px;
+}
+.content .top-nav .right-content .profile-popup .profile-links .link {
+  border-bottom: 1px solid rgb(196, 196, 196);
+  padding-bottom: 3px;
 }
 .content .main-content {
   display: flex;
@@ -316,6 +422,9 @@ body {
   }
   .content .top-nav .right-content .profile .info .position {
     font-size: 10px;
+  }
+  .content .top-nav .right-content .profile-popup {
+    color: rgb(56, 56, 56);
   }
   .content .main-content {
     padding: 10px;
