@@ -125,6 +125,9 @@ class Census(models.Model):
     date_entered = models.DateTimeField()
     date_created = models.DateTimeField()
 
+    def __str__(self) -> str:
+        return self.hospital
+
     class Meta:
         verbose_name_plural = ('Census')
     
@@ -149,6 +152,9 @@ class Measures(models.Model):
     hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE, null=True)
     date_entered = models.DateTimeField()
     date_created = models.DateTimeField()
+
+    def __str__(self) -> str:
+        return self.hospital
     
     class Meta:
         verbose_name_plural = ('Measures')
@@ -163,9 +169,15 @@ class Turnover(models.Model):
     date_entered = models.DateTimeField()
     date_created = models.DateTimeField()
 
+    def __str__(self) -> str:
+        return self.hospital
+
 class Hiring(models.Model):
     new_hires = models.IntegerField()
     hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE, null=True)
     date_entered = models.DateTimeField()
     date_created = models.DateTimeField()
+
+    def __str__(self) -> str:
+        return self.hospital
 
