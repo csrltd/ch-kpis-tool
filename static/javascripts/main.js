@@ -2,10 +2,14 @@
 //census chart
 
 let chartData = {
-  labels: ['Swing Bed', 'Acute Bed', 'inpatient', 'outpatient'],
+  labels: ['Mangum', 'Pawhuska', 'Prague', 'Carnegie', 'Seilling'],
   datasets: [{
     data: [0, 0, 0, 0],
-    backgroundColor: ['#FF6384', '#36A2EB', '#463333', '#23A2AB'],
+    backgroundColor: ['rgba(255, 99, 132, 0.8)',
+    'rgba(54, 162, 235, 0.8)',
+    'rgba(255, 206, 86, 0.8)',
+    'rgba(75, 192, 192, 0.8)',
+    'rgba(153, 102, 255, 0.8)'],
     borderWidth: 1,
   }]
 };
@@ -19,7 +23,7 @@ $.ajax({
     chartData.datasets[0].data = [chart_data.swing_bed, chart_data.acute_bed, chart_data.inpatient, chart_data.outpatient];
 
 
-    let ctx = document.getElementById('myChart').getContext('2d');
+    let ctx = document.getElementById('motalityRate').getContext('2d');
     new Chart(ctx, {
       type: 'doughnut',
       data: chartData,

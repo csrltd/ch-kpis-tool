@@ -27,11 +27,6 @@ class Hospital(models.Model):
 
     def get_absolute_url(self):
         return reverse("model_detail", kwargs={"pk": self.pk})
-
-class Turnover(models.Model):
-    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
-    turnover_date = models.DateField(auto_now_add=False, null=True)
-    turnover = models.IntegerField(max_length=255, null=True)
     
 
 
@@ -117,37 +112,60 @@ class Complaint(models.Model):
         return reverse("model_detail", kwargs={"pk": self.pk})
 
 
+
+# new models from the sheet
 class Census(models.Model):
-    census = models.ForeignKey(Patient, on_delete=models.SET_NULL, null=True)
-    inpatient = models.IntegerField(null=True)
-    bed_type = models.ForeignKey(Bed, on_delete=models.SET_NULL, null=True)
-    benchmark = models.DateTimeField()
-    date_created = models.DateTimeField(auto_now_add=True, null=True)
+    inpatient = models.IntegerField()
+    swing_bed = models.IntegerField()
+    observation = models.IntegerField()
+    emergency_room = models.IntegerField(null=True)
+    outpatient = models.IntegerField()
+    rural_health_clinic = models.IntegerField()
+    hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE, null=True)
+    date_entered = models.DateTimeField()
+    date_created = models.DateTimeField()
 
     class Meta:
         verbose_name_plural = ('Census')
-
+    
     def get_absolute_url(self):
         return reverse("model_detail", kwargs={"pk": self.pk})
 
-
 class Measures(models.Model):
-    mortality_rate = models.ForeignKey(
-        Hospital, on_delete=models.SET_NULL, null=True)
-    readmissions = models.ForeignKey(
-        Patient, on_delete=models.SET_NULL, null=True)
-    pressure_ulcer = models.ForeignKey(
-        Hospital, on_delete=models.SET_NULL, null=True, related_name="PressurEulcer")
-    emergency_room_transfer = models.ForeignKey(
-        Hospital, on_delete=models.SET_NULL, null=True, related_name="EmergencyRoomTransfer")
-    bed_transfers = models.ForeignKey(
-        Bed, on_delete=models.SET_NULL, null=True)
-    medication_errors = models.ForeignKey(
-        Profile, on_delete=models.SET_NULL, null=True)
-    benchmark = models.DateTimeField()
-
+    mortality_rate = models.CharField(max_length=255, null=True)
+    readmissions = models.IntegerField()
+    pressure_ulcer = models.IntegerField()
+    discharges_home = models.IntegerField()
+    emergency_room_transfers = models.IntegerField()
+    acute_swing_bed_transfers = models.IntegerField()
+    medication_errors = models.IntegerField()
+    falls = models.IntegerField()
+    against_medical_advice = models.IntegerField()
+    left_without_being_seen = models.IntegerField()
+    hospital_acquired_infection = models.IntegerField()
+    covid_vaccination_total_percentage_of_compliance = models.IntegerField()
+    complaint = models.IntegerField()
+    grievances = models.IntegerField()
+    hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE, null=True)
+    date_entered = models.DateTimeField()
+    date_created = models.DateTimeField()
+    
     class Meta:
         verbose_name_plural = ('Measures')
 
     def get_absolute_url(self):
         return reverse("model_detail", kwargs={"pk": self.pk})
+
+class Turnover(models.Model):
+    total = models.IntegerField()
+    voluntary = models.IntegerField()
+    hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE, null=True)
+    date_entered = models.DateTimeField()
+    date_created = models.DateTimeField()
+
+class Hiring(models.Model):
+    new_hires = models.IntegerField()
+    hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE, null=True)
+    date_entered = models.DateTimeField()
+    date_created = models.DateTimeField()
+

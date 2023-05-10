@@ -9,3 +9,8 @@ admin.site.register(Department)
 admin.site.register(Patient)
 admin.site.register(Bed)
 admin.site.register(Turnover)
+
+
+admin.site.register(Census)
+admin.site.register(Measures)
+admin.site.register(Hiring)
