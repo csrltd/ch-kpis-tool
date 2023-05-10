@@ -153,8 +153,8 @@ class Measures(models.Model):
     date_entered = models.DateTimeField()
     date_created = models.DateTimeField()
 
-    def __str__(self) -> str:
-        return self.hospital
+    def __str__(self):
+        return self.hospital.name
     
     class Meta:
         verbose_name_plural = ('Measures')
@@ -169,8 +169,8 @@ class Turnover(models.Model):
     date_entered = models.DateTimeField()
     date_created = models.DateTimeField()
 
-    def __str__(self) -> str:
-        return self.hospital
+    def __str__(self):
+        return self.hospital.name
 
 class Hiring(models.Model):
     new_hires = models.IntegerField()
@@ -178,6 +178,6 @@ class Hiring(models.Model):
     date_entered = models.DateTimeField()
     date_created = models.DateTimeField()
 
-    def __str__(self) -> str:
-        return self.hospital
+    def __str__(self):
+        return self.hospital.name
 
