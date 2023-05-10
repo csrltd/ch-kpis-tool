@@ -135,7 +135,7 @@ class Census(models.Model):
         return reverse("model_detail", kwargs={"pk": self.pk})
 
 class Measures(models.Model):
-    mortality_rate = models.CharField(max_length=255, null=True)
+    mortality_rate = models.IntegerField()
     readmissions = models.IntegerField()
     pressure_ulcer = models.IntegerField()
     discharges_home = models.IntegerField()
