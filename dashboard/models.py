@@ -3,10 +3,6 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 
-from django.dispatch import receiver
-from django.utils.crypto import get_random_string
-from django.db.models.signals import pre_save
-
 # Create your models here.
 
 class Hospital(models.Model):
@@ -135,7 +131,7 @@ class Census(models.Model):
         return reverse("model_detail", kwargs={"pk": self.pk})
 
 class Measures(models.Model):
-    mortality_rate = models.IntegerField()
+    mortality_rate = models.IntegerField(null=True)
     readmissions = models.IntegerField()
     pressure_ulcer = models.IntegerField()
     discharges_home = models.IntegerField()
