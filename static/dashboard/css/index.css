@@ -210,16 +210,22 @@ body {
 .content .top-nav .right-content .profile .info .name {
   font-weight: bold;
 }
+.content .top-nav .right-content .profile .info .name p {
+  text-transform: capitalize;
+}
 .content .top-nav .right-content .profile .info .position {
   font-weight: lighter;
   font-size: 12px;
+}
+.content .top-nav .right-content .profile .info .position p {
+  text-transform: capitalize;
 }
 .content .top-nav .right-content .profile-popup {
   visibility: hidden;
   position: absolute;
   background-color: white;
   box-shadow: 8px 8px 32px rgba(0, 0, 0, 0.25);
-  width: 267px;
+  width: 367px;
   top: 40px;
   right: 0;
   padding: 30px 20px;

@@ -12,9 +12,17 @@ import calendar
 from django.db.models.functions import TruncMonth
 from django.db.models import Sum
 
+#Permissions
+
+from .decorators import admin_required
+
+@admin_required
 def index(request):
+
+    profileInfo = Profile.objects.get(user=request.user)
+    context = {"profileInfo":profileInfo}
     
-    return render(request, 'dashboard/index.html')
+    return render(request, 'dashboard/index.html', context)
     # return render(request, 'base.html')
     # return render(request, 'tailwind/index.html')
     # return render(request, 'authentication/tailwind/login.html')

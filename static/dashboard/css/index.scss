@@ -252,11 +252,19 @@ body {
                 .info {
                     .name {
                         font-weight: bold;
+
+                        p {
+                            text-transform: capitalize;
+                        }
                     }
 
                     .position {
                         font-weight: lighter;
                         font-size: 12px;
+
+                        p {
+                            text-transform: capitalize;
+                        }
                     }
                 }
             }
@@ -266,7 +274,7 @@ body {
                 position: absolute;
                 background-color: white;
                 box-shadow: 8px 8px 32px rgba(0, 0, 0, 0.25);
-                width: 267px;
+                width: 367px;
                 top: 40px;
                 right: 0;
                 padding: 30px 20px;

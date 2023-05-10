@@ -131,7 +131,7 @@
             <h1 class="system-title">KPIs Tool</h1>
           </div>
           <div class="bread-crumbs">
-            <p>KPI Toll > Godwin Feh > Overview</p>
+            <p>KPI Toll >{{request.user.last_name}} > Overview</p>
           </div>
           <div class="right-content">
             <div class="notification">
@@ -161,8 +161,8 @@
                 class="profile-img"
               />
               <div class="info">
-                <p class="name">Godwin FEH</p>
-                <p class="position">Founder & CEO</p>
+                <p class="name">{{request.user.last_name}}</p>
+                <p class="position">{{profileInfo.role}}</p>
               </div>
             </div>
             <div class="profile-popup">
@@ -175,16 +175,18 @@
                 <div class="summary-items">
                   <div class="summart-item">
                     <span>Name:</span>
-                    <p>Godwin Feh</p>
+                    <p>
+                      {{request.user.first_name}} {{request.user.last_name}}
+                    </p>
                   </div>
                   <div class="summart-item">
                     <span>Position:</span>
-                    <p>CEO & Founder</p>
+                    <p>{{profileInfo.role}}</p>
                   </div>
 
                   <div class="summart-item">
                     <span>Hospital:</span>
-                    <p>All Hospitals</p>
+                    <p>{{profileInfo.hospital}}</p>
                   </div>
                 </div>
               </div>
