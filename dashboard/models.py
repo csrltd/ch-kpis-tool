@@ -159,7 +159,7 @@ class Measures(models.Model):
         return reverse("model_detail", kwargs={"pk": self.pk})
 
 class Turnover(models.Model):
-    total = models.FloatField()
+    total = models.DecimalField(max_digits=10, decimal_places=5)
     voluntary = models.IntegerField()
     hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE, null=True)
     date_entered = models.DateTimeField()
