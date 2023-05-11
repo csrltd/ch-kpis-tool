@@ -9,8 +9,8 @@ from .models import Patient, Hospital
 from django.http import JsonResponse
 from collections import defaultdict
 import calendar
-from django.db.models.functions import TruncMonth
-from django.db.models import Sum
+from django.db.models import Avg, Sum
+from django.views.decorators.http import require_http_methods
 
 #Permissions
 from .decorators import *
@@ -18,6 +18,26 @@ from .decorators import *
 
 #all view are secured to admin level. If you want to work on it, go
 #the admin dashboard and change your user group to admin
+
+@require_http_methods(['GET'])
+def measures_data(request):
+    measures = Measures.objects.values('hospital__name').annotate(
+        total_mortality_rate=Sum('mortality_rate')
+    ).order_by('hospital__name')
+    print(measures)
+    return JsonResponse(list(measures), safe=False)
+
+def hospital_mortality_rate(request):
+    data = []
+    hospitals = Hospital.objects.all()
+    for hospital in hospitals:
+        measures = Measures.objects.filter(hospital=hospital)
+        mortality_rate_avg = measures.aggregate(Avg('mortality_rate'))['mortality_rate__avg']
+        data.append({
+            'hospital': hospital.name,
+            'mortality_rate': mortality_rate_avg,
+        })
+    return JsonResponse(data, safe=False)
 
 @admin_required
 def index(request):
