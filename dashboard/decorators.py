@@ -24,12 +24,12 @@ def ceo_required(view_func):
         return view_func(request, *args, **kwargs)
     return wrapper
 
-def ceo_required(view_func):
+def employee_required(view_func):
     @wraps(view_func)
     def wrapper(request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect('login')
-        if not request.user.groups.filter(name='CEO').exists():
+        if not request.user.groups.filter(name='Employee').exists():
             logout(request)
             return redirect('login')
         return view_func(request, *args, **kwargs)
@@ -41,17 +41,6 @@ def hospital_admin_required(view_func):
         if not request.user.is_authenticated:
             return redirect('login')
         if not request.user.groups.filter(name='Hospital Admin').exists():
-            logout(request)
-            return redirect('login')
-        return view_func(request, *args, **kwargs)
-    return wrapper
-
-def hospital_admin_required(view_func):
-    @wraps(view_func)
-    def wrapper(request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect('login')
-        if not request.user.groups.filter(name='Employee').exists():
             logout(request)
             return redirect('login')
         return view_func(request, *args, **kwargs)

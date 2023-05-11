@@ -13,8 +13,11 @@ from django.db.models.functions import TruncMonth
 from django.db.models import Sum
 
 #Permissions
+from .decorators import *
 
-from .decorators import admin_required
+
+#all view are secured to admin level. If you want to work on it, go
+#the admin dashboard and change your user group to admin
 
 @admin_required
 def index(request):
@@ -27,6 +30,7 @@ def index(request):
     # return render(request, 'tailwind/index.html')
     # return render(request, 'authentication/tailwind/login.html')
 
+@admin_required
 def chart_data(request):
     
     bed_data = Bed.objects.all().count()
@@ -56,7 +60,7 @@ def chart_data(request):
 
 
 # displaying numbers of bed and patients in each hospital to the cards
-
+@admin_required
 def hospital_numbers(request):
     hospitals = Hospital.objects.all()
     inpatient_count = Patient.objects.filter(status='inpatient').count()
@@ -76,7 +80,7 @@ def hospital_numbers(request):
 
 
 # New way to get data
-
+@admin_required
 def filter_patients_by_month(request):
     hospital_names = Hospital.objects.all()
     data = {}
@@ -137,7 +141,7 @@ def loginPage(request):
                 request, 'Invalid credentials!!! Please enter correct username or password')
     return render(request, 'authentication/login.html')
 
-
+@admin_required
 def hospitalDashboard(request):
     form = HospitalForm()
     context = {'form': form}
@@ -151,7 +155,7 @@ def hospitalDashboard(request):
 
     return render(request, 'dashboard/hospitaldashboard.html', context)
 
-
+@admin_required
 def departement(request):
     hospitals = Hospital.objects.all()
     if request.method == 'POST':
@@ -167,7 +171,7 @@ def departement(request):
     context = {'hospitals': hospitals}
     return render(request, 'dashboard/add-departement.html', context)
 
-
+@admin_required
 def complete_profile(request):
     hospitals = Hospital.objects.all()
     departments = Department.objects.all()
@@ -201,7 +205,7 @@ def complete_profile(request):
 
     return render(request, 'dashboard/complete-profile.html', context)
 
-
+@admin_required
 def patient(request):
     users = Profile.objects.filter(role='doctor')
     form = patientForm()
@@ -221,19 +225,19 @@ def patient(request):
     context = {'users': users, 'form': form}
     return render(request, 'dashboard/addpatient.html', context)
 
-
+@admin_required
 def bed(request):
     return render(request, 'dashboard/addnewbed.html')
 
-
+@admin_required
 def metrics(request):
     return render(request, 'dashboard/addmetrics.html')
 
-
+@admin_required
 def newEntry(request):
     return render(request, 'dashboard/new-entry.html')
 
-
+@admin_required
 def HospitalCreateView(request):
     form = ""
     if form.is_valid():
