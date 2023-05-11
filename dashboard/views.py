@@ -26,9 +26,7 @@ def index(request):
     context = {"profileInfo":profileInfo}
     
     return render(request, 'dashboard/index.html', context)
-    # return render(request, 'base.html')
-    # return render(request, 'tailwind/index.html')
-    # return render(request, 'authentication/tailwind/login.html')
+
 
 @admin_required
 def chart_data(request):
@@ -55,8 +53,6 @@ def chart_data(request):
     }
 
     return JsonResponse(context)
-
-
 
 
 # displaying numbers of bed and patients in each hospital to the cards
@@ -109,6 +105,7 @@ def filter_patients_by_month(request):
         data[hospital_name.name]['outpatient_totals'] = outpatient_totals
     return JsonResponse(data)
 
+
 def signup(request):
     form = UserRegistration()
     context = {'form': form}
@@ -141,6 +138,7 @@ def loginPage(request):
                 request, 'Invalid credentials!!! Please enter correct username or password')
     return render(request, 'authentication/login.html')
 
+
 @admin_required
 def hospitalDashboard(request):
     form = HospitalForm()
@@ -154,6 +152,7 @@ def hospitalDashboard(request):
             form = HospitalForm()
 
     return render(request, 'dashboard/hospitaldashboard.html', context)
+
 
 @admin_required
 def departement(request):
