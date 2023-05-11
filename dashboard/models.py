@@ -3,10 +3,6 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 
-from django.dispatch import receiver
-from django.utils.crypto import get_random_string
-from django.db.models.signals import pre_save
-
 # Create your models here.
 
 class Hospital(models.Model):
@@ -125,6 +121,9 @@ class Census(models.Model):
     date_entered = models.DateTimeField()
     date_created = models.DateTimeField()
 
+    def __str__(self):
+        return self.hospital.name
+
     class Meta:
         verbose_name_plural = ('Census')
     
@@ -132,7 +131,7 @@ class Census(models.Model):
         return reverse("model_detail", kwargs={"pk": self.pk})
 
 class Measures(models.Model):
-    mortality_rate = models.CharField(max_length=255, null=True)
+    mortality_rate = models.IntegerField(null=True)
     readmissions = models.IntegerField()
     pressure_ulcer = models.IntegerField()
     discharges_home = models.IntegerField()
@@ -149,6 +148,9 @@ class Measures(models.Model):
     hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE, null=True)
     date_entered = models.DateTimeField()
     date_created = models.DateTimeField()
+
+    def __str__(self):
+        return self.hospital.name
     
     class Meta:
         verbose_name_plural = ('Measures')
@@ -163,9 +165,15 @@ class Turnover(models.Model):
     date_entered = models.DateTimeField()
     date_created = models.DateTimeField()
 
+    def __str__(self):
+        return self.hospital.name
+
 class Hiring(models.Model):
     new_hires = models.IntegerField()
     hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE, null=True)
     date_entered = models.DateTimeField()
     date_created = models.DateTimeField()
+
+    def __str__(self):
+        return self.hospital.name
 
