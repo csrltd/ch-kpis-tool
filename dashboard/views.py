@@ -1,7 +1,7 @@
 from datetime import timezone
 from django.shortcuts import render, redirect
 from .forms import *
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import Hospital, Department, Profile, Hospital
 from .models import *
@@ -210,6 +210,11 @@ def loginPage(request):
                 request, 'Invalid credentials!!! Please enter correct username or password')
     return render(request, 'authentication/login.html')
 
+def logOutPage(request):
+    user = request.user
+    logout(request.user)
+
+    return redirect('login')
 
 @admin_required
 def hospitalDashboard(request):

@@ -243,7 +243,8 @@
                       fill="#0E76BC"
                     />
                   </svg>
-                  <span>Logout</span>
+
+                  <a href="{% url 'logout' %}"><span>Logout</span></a>
                 </div>
               </div>
             </div>
@@ -356,7 +357,7 @@
         <div class="main-content measures">
           <h1 class="title">Measures</h1>
           <table id="myTable">
-            <tr style="background-color: red">
+            <tr class="tableHead" style="background-color: red">
               <th>Measures/Month</th>
               <th>Jan</th>
               <th>Feb</th>
@@ -547,7 +548,7 @@
     <script src="{% static '/dashboard/js/piChart.js' %}"></script>
     <script
       type="text/javascript"
-      src="{% static '/javascripts/main.js' %}"
+      src="{% static '/dashboard/js/main.js' %}"
     ></script>
   </body>
 </html>
