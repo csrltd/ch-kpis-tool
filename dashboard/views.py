@@ -81,10 +81,22 @@ def hospital_mortality_rate(request):
 
 @admin_required
 def index(request):
-
     profileInfo = Profile.objects.get(user=request.user)
-    context = {"profileInfo":profileInfo}
-    
+    hospitals = Hospital.objects.all()
+    inpatient_count = Patient.objects.filter(status='inpatient').count()
+    outpatient_count = Patient.objects.filter(status='outpatient').count()
+    acute_bed_count = Bed.objects.filter(type='acute bed').count()
+    swing_bed_count = Bed.objects.filter(type='swing bed').count()
+
+    context = {
+        'hospitals': hospitals,
+        'inpatient_count': inpatient_count,
+        'outpatient_count': outpatient_count,
+        'acute_bed_count': acute_bed_count,
+        'swing_bed_count': swing_bed_count,
+        'profileInfo':profileInfo,
+    }
+        
     return render(request, 'dashboard/index.html', context)
 
 
