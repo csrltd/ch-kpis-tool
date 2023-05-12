@@ -263,7 +263,7 @@
               <div class="number-content">
                 <div class="text">Inpatient</div>
                 <div class="number">
-                  <p>{{ inpatient_count }}</p>
+                  <p>34{{ inpatient_count }}</p>
                 </div>
               </div>
             </div>
@@ -277,7 +277,7 @@
               <div class="number-content">
                 <div class="text">Outpatient</div>
                 <div class="number">
-                  <p>{{ outpatient_count }}</p>
+                  <p>12{{ outpatient_count }}</p>
                 </div>
               </div>
             </div>
@@ -291,7 +291,7 @@
               <div class="number-content">
                 <div class="text">Swing bed</div>
                 <div class="number">
-                  <p>{{ swing_bed_count }}</p>
+                  <p>40{{ swing_bed_count }}</p>
                 </div>
               </div>
             </div>
@@ -305,7 +305,7 @@
               <div class="number-content">
                 <div class="text">Acute bed</div>
                 <div class="number">
-                  <p>{{ acute_bed_count }}</p>
+                  <p>44{{ acute_bed_count }}</p>
                 </div>
               </div>
             </div>
@@ -543,7 +543,11 @@
       </div>
     </div>
     <script src="{% static '/dashboard/js/navigation.js' %}"></script>
-    <script src="{% static '/dashboard/js/charts.js' %}"></script>
-    <script type="text/javascript" src="{% static '/javascripts/main.js' %}"></script>
+    <script src="{% static '/dashboard/js/chartTurnover.js' %}"></script>
+    <script src="{% static '/dashboard/js/piChart.js' %}"></script>
+    <script
+      type="text/javascript"
+      src="{% static '/javascripts/main.js' %}"
+    ></script>
   </body>
 </html>

@@ -15,9 +15,49 @@ from django.views.decorators.http import require_http_methods
 #Permissions
 from .decorators import *
 
-
 #all view are secured to admin level. If you want to work on it, go
 #the admin dashboard and change your user group to admin
+from django.shortcuts import render
+from django.http import JsonResponse
+from .models import Turnover
+from django.db.models.functions import TruncMonth
+import datetime
+
+def turnover_data(request, hospital_id=None):
+    current_year = datetime.datetime.now().year
+    hospitals = Hospital.objects.all()
+
+    data = {
+        'labels': [],
+        'datasets': []
+    }
+
+    for hospital in hospitals:
+        turnover_data = Turnover.objects.filter(hospital=hospital) \
+                                        .annotate(month=TruncMonth('date_entered')) \
+                                        .values('month') \
+                                        .annotate(total=Sum('total'), voluntary=Sum('voluntary')) \
+                                        .values('month', 'total', 'voluntary')
+
+        turnover_dataset = {
+            'label': hospital.name,
+            'data': [],
+            'fill': False
+        }
+
+        for item in turnover_data:
+            month = item['month'].strftime('%b %y')
+            turnover_dataset['data'].append(item['total'])
+            data['labels'].append(month)
+
+        data['datasets'].append(turnover_dataset)
+
+        print(f'Turnover data for {hospital.name}: {turnover_data}')
+
+    print(f'Final data: {data}')
+
+    return JsonResponse(data)
+
 
 @require_http_methods(['GET'])
 def measures_data(request):
