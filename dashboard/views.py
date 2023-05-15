@@ -104,10 +104,8 @@ def index(request):
         total_readmissions = readmission['total_readmissions']
         hospital_data.setdefault(hospital.name, {})[month] = total_readmissions
 
-    # list of hospitals
     hospitals_list = Hospital.objects.order_by('name')
 
-    # Create a list of months in the order you want them to be displayed
     months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
     table_data = []
