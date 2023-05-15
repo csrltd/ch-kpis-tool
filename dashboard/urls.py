@@ -19,4 +19,5 @@ urlpatterns = [
     path('metrics/', views.metrics, name='metrics'),
     path('new-entry/', views.newEntry, name='new-entry'),
     path('measures_data/', views.measures_data, name='measures_data'),
+
 ]

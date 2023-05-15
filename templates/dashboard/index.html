@@ -1,554 +1,295 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static '/dashboard/css/index.css' %}" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <title>Dashboard</title>
-  </head>
 
-  <body>
-    <div class="row">
-      <div class="col left-menu">
-        <div class="menu">
-          <div class="branding">
-            <img
-              src="{% static '/dashboard/img/ch-white-logo.svg' %}"
-              alt=""
-              class="logo"
-            />
-            <h1 class="system-title">CH KPIs Tool</h1>
-          </div>
-          <url class="menu-items">
-            <li class="menu-item">
-              <a href=""
-                ><img
-                  src="{% static '/dashboard/img/icons/tachometer-alt.svg' %}"
-                  alt=""
-                  class="menu-icons"
-                />
-                <span>Dashboard</span></a
-              >
-            </li>
-            <hr />
-            <li class="menu-item dropdwon" id="hspDropDown">
-              <div class="dropdown-text">
-                <span>Hospitals</span
-                ><img
-                  src="{% static '/dashboard/img/icons/ange-righ.svg' %}"
-                  alt=""
-                />
-              </div>
-              <div class="dropdown-content hspdropdown-content">
-                <a href="" class="button"
-                  ><span>Add data</span
-                  ><img
-                    src="{% static '/dashboard/img/icons/plus.svg' %}"
-                    alt=""
-                /></a>
-                <a href="">Mangum</a>
-                <a href="">Prague</a>
-                <a href="">Pawhuska</a>
-                <a href="">Carnegie</a>
-                <a href="">Seilling</a>
-              </div>
-            </li>
-            <hr />
-            <li class="menu-item dropdwon" id="rhcDropDown">
-              <div class="dropdown-text">
-                <span>RHC</span
-                ><img
-                  src="{% static '/dashboard/img/icons/ange-righ.svg' %}"
-                  alt=""
-                />
-              </div>
-              <div class="dropdown-content rhcdropdown-content hidden">
-                <a href="" class="button"
-                  ><span>Add data</span
-                  ><img
-                    src="{% static '/dashboard/img/icons/plus.svg' %}"
-                    alt=""
-                /></a>
-                <a href="">Mangum</a>
-                <a href="">Prague</a>
-                <a href="">Pawhuska</a>
-                <a href="">Carnegie</a>
-                <a href="">Seilling</a>
-              </div>
-            </li>
-            <hr />
-            <li class="menu-item dropdwon" id="laborDropDown">
-              <div class="dropdown-text">
-                <span>Labor Tracker</span
-                ><img
-                  src="{% static '/dashboard/img/icons/ange-righ.svg' %}"
-                  alt=""
-                />
-              </div>
-              <div class="dropdown-content labordropdown-content hidden">
-                <a href="" class="button"
-                  ><span>Add data</span
-                  ><img
-                    src="{% static '/dashboard/img/icons/plus.svg' %}"
-                    alt=""
-                /></a>
-                <a href="">Mangum</a>
-                <a href="">Prague</a>
-                <a href="">Pawhuska</a>
-                <a href="">Carnegie</a>
-                <a href="">Seilling</a>
-              </div>
-            </li>
-          </url>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static '/dashboard/css/index.css' %}" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Dashboard</title>
+</head>
 
-        <div class="site-info">
-          <h3 class="title">Need support?</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa
-            mi. Aliquam in hendrerit urna.
-          </p>
-          <a href="">Contact admin</a>
+<body>
+  <div class="row">
+    <div class="col left-menu">
+      <div class="menu">
+        <div class="branding">
+          <img src="{% static '/dashboard/img/ch-white-logo.svg' %}" alt="" class="logo" />
+          <h1 class="system-title">CH KPIs Tool</h1>
         </div>
+        <url class="menu-items">
+          <li class="menu-item">
+            <a href=""><img src="{% static '/dashboard/img/icons/tachometer-alt.svg' %}" alt="" class="menu-icons" />
+              <span>Dashboard</span></a>
+          </li>
+          <hr />
+          <li class="menu-item dropdwon" id="hspDropDown">
+            <div class="dropdown-text">
+              <span>Hospitals</span><img src="{% static '/dashboard/img/icons/ange-righ.svg' %}" alt="" />
+            </div>
+            <div class="dropdown-content hspdropdown-content">
+              <a href="" class="button"><span>Add data</span><img src="{% static '/dashboard/img/icons/plus.svg' %}"
+                  alt="" /></a>
+              <a href="">Mangum</a>
+              <a href="">Prague</a>
+              <a href="">Pawhuska</a>
+              <a href="">Carnegie</a>
+              <a href="">Seilling</a>
+            </div>
+          </li>
+          <hr />
+          <li class="menu-item dropdwon" id="rhcDropDown">
+            <div class="dropdown-text">
+              <span>RHC</span><img src="{% static '/dashboard/img/icons/ange-righ.svg' %}" alt="" />
+            </div>
+            <div class="dropdown-content rhcdropdown-content hidden">
+              <a href="" class="button"><span>Add data</span><img src="{% static '/dashboard/img/icons/plus.svg' %}"
+                  alt="" /></a>
+              <a href="">Mangum</a>
+              <a href="">Prague</a>
+              <a href="">Pawhuska</a>
+              <a href="">Carnegie</a>
+              <a href="">Seilling</a>
+            </div>
+          </li>
+          <hr />
+          <li class="menu-item dropdwon" id="laborDropDown">
+            <div class="dropdown-text">
+              <span>Labor Tracker</span><img src="{% static '/dashboard/img/icons/ange-righ.svg' %}" alt="" />
+            </div>
+            <div class="dropdown-content labordropdown-content hidden">
+              <a href="" class="button"><span>Add data</span><img src="{% static '/dashboard/img/icons/plus.svg' %}"
+                  alt="" /></a>
+              <a href="">Mangum</a>
+              <a href="">Prague</a>
+              <a href="">Pawhuska</a>
+              <a href="">Carnegie</a>
+              <a href="">Seilling</a>
+            </div>
+          </li>
+        </url>
       </div>
-      <div class="col content">
-        <div class="top-nav">
-          <div class="mobile-menu-icon">
-            <img src="{% static '/dashboard/img/menu-icon.svg' %}" alt="" />
-          </div>
-          <div class="close-mobile-menu-icon">
-            <span>Close</span>
-          </div>
-          <div class="branding">
-            <img
-              src="{% static '/dashboard/img/ch-white-logo.svg' %}"
-              alt=""
-              class="logo"
-            />
-            <h1 class="system-title">KPIs Tool</h1>
-          </div>
-          <div class="bread-crumbs">
-            <p>KPI Toll >{{request.user.last_name}} > Overview</p>
-          </div>
-          <div class="right-content">
-            <div class="notification">
-              <!-- <img class="bell" src="{% static '/dashboard/img/icons/bell.svg' %}" alt=""> -->
-              <svg
-                class="bell"
-                width="23"
-                height="25"
-                viewBox="0 0 23 25"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11.5 25C13.2246 25 14.6236 23.6011 14.6236 21.875H8.3765C8.3765 23.6011 9.77542 25 11.5 25ZM22.0171 17.6899C21.0738 16.6763 19.3086 15.1514 19.3086 10.1562C19.3086 6.3623 16.6485 3.3252 13.0616 2.58008V1.5625C13.0616 0.699707 12.3623 0 11.5 0C10.6377 0 9.93851 0.699707 9.93851 1.5625V2.58008C6.3516 3.3252 3.69144 6.3623 3.69144 10.1562C3.69144 15.1514 1.9263 16.6763 0.982944 17.6899C0.689975 18.0049 0.560092 18.3813 0.562534 18.75C0.567905 19.5508 1.19632 20.3125 2.12992 20.3125H20.8702C21.8037 20.3125 22.4327 19.5508 22.4375 18.75C22.44 18.3813 22.3101 18.0044 22.0171 17.6899Z"
-                />
-              </svg>
-              <img
-                src="{% static '/dashboard/img/icons/red-dot.svg' %}"
-                alt=""
-                class="red-dot"
-              />
-            </div>
-            <div class="profile">
-              <img
-                src="{% static '/dashboard/img/icons/profile-img.svg' %}"
-                alt=""
-                class="profile-img"
-              />
-              <div class="info">
-                <p class="name">{{request.user.last_name}}</p>
-                <p class="position">{{profileInfo.role}}</p>
-              </div>
-            </div>
-            <div class="profile-popup">
-              <div class="close-text">
-                <p>Close</p>
-              </div>
 
-              <div class="profile-summary">
-                <h3>Profile Summary</h3>
-                <div class="summary-items">
-                  <div class="summart-item">
-                    <span>Name:</span>
-                    <p>
-                      {{request.user.first_name}} {{request.user.last_name}}
-                    </p>
-                  </div>
-                  <div class="summart-item">
-                    <span>Position:</span>
-                    <p>{{profileInfo.role}}</p>
-                  </div>
-
-                  <div class="summart-item">
-                    <span>Hospital:</span>
-                    <p>{{profileInfo.hospital}}</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="profile-links">
-                <div class="link">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M8 8C10.2094 8 12 6.20937 12 4C12 1.79063 10.2094 0 8 0C5.79063 0 4 1.79063 4 4C4 6.20937 5.79063 8 8 8ZM10.8 9H10.2781C9.58437 9.31875 8.8125 9.5 8 9.5C7.1875 9.5 6.41875 9.31875 5.72188 9H5.2C2.88125 9 1 10.8812 1 13.2V14.5C1 15.3281 1.67187 16 2.5 16H13.5C14.3281 16 15 15.3281 15 14.5V13.2C15 10.8812 13.1187 9 10.8 9Z"
-                      fill="#0E76BC"
-                    />
-                  </svg>
-                  <span>Full Profile</span>
-                </div>
-                <div class="link">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g clip-path="url(#clip0_597_3059)">
-                      <path
-                        d="M15.2311 9.8657L13.8999 9.09695C14.0343 8.37195 14.0343 7.6282 13.8999 6.9032L15.2311 6.13445C15.3843 6.04695 15.453 5.8657 15.403 5.69695C15.0561 4.58445 14.4655 3.5782 13.6936 2.7407C13.5749 2.61258 13.3811 2.58133 13.2311 2.66883L11.8999 3.43758C11.3405 2.95633 10.6968 2.58445 9.9999 2.3407V0.806328C9.9999 0.631328 9.87802 0.478203 9.70615 0.440703C8.55927 0.184453 7.38427 0.196953 6.29365 0.440703C6.12177 0.478203 5.9999 0.631328 5.9999 0.806328V2.34383C5.30615 2.5907 4.6624 2.96258 4.0999 3.4407L2.77177 2.67195C2.61865 2.58445 2.42802 2.61258 2.30927 2.74383C1.5374 3.5782 0.946773 4.58445 0.599898 5.70008C0.546773 5.86883 0.618648 6.05008 0.771773 6.13758L2.10302 6.90633C1.96865 7.63133 1.96865 8.37508 2.10302 9.10008L0.771773 9.86883C0.618648 9.95633 0.549898 10.1376 0.599898 10.3063C0.946773 11.4188 1.5374 12.4251 2.30927 13.2626C2.42802 13.3907 2.62177 13.422 2.77177 13.3345L4.10302 12.5657C4.6624 13.047 5.30615 13.4188 6.00302 13.6626V15.2001C6.00302 15.3751 6.1249 15.5282 6.29677 15.5657C7.44365 15.822 8.61865 15.8095 9.70927 15.5657C9.88115 15.5282 10.003 15.3751 10.003 15.2001V13.6626C10.6968 13.4157 11.3405 13.0438 11.903 12.5657L13.2343 13.3345C13.3874 13.422 13.578 13.3938 13.6968 13.2626C14.4686 12.4282 15.0593 11.422 15.4061 10.3063C15.453 10.1345 15.3843 9.9532 15.2311 9.8657ZM7.9999 10.5001C6.62177 10.5001 5.4999 9.3782 5.4999 8.00008C5.4999 6.62195 6.62177 5.50008 7.9999 5.50008C9.37802 5.50008 10.4999 6.62195 10.4999 8.00008C10.4999 9.3782 9.37802 10.5001 7.9999 10.5001Z"
-                        fill="#0E76BC"
-                      />
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_597_3059">
-                        <rect width="16" height="16" fill="white" />
-                      </clipPath>
-                    </defs>
-                  </svg>
-                  <span>Settings</span>
-                </div>
-
-                <div class="link">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0.46875 7.46882L5.71875 2.21882C6.1875 1.75007 7 2.07819 7 2.75007V5.75007L11.25 5.75007C11.6656 5.75007 12 6.08444 12 6.50007V9.50007C12 9.91569 11.6656 10.2501 11.25 10.2501H7V13.2501C7 13.9188 6.19063 14.2501 5.71875 13.7813L0.46875 8.53132C0.178125 8.23757 0.178125 7.76257 0.46875 7.46882ZM10 2.37507L10 3.62507C10 3.83132 10.1688 4.00007 10.375 4.00007H13C13.5531 4.00007 14 4.44694 14 5.00007L14 11.0001C14 11.5532 13.5531 12.0001 13 12.0001H10.375C10.1688 12.0001 10 12.1688 10 12.3751V13.6251C10 13.8313 10.1688 14.0001 10.375 14.0001H13C14.6562 14.0001 16 12.6563 16 11.0001V5.00007C16 3.34382 14.6563 2.00007 13 2.00007H10.375C10.1688 2.00007 10 2.16882 10 2.37507Z"
-                      fill="#0E76BC"
-                    />
-                  </svg>
-
-                  <a href="{% url 'logout' %}"><span>Logout</span></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="main-content numbers">
-          <h1 class="title">Quick numbers</h1>
-          <div class="cards">
-            <div class="card">
-              <img
-                class="card-img"
-                src="{% static '/dashboard/img/icons/inpatient.svg' %}"
-                alt=""
-                class="number-img"
-              />
-              <div class="number-content">
-                <div class="text">Inpatient</div>
-                <div class="number">
-                  <p>{{ inpatient_count }}</p>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <img
-                class="card-img"
-                src="{% static '/dashboard/img/icons/outpatient.svg' %}"
-                alt=""
-                class="number-img"
-              />
-              <div class="number-content">
-                <div class="text">Outpatient</div>
-                <div class="number">
-                  <p>{{ outpatient_count }}</p>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <img
-                class="card-img"
-                src="{% static '/dashboard/img/icons/swing-bed.svg' %}"
-                alt=""
-                class="number-img"
-              />
-              <div class="number-content">
-                <div class="text">Swing bed</div>
-                <div class="number">
-                  <p>{{ swing_bed_count }}</p>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <img
-                class="card-img"
-                src="{% static '/dashboard/img/icons/acute-bed.svg' %}"
-                alt=""
-                class="number-img"
-              />
-              <div class="number-content">
-                <div class="text">Acute bed</div>
-                <div class="number">
-                  <p>{{ acute_bed_count }}</p>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <img
-                class="card-img"
-                src="{% static '/dashboard/img/icons/emergency-room.svg' %}"
-                alt=""
-                class="number-img"
-              />
-              <div class="number-content">
-                <div class="text">Emergency room</div>
-                <div class="number">
-                  <p>66</p>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <img
-                class="card-img"
-                src="{% static '/dashboard/img/icons/rural health clinic.svg' %}"
-                alt=""
-                class="number-img"
-              />
-              <div class="number-content">
-                <div class="text">Rural health clinic</div>
-                <div class="number">
-                  <p>60</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="main-content charts">
-          <h1 class="title">Charts</h1>
-
-          <div class="charts-container">
-            <div class="chart census">
-              <h3 class="title">Mortality rate</h3>
-              <canvas id="mortality-rate"></canvas>
-            </div>
-            <div class="chart turnovers">
-              <h3 class="title">Turnovers</h3>
-              <canvas id="turnOvers"></canvas>
-            </div>
-          </div>
-        </div>
-        <div class="main-content measures">
-          <h1 class="title">Measures</h1>
-          <table id="myTable">
-            <tr class="tableHead" style="background-color: red">
-              <th>Measures/Month</th>
-              <th>Jan</th>
-              <th>Feb</th>
-              <th>Marc</th>
-              <th>April</th>
-              <th>May</th>
-              <th>June</th>
-              <th>July</th>
-              <th>Aug</th>
-              <th>Sept</th>
-              <th>Oct</th>
-              <th>Nov</th>
-              <th>Dec</th>
-            </tr>
-            <tr>
-              <td>Re-admissions</td>
-              <td>1</td>
-              <td>3</td>
-              <td>5</td>
-              <td>7</td>
-              <td>21</td>
-              <td>4</td>
-              <td>10</td>
-              <td>4</td>
-              <td>7</td>
-              <td>8</td>
-              <td>6</td>
-              <td>3</td>
-            </tr>
-            <tr>
-              <td>Re-admissions</td>
-              <td>1</td>
-              <td>3</td>
-              <td>5</td>
-              <td>7</td>
-              <td>21</td>
-              <td>4</td>
-              <td>10</td>
-              <td>4</td>
-              <td>7</td>
-              <td>8</td>
-              <td>6</td>
-              <td>3</td>
-            </tr>
-            <tr>
-              <td>Re-admissions</td>
-              <td>1</td>
-              <td>3</td>
-              <td>5</td>
-              <td>7</td>
-              <td>21</td>
-              <td>4</td>
-              <td>10</td>
-              <td>4</td>
-              <td>7</td>
-              <td>8</td>
-              <td>6</td>
-              <td>3</td>
-            </tr>
-            <tr>
-              <td>Re-admissions</td>
-              <td>1</td>
-              <td>3</td>
-              <td>5</td>
-              <td>7</td>
-              <td>21</td>
-              <td>4</td>
-              <td>10</td>
-              <td>4</td>
-              <td>7</td>
-              <td>8</td>
-              <td>6</td>
-              <td>3</td>
-            </tr>
-            <tr>
-              <td>Re-admissions</td>
-              <td>1</td>
-              <td>3</td>
-              <td>5</td>
-              <td>7</td>
-              <td>21</td>
-              <td>4</td>
-              <td>10</td>
-              <td>4</td>
-              <td>7</td>
-              <td>8</td>
-              <td>6</td>
-              <td>3</td>
-            </tr>
-            <tr>
-              <td>Re-admissions</td>
-              <td>1</td>
-              <td>3</td>
-              <td>5</td>
-              <td>7</td>
-              <td>21</td>
-              <td>4</td>
-              <td>10</td>
-              <td>4</td>
-              <td>7</td>
-              <td>8</td>
-              <td>6</td>
-              <td>3</td>
-            </tr>
-            <tr>
-              <td>Re-admissions</td>
-              <td>1</td>
-              <td>3</td>
-              <td>5</td>
-              <td>7</td>
-              <td>21</td>
-              <td>4</td>
-              <td>10</td>
-              <td>4</td>
-              <td>7</td>
-              <td>8</td>
-              <td>6</td>
-              <td>3</td>
-            </tr>
-            <tr>
-              <td>Re-admissions</td>
-              <td>1</td>
-              <td>3</td>
-              <td>5</td>
-              <td>7</td>
-              <td>21</td>
-              <td>4</td>
-              <td>10</td>
-              <td>4</td>
-              <td>7</td>
-              <td>8</td>
-              <td>6</td>
-              <td>3</td>
-            </tr>
-            <tr>
-              <td>Re-admissions</td>
-              <td>1</td>
-              <td>3</td>
-              <td>5</td>
-              <td>7</td>
-              <td>21</td>
-              <td>4</td>
-              <td>10</td>
-              <td>4</td>
-              <td>7</td>
-              <td>8</td>
-              <td>6</td>
-              <td>3</td>
-            </tr>
-            <tr>
-              <td>Re-admissions</td>
-              <td>1</td>
-              <td>3</td>
-              <td>5</td>
-              <td>7</td>
-              <td>21</td>
-              <td>4</td>
-              <td>10</td>
-              <td>4</td>
-              <td>7</td>
-              <td>8</td>
-              <td>6</td>
-              <td>3</td>
-            </tr>
-            <tr>
-              <td>Re-admissions</td>
-              <td>1</td>
-              <td>3</td>
-              <td>5</td>
-              <td>7</td>
-              <td>21</td>
-              <td>4</td>
-              <td>10</td>
-              <td>4</td>
-              <td>7</td>
-              <td>8</td>
-              <td>6</td>
-              <td>3</td>
-            </tr>
-
-            <!-- more rows -->
-          </table>
-        </div>
+      <div class="site-info">
+        <h3 class="title">Need support?</h3>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa
+          mi. Aliquam in hendrerit urna.
+        </p>
+        <a href="">Contact admin</a>
       </div>
     </div>
-    <script src="{% static '/dashboard/js/navigation.js' %}"></script>
-    <script src="{% static '/dashboard/js/chartTurnover.js' %}"></script>
-    <script src="{% static '/dashboard/js/piChart.js' %}"></script>
-    <script
-      type="text/javascript"
-      src="{% static '/dashboard/js/main.js' %}"
-    ></script>
-  </body>
+    <div class="col content">
+      <div class="top-nav">
+        <div class="mobile-menu-icon">
+          <img src="{% static '/dashboard/img/menu-icon.svg' %}" alt="" />
+        </div>
+        <div class="close-mobile-menu-icon">
+          <span>Close</span>
+        </div>
+        <div class="branding">
+          <img src="{% static '/dashboard/img/ch-white-logo.svg' %}" alt="" class="logo" />
+          <h1 class="system-title">KPIs Tool</h1>
+        </div>
+        <div class="bread-crumbs">
+          <p>KPI Toll >{{request.user.last_name}} > Overview</p>
+        </div>
+        <div class="right-content">
+          <div class="notification">
+            <!-- <img class="bell" src="{% static '/dashboard/img/icons/bell.svg' %}" alt=""> -->
+            <svg class="bell" width="23" height="25" viewBox="0 0 23 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M11.5 25C13.2246 25 14.6236 23.6011 14.6236 21.875H8.3765C8.3765 23.6011 9.77542 25 11.5 25ZM22.0171 17.6899C21.0738 16.6763 19.3086 15.1514 19.3086 10.1562C19.3086 6.3623 16.6485 3.3252 13.0616 2.58008V1.5625C13.0616 0.699707 12.3623 0 11.5 0C10.6377 0 9.93851 0.699707 9.93851 1.5625V2.58008C6.3516 3.3252 3.69144 6.3623 3.69144 10.1562C3.69144 15.1514 1.9263 16.6763 0.982944 17.6899C0.689975 18.0049 0.560092 18.3813 0.562534 18.75C0.567905 19.5508 1.19632 20.3125 2.12992 20.3125H20.8702C21.8037 20.3125 22.4327 19.5508 22.4375 18.75C22.44 18.3813 22.3101 18.0044 22.0171 17.6899Z" />
+            </svg>
+            <img src="{% static '/dashboard/img/icons/red-dot.svg' %}" alt="" class="red-dot" />
+          </div>
+          <div class="profile">
+            <img src="{% static '/dashboard/img/icons/profile-img.svg' %}" alt="" class="profile-img" />
+            <div class="info">
+              <p class="name">{{request.user.last_name}}</p>
+              <p class="position">{{profileInfo.role}}</p>
+            </div>
+          </div>
+          <div class="profile-popup">
+            <div class="close-text">
+              <p>Close</p>
+            </div>
+
+            <div class="profile-summary">
+              <h3>Profile Summary</h3>
+              <div class="summary-items">
+                <div class="summart-item">
+                  <span>Name:</span>
+                  <p>
+                    {{request.user.first_name}} {{request.user.last_name}}
+                  </p>
+                </div>
+                <div class="summart-item">
+                  <span>Position:</span>
+                  <p>{{profileInfo.role}}</p>
+                </div>
+
+                <div class="summart-item">
+                  <span>Hospital:</span>
+                  <p>{{profileInfo.hospital}}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="profile-links">
+              <div class="link">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M8 8C10.2094 8 12 6.20937 12 4C12 1.79063 10.2094 0 8 0C5.79063 0 4 1.79063 4 4C4 6.20937 5.79063 8 8 8ZM10.8 9H10.2781C9.58437 9.31875 8.8125 9.5 8 9.5C7.1875 9.5 6.41875 9.31875 5.72188 9H5.2C2.88125 9 1 10.8812 1 13.2V14.5C1 15.3281 1.67187 16 2.5 16H13.5C14.3281 16 15 15.3281 15 14.5V13.2C15 10.8812 13.1187 9 10.8 9Z"
+                    fill="#0E76BC" />
+                </svg>
+                <span>Full Profile</span>
+              </div>
+              <div class="link">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_597_3059)">
+                    <path
+                      d="M15.2311 9.8657L13.8999 9.09695C14.0343 8.37195 14.0343 7.6282 13.8999 6.9032L15.2311 6.13445C15.3843 6.04695 15.453 5.8657 15.403 5.69695C15.0561 4.58445 14.4655 3.5782 13.6936 2.7407C13.5749 2.61258 13.3811 2.58133 13.2311 2.66883L11.8999 3.43758C11.3405 2.95633 10.6968 2.58445 9.9999 2.3407V0.806328C9.9999 0.631328 9.87802 0.478203 9.70615 0.440703C8.55927 0.184453 7.38427 0.196953 6.29365 0.440703C6.12177 0.478203 5.9999 0.631328 5.9999 0.806328V2.34383C5.30615 2.5907 4.6624 2.96258 4.0999 3.4407L2.77177 2.67195C2.61865 2.58445 2.42802 2.61258 2.30927 2.74383C1.5374 3.5782 0.946773 4.58445 0.599898 5.70008C0.546773 5.86883 0.618648 6.05008 0.771773 6.13758L2.10302 6.90633C1.96865 7.63133 1.96865 8.37508 2.10302 9.10008L0.771773 9.86883C0.618648 9.95633 0.549898 10.1376 0.599898 10.3063C0.946773 11.4188 1.5374 12.4251 2.30927 13.2626C2.42802 13.3907 2.62177 13.422 2.77177 13.3345L4.10302 12.5657C4.6624 13.047 5.30615 13.4188 6.00302 13.6626V15.2001C6.00302 15.3751 6.1249 15.5282 6.29677 15.5657C7.44365 15.822 8.61865 15.8095 9.70927 15.5657C9.88115 15.5282 10.003 15.3751 10.003 15.2001V13.6626C10.6968 13.4157 11.3405 13.0438 11.903 12.5657L13.2343 13.3345C13.3874 13.422 13.578 13.3938 13.6968 13.2626C14.4686 12.4282 15.0593 11.422 15.4061 10.3063C15.453 10.1345 15.3843 9.9532 15.2311 9.8657ZM7.9999 10.5001C6.62177 10.5001 5.4999 9.3782 5.4999 8.00008C5.4999 6.62195 6.62177 5.50008 7.9999 5.50008C9.37802 5.50008 10.4999 6.62195 10.4999 8.00008C10.4999 9.3782 9.37802 10.5001 7.9999 10.5001Z"
+                      fill="#0E76BC" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_597_3059">
+                      <rect width="16" height="16" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+                <span>Settings</span>
+              </div>
+
+              <div class="link">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M0.46875 7.46882L5.71875 2.21882C6.1875 1.75007 7 2.07819 7 2.75007V5.75007L11.25 5.75007C11.6656 5.75007 12 6.08444 12 6.50007V9.50007C12 9.91569 11.6656 10.2501 11.25 10.2501H7V13.2501C7 13.9188 6.19063 14.2501 5.71875 13.7813L0.46875 8.53132C0.178125 8.23757 0.178125 7.76257 0.46875 7.46882ZM10 2.37507L10 3.62507C10 3.83132 10.1688 4.00007 10.375 4.00007H13C13.5531 4.00007 14 4.44694 14 5.00007L14 11.0001C14 11.5532 13.5531 12.0001 13 12.0001H10.375C10.1688 12.0001 10 12.1688 10 12.3751V13.6251C10 13.8313 10.1688 14.0001 10.375 14.0001H13C14.6562 14.0001 16 12.6563 16 11.0001V5.00007C16 3.34382 14.6563 2.00007 13 2.00007H10.375C10.1688 2.00007 10 2.16882 10 2.37507Z"
+                    fill="#0E76BC" />
+                </svg>
+
+                <a href="{% url 'logout' %}"><span>Logout</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="main-content numbers">
+        <h1 class="title">Quick numbers</h1>
+        <div class="cards">
+          <div class="card">
+            <img class="card-img" src="{% static '/dashboard/img/icons/inpatient.svg' %}" alt="" class="number-img" />
+            <div class="number-content">
+              <div class="text">Inpatient</div>
+              <div class="number">
+                <p>{{ inpatient_count }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img" src="{% static '/dashboard/img/icons/outpatient.svg' %}" alt="" class="number-img" />
+            <div class="number-content">
+              <div class="text">Outpatient</div>
+              <div class="number">
+                <p>{{ outpatient_count }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img" src="{% static '/dashboard/img/icons/swing-bed.svg' %}" alt="" class="number-img" />
+            <div class="number-content">
+              <div class="text">Swing bed</div>
+              <div class="number">
+                <p>{{ swing_bed_count }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img" src="{% static '/dashboard/img/icons/acute-bed.svg' %}" alt="" class="number-img" />
+            <div class="number-content">
+              <div class="text">Acute bed</div>
+              <div class="number">
+                <p>{{ acute_bed_count }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img" src="{% static '/dashboard/img/icons/emergency-room.svg' %}" alt=""
+              class="number-img" />
+            <div class="number-content">
+              <div class="text">Emergency room</div>
+              <div class="number">
+                <p>66</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img" src="{% static '/dashboard/img/icons/rural health clinic.svg' %}" alt=""
+              class="number-img" />
+            <div class="number-content">
+              <div class="text">Rural health clinic</div>
+              <div class="number">
+                <p>60</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="main-content charts">
+        <h1 class="title">Charts</h1>
+
+        <div class="charts-container">
+          <div class="chart census">
+            <h3 class="title">Mortality rate</h3>
+            <canvas id="mortality-rate"></canvas>
+          </div>
+          <div class="chart turnovers">
+            <h3 class="title">Turnovers</h3>
+            <canvas id="turnOvers"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="main-content measures">
+        <h1 class="title">Measures/Readmissions</h1>
+        <table id="myTable">
+          <thead>
+            <tr class="tableHead">
+              <th>Hospital</th>
+              {% for month in months %}
+                <th>{{ month }}</th>
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in table_data %}
+              <tr>
+                <td>{{ row.hospital }}</td>
+                <td>{{ row.jan }}</td>
+                <td>{{ row.feb }}</td>
+                <td>{{ row.mar }}</td>
+                <td>{{ row.apr }}</td>
+                <td>{{ row.may }}</td>
+                <td>{{ row.jun }}</td>
+                <td>{{ row.jul }}</td>
+                <td>{{ row.aug }}</td>
+                <td>{{ row.sep }}</td>
+                <td>{{ row.oct }}</td>
+                <td>{{ row.nov }}</td>
+                <td>{{ row.dec }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script src="{% static '/dashboard/js/navigation.js' %}"></script>
+  <script src="{% static '/dashboard/js/chartTurnover.js' %}"></script>
+  <script src="{% static '/dashboard/js/piChart.js' %}"></script>
+  <script type="text/javascript" src="{% static '/dashboard/js/main.js' %}"></script>
+</body>
+
 </html>
