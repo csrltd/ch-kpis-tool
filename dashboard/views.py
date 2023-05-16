@@ -346,3 +346,31 @@ def HospitalCreateView(request):
         id_prefix="CH"
         hospital_id=f"{id_prefix}{id_suffix}"
 
+def singleHospital(request):
+    return render(request, 'dashboard/hospital.html')
+
+def singleHospitalData(request, hospital_id): 
+    hospital = Hospital.objects.get(id = hospital_id)
+    data = {
+        'labels': [],
+        'datasets': []
+    }
+    turnover_data = Turnover.objects.filter(hospital=hospital) \
+                                        .annotate(month=TruncMonth('date_entered')) \
+                                        .values('month') \
+                                        .annotate(total=Sum('total'), voluntary=Sum('voluntary')) \
+                                        .values('month', 'total', 'voluntary')
+
+    turnover_dataset = {
+        'label': hospital.name,
+        'data': [],
+        'fill': False
+    }
+
+    for item in turnover_data:
+        month = item['month'].strftime('%b %y')
+        turnover_dataset['data'].append(item['total'])
+        data['labels'].append(month)
+
+    data['datasets'].append(turnover_dataset)
+    return JsonResponse(data)
