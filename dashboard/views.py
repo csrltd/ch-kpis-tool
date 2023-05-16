@@ -94,39 +94,21 @@ def index(request):
     acute_bed_count = Bed.objects.filter(type='acute bed').count()
     swing_bed_count = Bed.objects.filter(type='swing bed').count()
 
-    # Group Measures objects by hospital and date, and aggregate the sum of readmissions
-    readmissions_by_hospital_and_date = Measures.objects.values('hospital', month=ExtractMonth('date_entered'), year=ExtractYear('date_entered')).annotate(total_readmissions=Sum('readmissions'))
-
-    hospital_data = {} 
-    for readmission in readmissions_by_hospital_and_date:
-        hospital = Hospital.objects.get(id=readmission['hospital'])
-        month = readmission['month']
-        year = readmission['year']
-        total_readmissions = readmission['total_readmissions']
-        hospital_data.setdefault(hospital.name, {})[month] = total_readmissions
-
-    hospitals_list = Hospital.objects.order_by('name')
-
-    months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-
-    table_data = []
-    for hospital in hospitals_list:
-        hospital_row = {
-            'hospital': hospital.name,
-            'jan': hospital_data[hospital.name].get(1, 0),
-            'feb': hospital_data[hospital.name].get(2, 0),
-            'mar': hospital_data[hospital.name].get(3, 0),
-            'apr': hospital_data[hospital.name].get(4, 0),
-            'may': hospital_data[hospital.name].get(5, 0),
-            'jun': hospital_data[hospital.name].get(6, 0),
-            'jul': hospital_data[hospital.name].get(7, 0),
-            'aug': hospital_data[hospital.name].get(8, 0),
-            'sep': hospital_data[hospital.name].get(9, 0),
-            'oct': hospital_data[hospital.name].get(10, 0),
-            'nov': hospital_data[hospital.name].get(11, 0),
-            'dec': hospital_data[hospital.name].get(12, 0),
-        }
-        table_data.append(hospital_row)
+    measures_data = []
+    fields = ['mortality_rate','readmissions','pressure_ulcer','discharges_home','emergency_room_transfers','acute_swing_bed_transfers','medication_errors','falls',
+              'against_medical_advice','left_without_being_seen','hospital_acquired_infection','covid_vaccination_total_percentage_of_compliance','complaint','grievances'
+              ]
+    
+    for i in fields:
+        data = [{'field_name': i.replace('_',' ').capitalize()}]
+        for j in range(1, 13):
+            single_column = Measures.objects.annotate(month=ExtractMonth('date_entered'),)\
+            .order_by('month')\
+            .filter(month=j)\
+            .aggregate(average= Round(Avg(i),2))
+            data.append(single_column)
+            print(data)
+        measures_data.append(data)
 
     context = {
         'hospitals': hospitals,
@@ -135,10 +117,7 @@ def index(request):
         'acute_bed_count': acute_bed_count,
         'swing_bed_count': swing_bed_count,
         'profileInfo': profileInfo,
-        'hospitals_list': hospitals_list,
-        'hospital_data': hospital_data,
-        'months': months,
-        'table_data': table_data,
+        'measures_data': measures_data
     }
         
     return render(request, 'dashboard/index.html', context)
@@ -366,30 +345,4 @@ def HospitalCreateView(request):
         id_suffix = str(random.randint(0, 999)).zfill(4)
         id_prefix="CH"
         hospital_id=f"{id_prefix}{id_suffix}"
-
-def data(request):
-    
-    measures_data = []
-    fields = ['mortality_rate','readmissions','pressure_ulcer','discharges_home','emergency_room_transfers','acute_swing_bed_transfers','medication_errors','falls',
-              'against_medical_advice','left_without_being_seen','hospital_acquired_infection','covid_vaccination_total_percentage_of_compliance','complaint','grievances'
-              ]
-    
-    for i in fields:
-        data = [{'field_name': i.replace('_',' ').capitalize()}]
-        for j in range(1, 13):
-            single_column = Measures.objects.annotate(month=ExtractMonth('date_entered'),)\
-            .order_by('month')\
-            .filter(month=j)\
-            .aggregate(average= Round(Avg(i),2))
-            data.append(single_column)
-            print(data)
-        measures_data.append(data)
-    context ={'measures_data': measures_data}
-    
-    return render(request, 'dashboard/index.html',context)
-
-
-
-
-
 
