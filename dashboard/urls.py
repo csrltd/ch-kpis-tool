@@ -20,4 +20,5 @@ urlpatterns = [
     path('new-entry/', views.newEntry, name='new-entry'),
     path('measures_data/', views.measures_data, name='measures_data'),
 
+    path('data/',views.data,name='data'),
 ]

@@ -257,30 +257,37 @@
         <table id="myTable">
           <thead>
             <tr class="tableHead">
-              <th>Hospital</th>
-              {% for month in months %}
-                <th>{{ month }}</th>
-              {% endfor %}
+              <th>Measures</th>
+              
+                <th>Jan</th>
+                <th>Feb</th>
+                <th>Mar</th>
+                <th>Apr</th>
+                <th>May</th>
+                <th>Jun</th>
+                <th>Jul</th>
+                <th>Aug</th>
+                <th>Sep</th>
+                <th>Oct</th>
+                <th>Nov</th>
+                <th>Dec</th>
+              
             </tr>
           </thead>
           <tbody>
-            {% for row in table_data %}
+            
+          {% for data in measures_data %}
+            <tr>
+              {% for objects in data%}
+              
+              {% for obj  in objects.values %}
+              <td>{{obj}}</td>
+              {% endfor %}
+             
+              {% endfor %}
               <tr>
-                <td>{{ row.hospital }}</td>
-                <td>{{ row.jan }}</td>
-                <td>{{ row.feb }}</td>
-                <td>{{ row.mar }}</td>
-                <td>{{ row.apr }}</td>
-                <td>{{ row.may }}</td>
-                <td>{{ row.jun }}</td>
-                <td>{{ row.jul }}</td>
-                <td>{{ row.aug }}</td>
-                <td>{{ row.sep }}</td>
-                <td>{{ row.oct }}</td>
-                <td>{{ row.nov }}</td>
-                <td>{{ row.dec }}</td>
-              </tr>
-            {% endfor %}
+            
+            {% endfor %} 
           </tbody>
         </table>
       </div>

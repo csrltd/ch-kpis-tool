@@ -9,7 +9,8 @@ from .models import Patient, Hospital
 from django.http import JsonResponse
 from collections import defaultdict
 import calendar
-from django.db.models import Avg, Sum
+from django.db.models import Avg, Sum,DecimalField
+from django.db.models.functions import Round
 from django.views.decorators.http import require_http_methods
 
 
@@ -366,6 +367,26 @@ def HospitalCreateView(request):
         id_prefix="CH"
         hospital_id=f"{id_prefix}{id_suffix}"
 
+def data(request):
+    
+    measures_data = []
+    fields = ['mortality_rate','readmissions','pressure_ulcer','discharges_home','emergency_room_transfers','acute_swing_bed_transfers','medication_errors','falls',
+              'against_medical_advice','left_without_being_seen','hospital_acquired_infection','covid_vaccination_total_percentage_of_compliance','complaint','grievances'
+              ]
+    
+    for i in fields:
+        data = [{'field_name': i.replace('_',' ').capitalize()}]
+        for j in range(1, 13):
+            single_column = Measures.objects.annotate(month=ExtractMonth('date_entered'),)\
+            .order_by('month')\
+            .filter(month=j)\
+            .aggregate(average= Round(Avg(i),2))
+            data.append(single_column)
+            print(data)
+        measures_data.append(data)
+    context ={'measures_data': measures_data}
+    
+    return render(request, 'dashboard/index.html',context)
 
 
 
