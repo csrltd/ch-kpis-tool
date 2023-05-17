@@ -49,8 +49,12 @@ fetch("/turnover_data/")
   })
   .catch((error) => console.error(error));
 
+
+const urlParts = window.location.pathname.split('/');
+const hospitalId = urlParts[urlParts.length - 1];
+
 // Single Hospital
-fetch("/single-hospital-data/2")
+fetch(`/single-hospital-data/${hospitalId}`)
   .then((response) => response.json())
   .then((data) => {
     const labels = data.labels;

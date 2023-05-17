@@ -107,7 +107,6 @@ def index(request):
             .filter(month=j)\
             .aggregate(average= Round(Avg(i),2))
             data.append(single_column)
-            print(data)
         measures_data.append(data)
 
     context = {
@@ -346,8 +345,15 @@ def HospitalCreateView(request):
         id_prefix="CH"
         hospital_id=f"{id_prefix}{id_suffix}"
 
-def singleHospital(request):
-    return render(request, 'dashboard/hospital.html')
+def singleHospital(request, hospital_id):
+    hospitals = Hospital.objects.all()
+    hospital_data = singleHospitalData(request, hospital_id)
+    print(hospital_data)
+    context = {
+        'hospitals': hospitals,
+        'hospital_data': hospital_data,
+    }
+    return render(request, 'dashboard/hospital.html', context)
 
 def singleHospitalData(request, hospital_id): 
     hospital = Hospital.objects.get(id = hospital_id)

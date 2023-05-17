@@ -32,11 +32,15 @@
             <div class="dropdown-content hspdropdown-content">
               <a href="" class="button"><span>Add data</span><img src="{% static '/dashboard/img/icons/plus.svg' %}"
                   alt="" /></a>
-              <a href="">Mangum</a>
+              <!-- <a href="">Mangum</a>
               <a href="">Prague</a>
               <a href="">Pawhuska</a>
               <a href="">Carnegie</a>
-              <a href="">Seilling</a>
+              <a href="">Seilling</a> -->
+              {% for hospital in hospitals %}
+              <a href="{% url 'single-hospital' hospital_id=hospital.id %}">{{ hospital.name }}</a>
+              {% endfor %}
+
             </div>
           </li>
           <hr />
@@ -258,36 +262,36 @@
           <thead>
             <tr class="tableHead">
               <th>Measures</th>
-              
-                <th>Jan</th>
-                <th>Feb</th>
-                <th>Mar</th>
-                <th>Apr</th>
-                <th>May</th>
-                <th>Jun</th>
-                <th>Jul</th>
-                <th>Aug</th>
-                <th>Sep</th>
-                <th>Oct</th>
-                <th>Nov</th>
-                <th>Dec</th>
-              
+
+              <th>Jan</th>
+              <th>Feb</th>
+              <th>Mar</th>
+              <th>Apr</th>
+              <th>May</th>
+              <th>Jun</th>
+              <th>Jul</th>
+              <th>Aug</th>
+              <th>Sep</th>
+              <th>Oct</th>
+              <th>Nov</th>
+              <th>Dec</th>
+
             </tr>
           </thead>
           <tbody>
-            
-          {% for data in measures_data %}
+
+            {% for data in measures_data %}
             <tr>
               {% for objects in data%}
-              
-              {% for obj  in objects.values %}
+
+              {% for obj in objects.values %}
               <td>{{obj}}</td>
               {% endfor %}
-             
+
               {% endfor %}
-              <tr>
-            
-            {% endfor %} 
+            <tr>
+
+              {% endfor %}
           </tbody>
         </table>
       </div>
