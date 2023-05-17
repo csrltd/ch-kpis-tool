@@ -346,12 +346,35 @@ def HospitalCreateView(request):
         hospital_id=f"{id_prefix}{id_suffix}"
 
 def singleHospital(request, hospital_id):
+    # getting all the hospitals
     hospitals = Hospital.objects.all()
+
+    # getting a single hospital
+    hospital = Hospital.objects.get(id=hospital_id)
+    
     hospital_data = singleHospitalData(request, hospital_id)
-    print(hospital_data)
+
+    print(hospitals)
+
+    measures_data = []
+    fields = ['mortality_rate','readmissions','pressure_ulcer','discharges_home','emergency_room_transfers','acute_swing_bed_transfers','medication_errors','falls',
+              'against_medical_advice','left_without_being_seen','hospital_acquired_infection','covid_vaccination_total_percentage_of_compliance','complaint','grievances'
+              ]
+    
+    for i in fields:
+        data = [{'field_name': i.replace('_',' ').capitalize()}]
+        for j in range(1, 13):
+            single_column = Measures.objects.annotate(month=ExtractMonth('date_entered'),)\
+            .order_by('month')\
+            .filter(month=j, hospital=hospital)\
+            .aggregate(average= Round(Avg(i),2))
+            data.append(single_column)
+        measures_data.append(data)
+
     context = {
         'hospitals': hospitals,
         'hospital_data': hospital_data,
+        'measures_data': measures_data
     }
     return render(request, 'dashboard/hospital.html', context)
 
