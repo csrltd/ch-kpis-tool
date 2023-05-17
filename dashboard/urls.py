@@ -18,7 +18,7 @@ urlpatterns = [
     
 
     # fetching data url
-    path('measures-data/', views.measures_data, name='measures-data'),
+    path('measures_data/', views.measures_data, name='measures_data'),
     path('single-hospital-data/<int:hospital_id>', views.singleHospitalData, name="single-hospital-data"),
     
 

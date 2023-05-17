@@ -1,5 +1,5 @@
 // fetch data from the server
-fetch("/turnover_data/")
+fetch("/turnover-data/")
   .then((response) => response.json())
   .then((data) => {
     const labels = data.labels;

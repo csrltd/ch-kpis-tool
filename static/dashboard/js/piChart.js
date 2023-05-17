@@ -67,7 +67,7 @@ let lineData = {
   ],
 };
 $.ajax({
-  url: "/filter_patients_by_month/",
+  url: "/filter-patients-by-month/",
   type: "GET",
   dataType: "json",
   success: function (response) {
