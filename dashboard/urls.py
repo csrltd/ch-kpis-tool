@@ -11,15 +11,15 @@ urlpatterns = [
 
     # hospital dashboards
     path('', views.index, name='index'),
-    path('turnover_data/', views.turnover_data, name='turnover_data'),
+    path('turnover-data/', views.turnover_data, name='turnover-data'),
     path('charts-data/', views.chart_data, name='charts-data'),
-    path('filter_patients_by_month/', views.filter_patients_by_month, name='filter_patients_by_month'),
-    path('hospital_numbers/', views.hospital_numbers, name='hospital_numbers'),
+    path('filter-patients-by-month/', views.filter_patients_by_month, name='filter-patients-by-month'),
     path('single-hospital/<int:hospital_id>', views.singleHospital, name="single-hospital"),
-    path('single-hospital-data/<int:hospital_id>', views.singleHospitalData, name="single-hospital-data"),
+    
 
     # fetching data url
-    path('measures_data/', views.measures_data, name='measures_data'),
+    path('measures-data/', views.measures_data, name='measures-data'),
+    path('single-hospital-data/<int:hospital_id>', views.singleHospitalData, name="single-hospital-data"),
     
 
     # urls that were used before but might be needed later

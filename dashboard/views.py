@@ -150,27 +150,6 @@ def chart_data(request):
 
     return JsonResponse(context)
 
-
-# displaying numbers of bed and patients in each hospital to the cards
-@admin_required
-def hospital_numbers(request):
-    hospitals = Hospital.objects.all()
-    inpatient_count = Patient.objects.filter(status='inpatient').count()
-    outpatient_count = Patient.objects.filter(status='outpatient').count()
-    acute_bed_count = Bed.objects.filter(type='acute bed').count()
-    swing_bed_count = Bed.objects.filter(type='swing bed').count()
-
-    context = {
-        'hospitals': hospitals,
-        'inpatient_count': inpatient_count,
-        'outpatient_count': outpatient_count,
-        'acute_bed_count': acute_bed_count,
-        'swing_bed_count': swing_bed_count,
-    }
-
-    return render(request, 'dashboard/index.html', context)
-
-
 # New way to get data
 @admin_required
 def filter_patients_by_month(request):
