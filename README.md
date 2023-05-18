@@ -1,6 +1,6 @@
 # ch-kpis-tool
 
-Wednesdays'17th update
+Wednesdays'17th update.
 Alphonse:
 This is cool, we'll review tomorrow. By the way, do not delete your past reportings, we
 may need them for tracking later. You had forgotten to change site title and and index title in the core.urls. I change it.
