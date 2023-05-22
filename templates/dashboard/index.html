@@ -32,11 +32,6 @@
             <div class="dropdown-content hspdropdown-content">
               <a href="" class="button"><span>Add data</span><img src="{% static '/dashboard/img/icons/plus.svg' %}"
                   alt="" /></a>
-              <!-- <a href="">Mangum</a>
-              <a href="">Prague</a>
-              <a href="">Pawhuska</a>
-              <a href="">Carnegie</a>
-              <a href="">Seilling</a> -->
               {% for hospital in hospitals %}
               <a href="{% url 'single-hospital' hospital_id=hospital.id %}">{{ hospital.name }}</a>
               {% endfor %}
@@ -257,7 +252,7 @@
         </div>
       </div>
       <div class="main-content measures">
-        <h1 class="title">Measures/Readmissions</h1>
+        <h1 class="title">Measures</h1>
         <table id="myTable">
           <thead>
             <tr class="tableHead">
