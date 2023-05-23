@@ -307,6 +307,7 @@ body {
 }
 .content .charts .charts-container .chart {
   background-color: white;
+  max-height: 350px;
   border-radius: 6px;
   padding: 24px;
 }
