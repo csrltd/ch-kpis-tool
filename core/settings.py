@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['csrtesting.com', 'kpi.csrtesting.com',
                  'www.csrtesting.com', '170.187.152.92', '127.0.0.1', '66.228.62.168']
