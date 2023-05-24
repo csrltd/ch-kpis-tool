@@ -12,6 +12,7 @@ import calendar
 from django.db.models import Avg, Sum,DecimalField
 from django.db.models.functions import Round
 from django.views.decorators.http import require_http_methods
+from django.db.models import Count
 
 
 #Permissions
@@ -89,10 +90,14 @@ def hospital_mortality_rate(request):
 def index(request):
     profileInfo = Profile.objects.get(user=request.user)
     hospitals = Hospital.objects.all()
-    inpatient_count = Patient.objects.filter(status='inpatient').count()
-    outpatient_count = Patient.objects.filter(status='outpatient').count()
+    inpatient_count = Census.objects.aggregate(total=Sum('inpatient'))['total']
+    outpatient_count = Census.objects.aggregate(total=Sum('outpatient'))['total']
     acute_bed_count = Bed.objects.filter(type='acute bed').count()
-    swing_bed_count = Bed.objects.filter(type='swing bed').count()
+    swing_bed_count = Census.objects.aggregate(total=Sum('swing_bed'))['total']
+
+    # added fields on the quick numbers cards
+    emergency_room_count = Census.objects.aggregate(total=Sum('emergency_room'))['total']
+    total_rural_health_clinic = Census.objects.aggregate(total=Sum('rural_health_clinic'))['total']
 
     measures_data = []
     fields = ['mortality_rate','readmissions','pressure_ulcer','discharges_home','emergency_room_transfers','acute_swing_bed_transfers','medication_errors','falls',
@@ -116,7 +121,9 @@ def index(request):
         'acute_bed_count': acute_bed_count,
         'swing_bed_count': swing_bed_count,
         'profileInfo': profileInfo,
-        'measures_data': measures_data
+        'measures_data': measures_data,
+        'emergency_room_count': emergency_room_count,
+        'total_rural_health_clinic': total_rural_health_clinic
     }
         
     return render(request, 'dashboard/index.html', context)
