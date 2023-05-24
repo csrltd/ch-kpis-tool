@@ -92,8 +92,8 @@ def index(request):
     hospitals = Hospital.objects.all()
     inpatient_count = Census.objects.aggregate(total=Sum('inpatient'))['total']
     outpatient_count = Census.objects.aggregate(total=Sum('outpatient'))['total']
-    acute_bed_count = Bed.objects.filter(type='acute bed').count()
     swing_bed_count = Census.objects.aggregate(total=Sum('swing_bed'))['total']
+    acute_swing_bed_transfers_count = Measures.objects.aggregate(total=Sum('acute_swing_bed_transfers'))['total']
 
     # added fields on the quick numbers cards
     emergency_room_count = Census.objects.aggregate(total=Sum('emergency_room'))['total']
@@ -118,12 +118,12 @@ def index(request):
         'hospitals': hospitals,
         'inpatient_count': inpatient_count,
         'outpatient_count': outpatient_count,
-        'acute_bed_count': acute_bed_count,
         'swing_bed_count': swing_bed_count,
         'profileInfo': profileInfo,
         'measures_data': measures_data,
         'emergency_room_count': emergency_room_count,
-        'total_rural_health_clinic': total_rural_health_clinic
+        'total_rural_health_clinic': total_rural_health_clinic,
+        'acute_swing_bed_transfers_count': acute_swing_bed_transfers_count
     }
         
     return render(request, 'dashboard/index.html', context)
@@ -340,7 +340,16 @@ def singleHospital(request, hospital_id):
     
     hospital_data = singleHospitalData(request, hospital_id)
 
-    print(hospitals)
+    # getting specific data of a single hospital
+    single_hospital_data = Census.objects.filter(hospital_id= hospital_id)
+    single_hospital_acute_swing_bed_transfers = Measures.objects.filter(hospital_id= hospital_id)
+    # filtering the quick numbers cards
+    total_inpatient = single_hospital_data.aggregate(total_inpatient=models.Sum('inpatient'))['total_inpatient']
+    total_outpatient = single_hospital_data.aggregate(total_outpatient=models.Sum('outpatient'))['total_outpatient']
+    total_swing_bed = single_hospital_data.aggregate(total_swing_bed=models.Sum('swing_bed'))['total_swing_bed']
+    total_emergency_room = single_hospital_data.aggregate(total_emergency_room=models.Sum('emergency_room'))['total_emergency_room']
+    total_rural_health_clinic = single_hospital_data.aggregate(total_rural_health_clinic=models.Sum('rural_health_clinic'))['total_rural_health_clinic']
+    total_acute_swing_bed_transfers = single_hospital_acute_swing_bed_transfers.aggregate(total_acute_swing_bed_transfers=models.Sum('acute_swing_bed_transfers'))['total_acute_swing_bed_transfers']
 
     measures_data = []
     fields = ['mortality_rate','readmissions','pressure_ulcer','discharges_home','emergency_room_transfers','acute_swing_bed_transfers','medication_errors','falls',
@@ -360,7 +369,14 @@ def singleHospital(request, hospital_id):
     context = {
         'hospitals': hospitals,
         'hospital_data': hospital_data,
-        'measures_data': measures_data
+        'measures_data': measures_data,
+        'total_inpatient': total_inpatient,
+        'total_outpatient': total_outpatient,
+        'total_swing_bed': total_swing_bed,
+        'total_emergency_room': total_emergency_room,
+        'total_emergency_room': total_emergency_room,
+        'total_rural_health_clinic': total_rural_health_clinic,
+        'total_acute_swing_bed_transfers': total_acute_swing_bed_transfers
     }
     return render(request, 'dashboard/hospital.html', context)
 

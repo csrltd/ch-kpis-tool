@@ -182,7 +182,7 @@
           <div class="card">
             <img class="card-img" src="{% static '/dashboard/img/icons/inpatient.svg' %}" alt="" class="number-img" />
             <div class="number-content">
-              <div class="text">Inpatient</div>
+              <p class="text">Inpatient</p>
               <div class="number">
                 <p>{{ inpatient_count }}</p>
               </div>
@@ -191,7 +191,7 @@
           <div class="card">
             <img class="card-img" src="{% static '/dashboard/img/icons/outpatient.svg' %}" alt="" class="number-img" />
             <div class="number-content">
-              <div class="text">Outpatient</div>
+              <p class="text">Outpatient</p>
               <div class="number">
                 <p>{{ outpatient_count }}</p>
               </div>
@@ -200,7 +200,7 @@
           <div class="card">
             <img class="card-img" src="{% static '/dashboard/img/icons/swing-bed.svg' %}" alt="" class="number-img" />
             <div class="number-content">
-              <div class="text">Swing bed</div>
+              <p class="text">Swing bed</p>
               <div class="number">
                 <p>{{ swing_bed_count }}</p>
               </div>
@@ -209,9 +209,9 @@
           <div class="card">
             <img class="card-img" src="{% static '/dashboard/img/icons/acute-bed.svg' %}" alt="" class="number-img" />
             <div class="number-content">
-              <div class="text">Acute bed</div>
+              <p class="text">Acute/swing bed transfers</p>
               <div class="number">
-                <p>{{ acute_bed_count }}</p>
+                <p>{{ acute_swing_bed_transfers_count }}</p>
               </div>
             </div>
           </div>
@@ -219,7 +219,7 @@
             <img class="card-img" src="{% static '/dashboard/img/icons/emergency-room.svg' %}" alt=""
               class="number-img" />
             <div class="number-content">
-              <div class="text">Emergency room</div>
+              <p class="text">Emergency room</p>
               <div class="number">
                 <p>{{ emergency_room_count }}</p>
               </div>
@@ -229,7 +229,7 @@
             <img class="card-img" src="{% static '/dashboard/img/icons/rural health clinic.svg' %}" alt=""
               class="number-img" />
             <div class="number-content">
-              <div class="text">Rural health clinic</div>
+              <p class="text">Rural health clinic</p>
               <div class="number">
                 <p>{{ total_rural_health_clinic }}</p>
               </div>
