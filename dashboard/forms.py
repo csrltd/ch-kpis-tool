@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Hospital, Patient
+from .models import Hospital, Patient, Measures, Census, Turnover, Hiring
 from django.forms import ModelForm, TextInput, Select, RadioSelect, DateTimeInput, NumberInput
 
 
@@ -43,6 +43,7 @@ class HospitalForm(ModelForm):
 
 
 class patientForm(ModelForm):
+    
     class Meta:
         model = Patient
         fields = ['status', 'emergency_room', 'medical_advice', 'patient_id',
@@ -59,3 +60,85 @@ class patientForm(ModelForm):
             'admission_date': DateTimeInput(attrs={'type': 'datetime-local'}),
             'emergency_room': RadioSelect(),
             }
+  
+       
+class MeasuresForm(ModelForm):
+    
+   
+    
+    class Meta:
+        model = Measures
+        fields = ['mortality_rate','readmissions','pressure_ulcer','discharges_home','emergency_room_transfers',
+                'acute_swing_bed_transfers','medication_errors','falls','against_medical_advice','left_without_being_seen',
+                'hospital_acquired_infection','covid_vaccination_total_percentage_of_compliance','complaint','grievances','hospital',
+                'date_entered','date_created',
+                ]
+    
+        widgets= {
+            'mortality_rate': NumberInput(),
+            'readmissions': NumberInput(),
+            'pressure_ulcer': NumberInput(),
+            'discharges_home': NumberInput(),
+            'emergency_room_transfers': NumberInput(),
+            'acute_swing_bed_transfers': NumberInput(),
+            'medication_errors': NumberInput(),
+            'falls': NumberInput(),
+            'against_medical_advice': NumberInput(),
+            'left_without_being_seen': NumberInput(),
+            'hospital_acquired_infection': NumberInput(),
+            'covid_vaccination_total_percentage_of_compliance': NumberInput(),
+            'complaint': NumberInput(),
+            'grievances': NumberInput(),
+            'hospital': forms.Select(),
+            'date_entered': DateTimeInput(attrs={'type': 'datetime-local'}),
+            'date_created': DateTimeInput(attrs={'type':'datetime-local'}),
+        }
+        
+
+class CensusForm(ModelForm):
+    
+    class Meta:
+        model = Census
+        fields =['inpatient','swing_bed','observation',
+                 'emergency_room','outpatient','rural_health_clinic',
+                 'hospital','date_entered','date_created']
+        
+        widgets = {
+            'inpatient': NumberInput(),
+            'swing_bed':NumberInput(),
+            'observation':NumberInput(),
+            'emergency_room':NumberInput(),
+            'outpatient':NumberInput(),
+            'rural_health_clinic':NumberInput(),
+            'hospital':Select(),
+            'date_entered':DateTimeInput(attrs={'type': 'datetime-local'}),
+            'date_created':DateTimeInput(attrs={'type': 'datetime-local'}),
+        }
+        
+class TurnoverForm(ModelForm):
+    
+    class Meta:
+        model = Turnover
+        fields =['total','voluntary','hospital'
+                 ,'date_entered','date_created']
+        
+        widgets = {
+            'total': NumberInput(),
+            'voluntary':NumberInput(),
+            'hospital':Select(),
+            'date_entered':DateTimeInput(attrs={'type': 'datetime-local'}),
+            'date_created':DateTimeInput(attrs={'type': 'datetime-local'}),
+        }
+        
+class HiringForm(ModelForm):
+    
+    class Meta:
+        model = Hiring
+        fields = ['new_hires','hospital','date_entered','date_created']
+    
+        widgets = {
+            'new_hires': NumberInput(),
+            'hospital':Select(),
+            'date_entered':DateTimeInput(attrs={'type': 'datetime-local'}),
+            'date_created':DateTimeInput(attrs={'type': 'datetime-local'}),
+        }

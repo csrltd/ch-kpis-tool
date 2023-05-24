@@ -15,6 +15,10 @@ urlpatterns = [
     path('charts-data/', views.chart_data, name='charts-data'),
     path('filter-patients-by-month/', views.filter_patients_by_month, name='filter-patients-by-month'),
     path('single-hospital/<int:hospital_id>', views.singleHospital, name="single-hospital"),
+    path('add-measures/',views.addMeasures,name='add-measures'),
+    path('add-census/',views.addCensus,name='add-census'),
+    path('add-turnover/',views.addTurnover,name='add-turnover'),
+    path('add-hiring/',views.addHiring,name='add-hiring'),
     
 
     # fetching data url
