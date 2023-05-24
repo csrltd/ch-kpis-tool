@@ -9,6 +9,7 @@ from .models import Patient, Hospital
 from django.http import JsonResponse
 from collections import defaultdict
 import calendar
+from django.contrib.auth.models import Group
 from django.db.models import Avg, Sum,DecimalField
 from django.db.models.functions import Round
 from django.views.decorators.http import require_http_methods
@@ -27,6 +28,11 @@ import datetime
 
 from django.utils.timezone import make_aware
 from django.db.models.functions import ExtractMonth, ExtractYear
+import uuid
+
+def generate_password():
+    password = str(uuid.uuid4())[:8]  # Generate a UUID and take the first 8 characters
+    return password
 
 
 def turnover_data(request, hospital_id=None):
@@ -180,24 +186,30 @@ def filter_patients_by_month(request):
         data[hospital_name.name]['outpatient_totals'] = outpatient_totals
     return JsonResponse(data)
 
-
+# @admin_required
 def signup(request):
     form = UserRegistration()
     context = {'form': form}
     if request.method == 'POST':
         form = UserRegistration(request.POST)
         if form.is_valid():
-            user = form.save()
-            custom_user = Profile.objects.create(user=user)
-            if not custom_user.is_profile_completed:
-                return redirect('complete-profile')
-            return redirect('login')
-    else:
-        form = UserRegistration()
+            selected_group_id = form.cleaned_data['group'].id
+            selected_group = Group.objects.get(id=selected_group_id)
+            password = generate_password()
+            print(password)
+            user = form.save(commit=False)
+            user.set_password(password)
+            user.save()
+            selected_group.user_set.add(user)
 
+            custom_user = Profile.objects.create(user=user)
+            # Set additional fields in the `Profile` model if needed
+            custom_user.save()
+
+            return redirect('login')
     return render(request, 'authentication/signup.html', context)
 
-
+# @hospital_admin_required
 def loginPage(request):
     if request.method == 'POST':
         username = request.POST.get('username')

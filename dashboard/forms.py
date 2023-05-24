@@ -2,16 +2,17 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Hospital, Patient
+from django.contrib.auth.models import Group
 from django.forms import ModelForm, TextInput, Select, RadioSelect, DateTimeInput, NumberInput
 
 
 class UserRegistration(UserCreationForm):
     phone_number = forms.CharField(max_length=255)
-
+    group = forms.ModelChoiceField(queryset=Group.objects.all())
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name',
-                  'phone_number', 'email', 'password1', 'password2']
+                  'phone_number', 'email', 'group']
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
