@@ -12,7 +12,7 @@ class UserRegistration(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name',
-                  'phone_number', 'email', 'group']
+                  'phone_number', 'email', 'password1', 'password1','group']
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
