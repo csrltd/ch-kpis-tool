@@ -337,6 +337,7 @@ def singleHospital(request, hospital_id):
 
     # getting a single hospital
     hospital = Hospital.objects.get(id=hospital_id)
+    hospital_name = hospital.name
     
     hospital_data = singleHospitalData(request, hospital_id)
 
@@ -367,6 +368,7 @@ def singleHospital(request, hospital_id):
         measures_data.append(data)
 
     context = {
+        'hospital_name': hospital_name,
         'hospitals': hospitals,
         'hospital_data': hospital_data,
         'measures_data': measures_data,
