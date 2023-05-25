@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="{% static '/dashboard/css/index.css' %}" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <title>Dashboard</title>
+  <title>{{ page_title }}</title>
 </head>
 
 <body>
@@ -93,7 +93,7 @@
           <h1 class="system-title">KPIs Tool</h1>
         </div>
         <div class="bread-crumbs">
-          <p>KPI Toll >{{request.user.last_name}} > Overview</p>
+          <p>Home > {{ page_title }}</p>
         </div>
         <div class="right-content">
           <div class="notification">
