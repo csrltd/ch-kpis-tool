@@ -407,3 +407,68 @@ def singleHospitalData(request, hospital_id):
 
     data['datasets'].append(turnover_dataset)
     return JsonResponse(data)
+
+#Adding Measures data template
+def addMeasures(request):
+    form = MeasuresForm()
+    
+    context = {'form':form}
+    
+    if request.method == 'POST':
+        
+        form = MeasuresForm(request.POST)
+        if form.is_valid:
+            form.save()
+    
+    return render(request, 'dashboard/addMeasures.html',context)
+
+#Adding Census data template
+def addCensus(request):
+    
+    form = CensusForm()
+    
+    context = {'form':form}
+    
+    if request.method == 'POST':
+        
+        form = CensusForm(request.POST)
+        
+        if form.is_valid:
+            
+            form.save()
+    
+    return render(request, 'dashboard/addCensus.html',context)
+
+#Adding Turnover data template
+def addTurnover(request):
+    
+    form = TurnoverForm()
+    
+    context = {'form':form}
+    
+    if request.method == 'POST':
+        
+        form = TurnoverForm(request.POST)
+        
+        if form.is_valid:
+            
+            form.save()
+    
+    return render(request, 'dashboard/addTurnover.html',context)
+
+#Adding Hiring data template
+def addHiring(request):
+    
+    form = HiringForm()
+    
+    context = {'form':form}
+    
+    if request.method == 'POST':
+        
+        form = HiringForm(request.POST)
+        
+        if form.is_valid:
+            
+            form.save()
+    
+    return render(request, 'dashboard/addHiring.html',context)
