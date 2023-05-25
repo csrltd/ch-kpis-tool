@@ -205,21 +205,19 @@ def signup(request):
         if form.is_valid():
             selected_group_id = form.cleaned_data['group'].id
             selected_group = Group.objects.get(id=selected_group_id)
-            password = form.cleaned_data['password']
             # password = generate_password()
-            print(password)
-            hashed_password = make_password(password)
-            
-            user = form.save(commit=False)
-            user.set_password(hashed_password)
-            user.save()
+            # print(password)
+            user = form.save()
+            # user.set_password(password)
+            # user.save()
             selected_group.user_set.add(user)
-            
-            # custom_user = Profile.objects.create(user=user)
-            # # custom_user.save()
-            # if not custom_user.is_profile_completed:
-            #     return redirect('complete-profile')
+
+            custom_user = Profile.objects.create(user=user)
+            if not custom_user.is_profile_completed:
+                return redirect('complete-profile')
+            custom_user.save()
             return redirect('login')
+        print(form.errors)
     return render(request, 'authentication/signup.html', context)
 
 # @hospital_admin_required
@@ -232,12 +230,32 @@ def loginPage(request):
 
         if user is not None:
             login(request, user)
-            return redirect('index')
-        else:
+            if request.user.is_authenticated: 
+                if user.profile.is_profile_completed:
+                    if request.user.groups.filter(name='Admin').exists() :
+                        return redirect('index')
+                    elif request.user.groups.filter(name='CEO').exists():
+                        return redirect('index')
+                    elif request.user.groups.filter(name='Employee').exists():
+                        hospital_id  = user.Profile.hospital_id
+                        return redirect('single-hospital', hospital_id=hospital_id)
+                    elif request.user.groups.filter(name='Hospital Admin').exists():
+                        hospital_id  = user.profile.hospital_id
+                        return redirect('single-hospital', hospital_id=hospital_id)
+                    else:
+                        return redirect('login')
+                else:
+                    from django.http import HttpResponse
+                    return HttpResponse("Your profile is not complete, please contact Irene")
+                
+            else:
+                return redirect('login')  
+        return redirect('index')
+    else:
             messages.error(
                 request, 'Invalid credentials!!! Please enter correct username or password')
+        
     return render(request, 'authentication/login.html')
-
 def logOutPage(request):
     user = request.user
     logout(request.user)
@@ -275,7 +293,7 @@ def departement(request):
     context = {'hospitals': hospitals}
     return render(request, 'dashboard/add-departement.html', context)
 
-@admin_required
+# @admin_required
 def complete_profile(request):
     hospitals = Hospital.objects.all()
     departments = Department.objects.all()
