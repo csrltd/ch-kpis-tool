@@ -30,7 +30,7 @@
               <span>Hospitals</span><img src="{% static '/dashboard/img/icons/ange-righ.svg' %}" alt="" />
             </div>
             <div class="dropdown-content hspdropdown-content">
-              <a href="" class="button"><span>Add data</span><img src="{% static '/dashboard/img/icons/plus.svg' %}"
+              <a href="{% url 'add-measures' %}" class="button"><span>Add data</span><img src="{% static '/dashboard/img/icons/plus.svg' %}"
                   alt="" /></a>
               {% for hospital in hospitals %}
               <a href="{% url 'single-hospital' hospital_id=hospital.id %}">{{ hospital.name }}</a>
