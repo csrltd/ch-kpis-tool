@@ -294,6 +294,7 @@ body {
 }
 .content .numbers .cards .card .number-content .text {
   color: gray;
+  font-size: 16px;
 }
 .content .numbers .cards .card .number-content .number p {
   font-weight: bold;
