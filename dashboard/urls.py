@@ -33,4 +33,5 @@ urlpatterns = [
     path('hospital-dashboard/', views.hospitalDashboard, name='hospital-dashboard'),
     path('metrics/', views.metrics, name='metrics'),
     path('new-entry/', views.newEntry, name='new-entry'),
+    path('coming-soon/', views.comingSoon, name='coming-soon'),
 ]

@@ -478,3 +478,7 @@ def addHiring(request):
             form.save()
     
     return render(request, 'dashboard/addHiring.html',context)
+
+
+def comingSoon(request):
+    return render(request, 'rhc/coming-soon.html')

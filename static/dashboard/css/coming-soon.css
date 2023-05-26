@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200;400;500;700&display=swap");
+.container {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  min-height: 80vh;
+}
+.container .back-btn {
+  margin-top: 10px;
+  text-decoration: none;
+  background-color: #0E76BC;
+  color: #DEEEFA;
+  padding: 15px 25px;
+  border-radius: 10px;
+}/*# sourceMappingURL=coming-soon.css.map */
