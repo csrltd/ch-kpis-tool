@@ -13,8 +13,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-# load_dotenv()
-load_dotenv('/root/ch-project/ch-kpis-tool/core/.env')
+load_dotenv()
+# load_dotenv('/root/ch-project/ch-kpis-tool/core/.env')
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,10 +26,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['csrtesting.com', 'kpi.csrtesting.com',
-                 'www.csrtesting.com', '170.187.152.92', '127.0.0.1', '66.228.62.168']
+                 'www.csrtesting.com', '127.0.0.1', '66.228.62.168']
 
 
 # Application definition

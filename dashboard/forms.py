@@ -6,12 +6,12 @@ from django.forms import ModelForm, TextInput, Select, RadioSelect, DateTimeInpu
 
 
 class UserRegistration(UserCreationForm):
-    phone_number = forms.CharField(max_length=255)
-
+    # phone_number = forms.CharField(max_length=255)
+    group = forms.ModelChoiceField(queryset=Group.objects.all())
+    # hospitals = forms.ModelChoiceField(queryset=Hospital.objects.all())
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name',
-                  'phone_number', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2', 'group']
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -59,7 +59,6 @@ class patientForm(ModelForm):
             'birthday': DateTimeInput(attrs={'type': 'datetime-local'}),
             'admission_date': DateTimeInput(attrs={'type': 'datetime-local'}),
             'emergency_room': RadioSelect(),
-            }
   
        
 class MeasuresForm(ModelForm):
