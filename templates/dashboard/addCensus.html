@@ -1,8 +1,50 @@
-<h1>Add Census </h1>
+{% extends 'dashboard/form-template.html' %}
+<!-- <h1>Add Census </h1> -->
 
+{% block content %}
 <form method='POST'>
     {% csrf_token %}
-    {{form.as_p}}
+    {% comment %} {{form.as_p}} {% endcomment %}
+    <div class='input-fields'>
+        <div class="field">
+            {{form.inpatient.label}}
+            {{form.inpatient}}
+        </div>
+        <div class="field">
+            {{form.swing_bed.label}}
+            {{form.swing_bed}}
+        </div>
+        <div class="field">
+            {{form.observation.label}}
+            {{form.observation}}
+        </div>
+        <div class="field">
+            {{form.emergency_room.label}}
+            {{form.emergency_room}}
+        </div>
+        <div class="field">
+            {{form.outpatient.label}}
+            {{form.outpatient}}
+        </div>
+        <div class="field">
+            {{form.rural_health_clinic.label}}
+            {{form.rural_health_clinic}}
+        </div>
+        <div class="field">
+            {{form.hospital.label}}
+            {{form.hospital}}
+        </div>
+        <div class="field">
+            {{form.date_entered.label}}
+            {{form.date_entered}}
+        </div>
+        <div class="field">
+            {{form.date_created.label}}
+            {{form.date_created}}
+        </div>
+    
+    </div>
     
     <button type='submit'>Submit</button>
 </form>
+{% endblock content %}
