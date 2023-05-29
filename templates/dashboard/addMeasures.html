@@ -1,8 +1,83 @@
-<h1>Add Measures </h1>
+{% extends 'dashboard/form-template.html' %}
+{% comment %} {% load static %} {% endcomment %}
 
+
+{% comment %} <h1>Add Measures </h1> {% endcomment %}
+{% block content %}
 <form method='POST'>
     {% csrf_token %}
-    {{form.as_p}}
+    {% comment %} {{form.as_p}} {% endcomment %}
+    <div class="input-fields">
+        <div class="field">
+            {{form.mortality_rate.label}}
+            {{form.mortality_rate}}
+        </div>
+       
+        <div class="field">
+            {{form.readmissions.label}}
+            {{form.readmissions}}
+        </div>
+        <div class="field">
+            {{form.pressure_ulcer.label}}
+            {{form.pressure_ulcer}}
+        </div>
+        <div class="field">
+            {{form.discharges_home.label}}
+            {{form.discharges_home}}
+        </div>
+        <div class="field">
+            {{form.acute_swing_bed_transfers.label}}
+            {{form.acute_swing_bed_transfers}}
+        </div>
+        <div class="field">
+            {{form.medication_errors.label}}
+            {{form.medication_errors}}
+        </div>
+        <div class="field">
+            {{form.falls.label}}
+            {{form.falls}}
+        </div>
+        <div class="field">
+            {{form.against_medical_advice.label}}
+            {{form.against_medical_advice}}
+        </div>
+        <div class="field">
+            {{form.left_without_being_seen.label}}
+            {{form.left_without_being_seen}}
+        </div>
+        <div class="field">
+            {{form.hospital_acquired_infection.label}}
+            {{form.hospital_acquired_infection}}
+        </div>
+        <div class="field">
+            {{form.covid_vaccination_total_percentage_of_compliance.label}}
+            {{form.covid_vaccination_total_percentage_of_compliance}}
+        </div>
+        <div class="field">
+            {{form.complaint.label}}
+            {{form.complaint}}
+        </div>
+        <div class="field">
+            {{form.grievances.label}}
+            {{form.grievances}}
+        </div>
+        <div class="field">
+            {{form.hospital.label}}
+            {{form.hospital}}
+        </div>
+        <div class="field">
+            {{form.date_entered.label}}
+            {{form.date_entered}}
+        </div>
+        <div class="field">
+            {{form.date_created.label}}
+            {{form.date_created}}
+        </div>
+       
+       
+    </div>
+
     
     <button type='submit'>Submit</button>
 </form>
+{% endblock content %}

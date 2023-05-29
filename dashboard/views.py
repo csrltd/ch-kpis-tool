@@ -189,6 +189,7 @@ def filter_patients_by_month(request):
 
 @admin_required
 def signup(request):
+    
     form = UserRegistration()
     context = {'form': form}
     if request.method == 'POST':
@@ -420,8 +421,9 @@ def singleHospitalData(request, hospital_id):
 #Adding Measures data template
 def addMeasures(request):
     form = MeasuresForm()
-    
-    context = {'form':form}
+    page_title = 'Add Measures'
+    blocktitle = 'Add Measures'
+    context = {'form':form, 'page_title': page_title, 'blocktitle': blocktitle}
     
     if request.method == 'POST':
         
@@ -433,10 +435,11 @@ def addMeasures(request):
 
 #Adding Census data template
 def addCensus(request):
-    
+    page_title = 'Add Census'
+    blocktitle = 'Add Census'
     form = CensusForm()
     
-    context = {'form':form}
+    context = {'form':form, 'page_title': page_title, 'blocktitle': blocktitle}
     
     if request.method == 'POST':
         
@@ -450,10 +453,11 @@ def addCensus(request):
 
 #Adding Turnover data template
 def addTurnover(request):
-    
+    page_title = 'Add Turnover'
+    blocktitle = 'Add Turnover'
     form = TurnoverForm()
     
-    context = {'form':form}
+    context = {'form': form, 'page_title': page_title, 'blocktitle': blocktitle}
     
     if request.method == 'POST':
         
@@ -467,10 +471,11 @@ def addTurnover(request):
 
 #Adding Hiring data template
 def addHiring(request):
-    
+    page_title = 'Add Turnover'
+    blocktitle = 'Add Turnover'
     form = HiringForm()
     
-    context = {'form':form}
+    context = {'form': form, 'page_title': page_title, 'blocktitle': blocktitle}
     
     if request.method == 'POST':
         

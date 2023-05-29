@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
 from .models import Hospital, Patient, Measures, Census, Turnover, Hiring
 from django.forms import ModelForm, TextInput, Select, RadioSelect, DateTimeInput, NumberInput
 
@@ -59,6 +60,7 @@ class patientForm(ModelForm):
             'birthday': DateTimeInput(attrs={'type': 'datetime-local'}),
             'admission_date': DateTimeInput(attrs={'type': 'datetime-local'}),
             'emergency_room': RadioSelect(),
+        }
   
        
 class MeasuresForm(ModelForm):
