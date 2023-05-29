@@ -267,12 +267,17 @@
   display: flex;
   flex-direction: column;
   padding-top: 40px;
+  gap: 20px;
+  width: 70%;
+}
+.container .row .col-2 h4 {
   width: 70%;
 }
 .container .row .col-2 .text {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%;
 }
 .container .row .col-2 .text h1 {
   font-size: 45px;
@@ -311,6 +316,12 @@
 .container .row .col-2 form .check-box .checkbox-input a {
   color: #00AEEF;
 }
+.container .row .col-2 form select {
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid black;
+}
 .container .row .col-2 form .signup-btn {
   max-width: 200px;
   border: none;
@@ -324,6 +335,30 @@
   background: transparent;
   border: 1px solid #00AEEF;
   color: #00AEEF;
+}
+.container .row .col-2 form .submit-btn {
+  background-color: #07AEEF;
+  padding: 17px 35px;
+  gap: 10px;
+  width: 212px;
+  height: 61px;
+  border: none;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+.container .row .col-2 .smaller-forms {
+  width: 100%;
+}
+.container .row .col-2 .smaller-forms .input-fields {
+  flex-direction: column;
+  height: 100%;
+}
+.container .row .col-2 .smaller-forms .input-fields .field {
+  width: 70%;
+}
+.container .row .col-2 .smaller-forms .input-fields .field input {
+  width: 100%;
 }
 .container .row .col-2 .links {
   margin-top: 10px;

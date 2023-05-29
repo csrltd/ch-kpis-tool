@@ -9,9 +9,6 @@
 
 }
 
-
-
-
 .container {
     .col {
         .sidebar {
@@ -368,12 +365,18 @@
             display: flex;
             flex-direction: column;
             padding-top: 40px;
+            gap: 20px;
             width: 70%;
+
+            h4{
+                width: 70%;
+            }
             
             .text {
                 display: flex;
                 flex-direction: column;
                 gap: 20px;
+                width: 100%;
 
                 h1 {
                     font-size: 45px;
@@ -392,12 +395,15 @@
             form {
                 display: flex;
                 flex-direction: column;
+                
                 gap: 20px;
+        
 
                 input {
                     padding: 10px 20px;
                     border-radius: 10px;
                     border: 1px solid black;
+                    
                 }
 
                 .input-fields {
@@ -422,6 +428,14 @@
                     }
                 }
 
+                select{
+                    width: 100%;
+                    padding: 10px 20px;
+                    border-radius: 10px;
+                    border: 1px solid black;
+                    
+                }
+
                 .signup-btn {
                     max-width: 200px;
                     border: none;
@@ -437,8 +451,34 @@
                         color: #00AEEF;
                     }
                 }
+                .submit-btn {
+                    background-color: #07AEEF;
+                    padding: 17px 35px;
+                    gap: 10px;
+                    width: 212px;
+                    height: 61px;
+                    border: none;
+                    color: white;
+                    font-size: 20px;
+                    font-weight: bold;
+    
+                }
             }
 
+            .smaller-forms{
+    
+                width: 100%;
+                .input-fields{
+                    flex-direction: column;
+                    height: 100%;
+                    .field{
+                        width: 70%;
+                        input{
+                            width: 100%;
+                        }
+                    }
+                }
+            }
             .links {
                 margin-top: 10px;
 
@@ -622,6 +662,7 @@
             }
 
             .col-2 {
+                
                 padding-left: 40px;
 
                 .text {
@@ -632,6 +673,7 @@
                 }
 
                 form {
+                    
                     .names {
                         display: flex;
                         flex-direction: column;
@@ -661,6 +703,8 @@
                             width: 80%;
                         }
                     }
+
+                  
 
                 }
 

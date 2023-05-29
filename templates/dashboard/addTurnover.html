@@ -1,7 +1,7 @@
 {% extends 'dashboard/form-template.html' %}
 
 {% block content %}
-<form method='POST'>
+<form method='POST' class='smaller-forms'>
     {% csrf_token %}
     {% comment %} {{form.as_p}} {% endcomment %}
     <div class='input-fields'>
@@ -29,6 +29,6 @@
     
     </div>
     
-    <button type='submit'>Submit</button>
+    <button type='submit' class='submit-btn blue-btn'>Submit</button>
 </form>
 {% endblock content %}

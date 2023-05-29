@@ -1,10 +1,14 @@
 {% extends 'dashboard/form-template.html' %}
 
 {% block content %}
-<form method='POST'>
+
+{% comment %} <h4>
+    Lorem ipsum dolor sit amet sapiente similique ad ipsum cumque corporis commodi? Molestias, ipsum ullam quam recusandae laborum sint animi!
+</h4> {% endcomment %}
+<form method='POST' class='smaller-forms'>
     {% csrf_token %}
     {% comment %} {{form.as_p}} {% endcomment %}
-    <div class='input-fields'>
+    <div class='input-fields '>
         <div class="field">
             {{form.new_hires.label}}
             {{form.new_hires}}
@@ -24,6 +28,6 @@
     
     </div>
     
-    <button type='submit'>Submit</button>
+    <button type='submit' class='submit-btn blue-btn'>Submit</button>
 </form>
 {% endblock content %}
