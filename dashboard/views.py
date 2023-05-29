@@ -500,8 +500,8 @@ def addTurnover(request):
 
 #Adding Hiring data template
 def addHiring(request):
-    page_title = 'Add Turnover'
-    blocktitle = 'Add Turnover'
+    page_title = 'Add hiring'
+    blocktitle = 'Add hiring'
     form = HiringForm()
     
     context = {'form': form, 'page_title': page_title, 'blocktitle': blocktitle}
