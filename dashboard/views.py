@@ -263,10 +263,8 @@ def departement(request):
 def complete_profile(request):
     hospitals = Hospital.objects.all()
     departments = Department.objects.all()
-    form = HospitalForm()
     
     if request.method == 'POST':
-        form = HospitalForm(request.POST)
         if form.is_valid():
             user = request.user
             custom_user = Profile.objects.get(user=user)
