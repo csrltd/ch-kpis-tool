@@ -198,36 +198,41 @@
                         <form method="POST">
                             {% csrf_token %}
                             <div class="hospital-fields">
-                                <div class="label-input">
+                                {% comment %} <div class="label-input">
                                     <label for="department">Department</label>
                                     <select name="department" id="department">
                                         {% for department in departments %}
                                             <option value="{{ department.id }}">{{ department.name }}</option>
                                         {% endfor %}
                                     </select>
-                                </div>
+                                </div> {% endcomment %}
+
+                                {{form.department}}
 
                             </div>
                             <div class="hospital-fields">
-                                <div class="label-input">
+                                {% comment %} <div class="label-input">
                                     <label for="hospital">Hospital</label>
                                     <select name="hospital" id="hospital">
                                         {% for hospital in hospitals %}
                                             <option value="{{ hospital.id }}">{{ hospital.name }}</option>
                                         {% endfor %}
                                     </select>
-                                </div>
+                                </div> {% endcomment %}
+                                {{form.hospital}}
                             </div>
                             <div class="hospital-fields">
                                 <div class="label-input">
-                                    <label for="role">Role</label>
+                                    {% comment %} <label for="role">Role</label>
                                     <select name="role" id="role">
                                         <option value="">Select Role</option>
                                         <option value="nurse">Nurse</option>
                                         <option value="doctor">Doctor</option>
                                         <option value="worker">Worker</option>
                                         <option value="doctor">Doctor</option>
-                                    </select>
+                                    </select> {% endcomment %}
+
+                                    {{form.role}}
 
                                 </div>
 
