@@ -212,12 +212,17 @@ def signup(request):
             # user.set_password(password)
             # user.save()
             selected_group.user_set.add(user)
-
-            custom_user = Profile.objects.create(user=user)
-            if not custom_user.is_profile_completed:
-                return redirect('complete-profile')
-            custom_user.save()
-            return redirect('login')
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(request, username=username, password=password)
+            # if user is not None:
+            login(request, user)
+            # custom_user = Profile.objects.get(user=user)
+            # if not custom_user.is_profile_completed:
+            # context = {'user':user}
+            return redirect('complete-profile' )
+            # custom_user.save()
+            # return redirect('login')
         print(form.errors)
     return render(request, 'authentication/signup.html', context)
 
@@ -258,9 +263,11 @@ def loginPage(request):
             request, 'Invalid credentials!!! Please enter correct username or password')
         
     return render(request, 'authentication/login.html')
+
+
 def logOutPage(request):
-    user = request.user
-    logout(request.user)
+    # user = request.user
+    logout(request)
 
     return redirect('login')
 
@@ -295,39 +302,31 @@ def departement(request):
     context = {'hospitals': hospitals}
     return render(request, 'dashboard/add-departement.html', context)
 
-# @admin_required
-
 
 def complete_profile(request):
-    hospitals = Hospital.objects.all()
-    departments = Department.objects.all()
+    
     form = ProfileForm()
-
+    message = ''
     if request.method == 'POST':
+
         form = ProfileForm(request.POST)
+   
         if form.is_valid():
-            user = request.user
-            custom_user, created = Profile.objects.get_or_create(user=user)
-            department_id = form.cleaned_data['department']
-            hospital_id = form.cleaned_data['hospital']
-            role = form.cleaned_data['role']
-            is_profile_completed = True
-            
-            custom_user.department_id = department_id
-            custom_user.hospital_id = hospital_id
-            custom_user.role = role
-            custom_user.is_profile_completed = is_profile_completed
-            custom_user.save()
-
+        
+            profile = form.save(commit=False)
+            # profile.user = request.user
+            profile.is_profile_completed = True
+            profile.save() 
             return redirect('login')
-
+        else:
+            message = 'Please enter valid data'    
+         
     context = {
-        'form': form,
-        'hospitals': hospitals,
-        'departments': departments,
+        'form':form,
+        'message': message
     }
-
-    return render(request, 'dashboard/complete-profile.html', context)
+    
+    return render(request,'dashboard/complete-profile.html', context )
 
 @admin_required
 def patient(request):
@@ -381,6 +380,7 @@ def singleHospital(request, hospital_id):
     page_title = hospital_name
     
     hospital_data = singleHospitalData(request, hospital_id)
+    profileInfo = Profile.objects.get(user=request.user)
 
     # getting specific data of a single hospital
     single_hospital_data = Census.objects.filter(hospital_id= hospital_id)

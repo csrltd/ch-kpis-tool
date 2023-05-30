@@ -197,6 +197,21 @@
                         </div>
                         <form method="POST">
                             {% csrf_token %}
+                            <h5>{{message}}</h5>
+
+                            <div class="hospital-fields">
+                                {% comment %} <div class="label-input">
+                                    <label for="department">Department</label>
+                                    <select name="department" id="department">
+                                        {% for department in departments %}
+                                            <option value="{{ department.id }}">{{ department.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div> {% endcomment %}
+
+                                {{form.user}}
+
+                            </div>
                             <div class="hospital-fields">
                                 {% comment %} <div class="label-input">
                                     <label for="department">Department</label>
