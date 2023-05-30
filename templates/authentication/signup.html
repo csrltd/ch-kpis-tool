@@ -44,18 +44,18 @@
                             {{form.username.label}}
                             {{form.username}}
                         </div>
-                        <!-- <div class="field">
+                        <div class="field">
                             {{form.first_name.label}}
                             {{form.first_name}}
                         </div>
                         <div class="field">
                             {{form.last_name.label}}
                             {{form.last_name}}
-                        </div> -->
-                        <!-- <div class="field">
+                        </div> 
+                        <div class="field">
                             {{form.phone_number.label}}
                             {{form.phone_number}}
-                        </div> -->
+                        </div> 
                         <div class="field">
                             {{form.email.label}}
                             {{form.email}}
@@ -90,7 +90,7 @@
                     <input type="submit" value="Create account" class="signup-btn">
                 </form>
                 <div class="links">
-                    <p>Already have an account? <a href="">Login</a> </p>
+                    <p>Already have an account? <a href="{% url 'login' %}">Login</a> </p>
                     <a href="" class="go-back-link">Go back</a>
                 </div>
             </div>
