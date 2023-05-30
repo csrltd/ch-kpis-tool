@@ -187,7 +187,7 @@ def filter_patients_by_month(request):
         data[hospital_name.name]['outpatient_totals'] = outpatient_totals
     return JsonResponse(data)
 
-@admin_required
+# @admin_required
 def signup(request):
     
     form = UserRegistration()
@@ -237,15 +237,16 @@ def loginPage(request):
                     else:
                         return redirect('login')
                 else:
-                    from django.http import HttpResponse
-                    return HttpResponse("Your profile is not complete, please contact Irene")
+                    # from django.http import HttpResponse
+                    # return HttpResponse("Your profile is not complete, please contact Irene")
+                    return redirect('complete-profile')
                 
             else:
                 return redirect('login')  
-        return redirect('index')
+        return redirect('login')
     else:
-            messages.error(
-                request, 'Invalid credentials!!! Please enter correct username or password')
+        messages.error(
+            request, 'Invalid credentials!!! Please enter correct username or password')
         
     return render(request, 'authentication/login.html')
 def logOutPage(request):
@@ -286,31 +287,31 @@ def departement(request):
     return render(request, 'dashboard/add-departement.html', context)
 
 # @admin_required
+
+
 def complete_profile(request):
     hospitals = Hospital.objects.all()
     departments = Department.objects.all()
-    form = HospitalForm()
-    
+    form = ProfileForm()
+
     if request.method == 'POST':
-        form = HospitalForm(request.POST)
+        form = ProfileForm(request.POST)
         if form.is_valid():
             user = request.user
-            custom_user = Profile.objects.get(user=user)
-            department_id = request.POST.get('department')
-            hospital_id = request.POST.get('hospital')
-            custom_user.department = department_id
-            custom_user.hospital = hospital_id
-            custom_user.role = request.POST.get('role')
-            custom_user.is_profile_completed = True
-
+            custom_user, created = Profile.objects.get_or_create(user=user)
+            department_id = form.cleaned_data['department']
+            hospital_id = form.cleaned_data['hospital']
+            role = form.cleaned_data['role']
+            is_profile_completed = True
+            
+            custom_user.department_id = department_id
+            custom_user.hospital_id = hospital_id
+            custom_user.role = role
+            custom_user.is_profile_completed = is_profile_completed
             custom_user.save()
 
             return redirect('login')
 
-        return redirect('login')
-    else:
-        form = HospitalForm()
-    
     context = {
         'form': form,
         'hospitals': hospitals,
@@ -430,6 +431,7 @@ def addMeasures(request):
         form = MeasuresForm(request.POST)
         if form.is_valid:
             form.save()
+            
     
     return render(request, 'dashboard/addMeasures.html',context)
 

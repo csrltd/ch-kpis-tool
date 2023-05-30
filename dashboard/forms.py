@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
-from .models import Hospital, Patient, Measures, Census, Turnover, Hiring
+from .models import Hospital, Patient, Measures, Census, Turnover, Hiring, Profile
 from django.forms import ModelForm, TextInput, Select, RadioSelect, DateTimeInput, NumberInput
 
 
@@ -39,9 +39,16 @@ class UserRegistration(UserCreationForm):
 class HospitalForm(ModelForm):
     class Meta:
         model = Hospital
-        fields = ['hospitalId', 'name', 'address', 'phone_number', 'email', 'mortality_rate',
+        fields = ['hospitalId', 'name', 'address', 'phone_number', 'email','mortality_rate',
                   'covid_vaccination', 'pressure_ulcers', 'complaints', 'complaints', 'hires']
+        
 
+class ProfileForm(ModelForm):
+    
+    class Meta:
+        model = Profile
+        fields = ['user','hospital', 
+                  'role','department']
 
 class patientForm(ModelForm):
     

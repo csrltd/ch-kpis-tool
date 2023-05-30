@@ -339,6 +339,7 @@
 
 //sign up
 .container {
+    height: 100vh;
     .row {
         display: flex;
         gap: 48px;
@@ -367,6 +368,8 @@
             padding-top: 40px;
             gap: 20px;
             width: 70%;
+            height: 100vh;
+            overflow: scroll;
 
             h4{
                 width: 70%;
