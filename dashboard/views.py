@@ -375,6 +375,9 @@ def singleHospital(request, hospital_id):
     # getting a single hospital
     hospital = Hospital.objects.get(id=hospital_id)
     hospital_name = hospital.name
+    
+    hospital_data = singleHospitalData(request, hospital_id)
+    profileInfo = Profile.objects.get(user=request.user)
 
     # title displaying as the hospital name when a user is viewing data of that particular hospital
     page_title = hospital_name
@@ -420,7 +423,8 @@ def singleHospital(request, hospital_id):
         'total_emergency_room': total_emergency_room,
         'total_rural_health_clinic': total_rural_health_clinic,
         'total_acute_swing_bed_transfers': total_acute_swing_bed_transfers,
-        'page_title': page_title
+        'page_title': page_title,
+        'profileInfo': profileInfo
     }
     return render(request, 'dashboard/hospital.html', context)
 
