@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="{% static '/dashboard/css/index.css' %}" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <title>Dashboard</title>
+  <title>{{ page_title }}</title>
 </head>
 
 <body>
@@ -30,7 +30,7 @@
               <span>Hospitals</span><img src="{% static '/dashboard/img/icons/ange-righ.svg' %}" alt="" />
             </div>
             <div class="dropdown-content hspdropdown-content">
-              <a href="" class="button"><span>Add data</span><img src="{% static '/dashboard/img/icons/plus.svg' %}"
+              <a href="{% url 'add-measures' %}" class="button"><span>Add data</span><img src="{% static '/dashboard/img/icons/plus.svg' %}"
                   alt="" /></a>
               {% for hospital in hospitals %}
               <a href="{% url 'single-hospital' hospital_id=hospital.id %}">{{ hospital.name }}</a>
@@ -46,11 +46,11 @@
             <div class="dropdown-content rhcdropdown-content hidden">
               <a href="" class="button"><span>Add data</span><img src="{% static '/dashboard/img/icons/plus.svg' %}"
                   alt="" /></a>
-              <a href="">Mangum</a>
-              <a href="">Prague</a>
-              <a href="">Pawhuska</a>
-              <a href="">Carnegie</a>
-              <a href="">Seilling</a>
+              <a href="{% url 'coming-soon' %}">Mangum</a>
+              <a href="{% url 'coming-soon' %}">Prague</a>
+              <a href="{% url 'coming-soon' %}">Pawhuska</a>
+              <a href="{% url 'coming-soon' %}">Carnegie</a>
+              <a href="{% url 'coming-soon' %}">Seilling</a>
             </div>
           </li>
           <hr />
@@ -61,11 +61,11 @@
             <div class="dropdown-content labordropdown-content hidden">
               <a href="" class="button"><span>Add data</span><img src="{% static '/dashboard/img/icons/plus.svg' %}"
                   alt="" /></a>
-              <a href="">Mangum</a>
-              <a href="">Prague</a>
-              <a href="">Pawhuska</a>
-              <a href="">Carnegie</a>
-              <a href="">Seilling</a>
+              <a href="{% url 'coming-soon' %}">Mangum</a>
+              <a href="{% url 'coming-soon' %}">Prague</a>
+              <a href="{% url 'coming-soon' %}">Pawhuska</a>
+              <a href="{% url 'coming-soon' %}">Carnegie</a>
+              <a href="{% url 'coming-soon' %}">Seilling</a>
             </div>
           </li>
         </url>
@@ -93,7 +93,7 @@
           <h1 class="system-title">KPIs Tool</h1>
         </div>
         <div class="bread-crumbs">
-          <p>KPI Toll >{{request.user.last_name}} > Overview</p>
+          <p>Home > {{ page_title }}</p>
         </div>
         <div class="right-content">
           <div class="notification">
@@ -182,7 +182,7 @@
           <div class="card">
             <img class="card-img" src="{% static '/dashboard/img/icons/inpatient.svg' %}" alt="" class="number-img" />
             <div class="number-content">
-              <div class="text">Inpatient</div>
+              <p class="text">Inpatient</p>
               <div class="number">
                 <p>{{ inpatient_count }}</p>
               </div>
@@ -191,7 +191,7 @@
           <div class="card">
             <img class="card-img" src="{% static '/dashboard/img/icons/outpatient.svg' %}" alt="" class="number-img" />
             <div class="number-content">
-              <div class="text">Outpatient</div>
+              <p class="text">Outpatient</p>
               <div class="number">
                 <p>{{ outpatient_count }}</p>
               </div>
@@ -200,7 +200,7 @@
           <div class="card">
             <img class="card-img" src="{% static '/dashboard/img/icons/swing-bed.svg' %}" alt="" class="number-img" />
             <div class="number-content">
-              <div class="text">Swing bed</div>
+              <p class="text">Swing bed</p>
               <div class="number">
                 <p>{{ swing_bed_count }}</p>
               </div>
@@ -209,9 +209,9 @@
           <div class="card">
             <img class="card-img" src="{% static '/dashboard/img/icons/acute-bed.svg' %}" alt="" class="number-img" />
             <div class="number-content">
-              <div class="text">Acute bed</div>
+              <p class="text">Acute/swing bed transfers</p>
               <div class="number">
-                <p>{{ acute_bed_count }}</p>
+                <p>{{ acute_swing_bed_transfers_count }}</p>
               </div>
             </div>
           </div>
@@ -219,9 +219,9 @@
             <img class="card-img" src="{% static '/dashboard/img/icons/emergency-room.svg' %}" alt=""
               class="number-img" />
             <div class="number-content">
-              <div class="text">Emergency room</div>
+              <p class="text">Emergency room</p>
               <div class="number">
-                <p>66</p>
+                <p>{{ emergency_room_count }}</p>
               </div>
             </div>
           </div>
@@ -229,9 +229,9 @@
             <img class="card-img" src="{% static '/dashboard/img/icons/rural health clinic.svg' %}" alt=""
               class="number-img" />
             <div class="number-content">
-              <div class="text">Rural health clinic</div>
+              <p class="text">Rural health clinic</p>
               <div class="number">
-                <p>60</p>
+                <p>{{ total_rural_health_clinic }}</p>
               </div>
             </div>
           </div>

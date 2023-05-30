@@ -14,6 +14,7 @@ from django.contrib.auth.hashers import make_password
 from django.db.models import Avg, Sum,DecimalField
 from django.db.models.functions import Round
 from django.views.decorators.http import require_http_methods
+from django.db.models import Count
 
 
 #Permissions
@@ -94,12 +95,17 @@ def hospital_mortality_rate(request):
 
 @admin_required
 def index(request):
+    page_title = 'Overview'
     profileInfo = Profile.objects.get(user=request.user)
     hospitals = Hospital.objects.all()
-    inpatient_count = Patient.objects.filter(status='inpatient').count()
-    outpatient_count = Patient.objects.filter(status='outpatient').count()
-    acute_bed_count = Bed.objects.filter(type='acute bed').count()
-    swing_bed_count = Bed.objects.filter(type='swing bed').count()
+    inpatient_count = Census.objects.aggregate(total=Sum('inpatient'))['total']
+    outpatient_count = Census.objects.aggregate(total=Sum('outpatient'))['total']
+    swing_bed_count = Census.objects.aggregate(total=Sum('swing_bed'))['total']
+    acute_swing_bed_transfers_count = Measures.objects.aggregate(total=Sum('acute_swing_bed_transfers'))['total']
+
+    # added fields on the quick numbers cards
+    emergency_room_count = Census.objects.aggregate(total=Sum('emergency_room'))['total']
+    total_rural_health_clinic = Census.objects.aggregate(total=Sum('rural_health_clinic'))['total']
 
     measures_data = []
     fields = ['mortality_rate','readmissions','pressure_ulcer','discharges_home','emergency_room_transfers','acute_swing_bed_transfers','medication_errors','falls',
@@ -120,10 +126,13 @@ def index(request):
         'hospitals': hospitals,
         'inpatient_count': inpatient_count,
         'outpatient_count': outpatient_count,
-        'acute_bed_count': acute_bed_count,
         'swing_bed_count': swing_bed_count,
         'profileInfo': profileInfo,
-        'measures_data': measures_data
+        'measures_data': measures_data,
+        'emergency_room_count': emergency_room_count,
+        'total_rural_health_clinic': total_rural_health_clinic,
+        'acute_swing_bed_transfers_count': acute_swing_bed_transfers_count,
+        'page_title': page_title
     }
         
     return render(request, 'dashboard/index.html', context)
@@ -365,11 +374,27 @@ def singleHospital(request, hospital_id):
 
     # getting a single hospital
     hospital = Hospital.objects.get(id=hospital_id)
+    hospital_name = hospital.name
     
     hospital_data = singleHospitalData(request, hospital_id)
     profileInfo = Profile.objects.get(user=request.user)
 
-    print(hospitals)
+    # title displaying as the hospital name when a user is viewing data of that particular hospital
+    page_title = hospital_name
+    
+    hospital_data = singleHospitalData(request, hospital_id)
+    profileInfo = Profile.objects.get(user=request.user)
+
+    # getting specific data of a single hospital
+    single_hospital_data = Census.objects.filter(hospital_id= hospital_id)
+    single_hospital_acute_swing_bed_transfers = Measures.objects.filter(hospital_id= hospital_id)
+    # filtering the quick numbers cards
+    total_inpatient = single_hospital_data.aggregate(total_inpatient=models.Sum('inpatient'))['total_inpatient']
+    total_outpatient = single_hospital_data.aggregate(total_outpatient=models.Sum('outpatient'))['total_outpatient']
+    total_swing_bed = single_hospital_data.aggregate(total_swing_bed=models.Sum('swing_bed'))['total_swing_bed']
+    total_emergency_room = single_hospital_data.aggregate(total_emergency_room=models.Sum('emergency_room'))['total_emergency_room']
+    total_rural_health_clinic = single_hospital_data.aggregate(total_rural_health_clinic=models.Sum('rural_health_clinic'))['total_rural_health_clinic']
+    total_acute_swing_bed_transfers = single_hospital_acute_swing_bed_transfers.aggregate(total_acute_swing_bed_transfers=models.Sum('acute_swing_bed_transfers'))['total_acute_swing_bed_transfers']
 
     measures_data = []
     fields = ['mortality_rate','readmissions','pressure_ulcer','discharges_home','emergency_room_transfers','acute_swing_bed_transfers','medication_errors','falls',
@@ -387,9 +412,18 @@ def singleHospital(request, hospital_id):
         measures_data.append(data)
 
     context = {
+        'hospital_name': hospital_name,
         'hospitals': hospitals,
         'hospital_data': hospital_data,
         'measures_data': measures_data,
+        'total_inpatient': total_inpatient,
+        'total_outpatient': total_outpatient,
+        'total_swing_bed': total_swing_bed,
+        'total_emergency_room': total_emergency_room,
+        'total_emergency_room': total_emergency_room,
+        'total_rural_health_clinic': total_rural_health_clinic,
+        'total_acute_swing_bed_transfers': total_acute_swing_bed_transfers,
+        'page_title': page_title,
         'profileInfo': profileInfo
     }
     return render(request, 'dashboard/hospital.html', context)
@@ -489,3 +523,7 @@ def addHiring(request):
             form.save()
     
     return render(request, 'dashboard/addHiring.html',context)
+
+
+def comingSoon(request):
+    return render(request, 'rhc/coming-soon.html')

@@ -1,0 +1,21 @@
+$cPrimary: #0E76BC;
+$cSecondary: #DEEEFA;
+
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;400;500;700&display=swap');
+
+
+.container {
+    display: grid;
+    place-items: center;
+    align-content: center;
+    min-height: 80vh;
+
+    .back-btn {
+        margin-top: 10px;
+        text-decoration: none;
+        background-color: $cPrimary;
+        color: $cSecondary;
+        padding: 15px 25px;
+        border-radius: 10px;
+    }
+}

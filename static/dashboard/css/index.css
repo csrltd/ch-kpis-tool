@@ -290,14 +290,15 @@ body {
   border-radius: 6px;
 }
 .content .numbers .cards .card .card-img {
-  width: 40px;
+  width: 30px;
 }
 .content .numbers .cards .card .number-content .text {
   color: gray;
+  font-size: 16px;
 }
 .content .numbers .cards .card .number-content .number p {
   font-weight: bold;
-  font-size: 22px;
+  font-size: 18px;
 }
 .content .charts .charts-container {
   display: flex;
