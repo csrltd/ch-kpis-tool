@@ -307,6 +307,7 @@ def complete_profile(request):
     
     form = ProfileForm()
     message = ''
+    blocktitle = 'Add your profile'
     if request.method == 'POST':
 
         form = ProfileForm(request.POST)
@@ -323,7 +324,8 @@ def complete_profile(request):
          
     context = {
         'form':form,
-        'message': message
+        'message': message,
+        'blocktitle':blocktitle,
     }
     
     return render(request,'dashboard/complete-profile.html', context )
