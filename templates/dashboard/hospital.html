@@ -252,7 +252,17 @@
         </div>
 
         <div class="main-content numbers">
-          <h1 class="title">{{hospital_name}} quick numbers</h1>
+          <div>
+            <h1 class="title">{{hospital_name}} quick numbers</h1>
+            <form action="" method='GET'>
+              <select name="" id="">
+                {% for year in years  %}
+                <option value="{{year.year}}"><button type='submit'>{{year.year}}</button></option>
+                
+                {% endfor %}
+              </select>
+            </form>
+          </div>
           <div class="cards">
             <div class="card">
               <img

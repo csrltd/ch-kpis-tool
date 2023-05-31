@@ -121,6 +121,8 @@ def index(request):
             .aggregate(average= Round(Avg(i),2))
             data.append(single_column)
         measures_data.append(data)
+        
+    
 
     context = {
         'hospitals': hospitals,
@@ -386,6 +388,14 @@ def singleHospital(request, hospital_id):
     
     hospital_data = singleHospitalData(request, hospital_id)
     profileInfo = Profile.objects.get(user=request.user)
+    
+    # filtering the data based year
+    years = Measures.objects.distinct().annotate(year=ExtractYear('date_entered')).values('year')
+    print(years)
+    selected_year = request.GET.get('year')
+    print(selected_year)
+    # if selected_year:
+    #     data = data.filter(date_created__year=selected_year).distinct()
 
     # getting specific data of a single hospital
     single_hospital_data = Census.objects.filter(hospital_id= hospital_id)
@@ -426,7 +436,8 @@ def singleHospital(request, hospital_id):
         'total_rural_health_clinic': total_rural_health_clinic,
         'total_acute_swing_bed_transfers': total_acute_swing_bed_transfers,
         'page_title': page_title,
-        'profileInfo': profileInfo
+        'profileInfo': profileInfo,
+        'years': years,
     }
     return render(request, 'dashboard/hospital.html', context)
 
