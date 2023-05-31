@@ -276,6 +276,15 @@ body {
   gap: 12px;
   padding-right: 20px;
 }
+.content .main-content .filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.content .main-content .filter form select {
+  padding: 0.5rem 5rem;
+  border-radius: 10px;
+}
 .content .numbers .cards {
   display: flex;
   align-items: start;

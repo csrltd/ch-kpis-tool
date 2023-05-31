@@ -380,6 +380,14 @@ def singleHospital(request, hospital_id):
     hospital = Hospital.objects.get(id=hospital_id)
     hospital_name = hospital.name
     
+     # filtering the data based year
+    years = Measures.objects.distinct().annotate(year=ExtractYear('date_entered')).values('year')
+    # print(years)
+    selected_year = datetime.datetime.now().year
+    if request.method == 'POST':
+        selected_year = request.POST['selected_year']
+    print(selected_year)
+    
     hospital_data = singleHospitalData(request, hospital_id)
     profileInfo = Profile.objects.get(user=request.user)
 
@@ -389,13 +397,6 @@ def singleHospital(request, hospital_id):
     hospital_data = singleHospitalData(request, hospital_id)
     profileInfo = Profile.objects.get(user=request.user)
     
-    # filtering the data based year
-    years = Measures.objects.distinct().annotate(year=ExtractYear('date_entered')).values('year')
-    print(years)
-    selected_year = request.GET.get('year')
-    print(selected_year)
-    # if selected_year:
-    #     data = data.filter(date_created__year=selected_year).distinct()
 
     # getting specific data of a single hospital
     single_hospital_data = Census.objects.filter(hospital_id= hospital_id)
@@ -416,9 +417,9 @@ def singleHospital(request, hospital_id):
     for i in fields:
         data = [{'field_name': i.replace('_',' ').capitalize()}]
         for j in range(1, 13):
-            single_column = Measures.objects.annotate(month=ExtractMonth('date_entered'),)\
+            single_column = Measures.objects.annotate(month=ExtractMonth('date_entered'),year=ExtractYear('date_entered'))\
             .order_by('month')\
-            .filter(month=j, hospital=hospital)\
+            .filter(month=j, hospital=hospital, year=selected_year)\
             .aggregate(average= Round(Avg(i),2))
             data.append(single_column)
         measures_data.append(data)

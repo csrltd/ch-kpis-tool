@@ -252,12 +252,13 @@
         </div>
 
         <div class="main-content numbers">
-          <div>
+          <div class='filter'>
             <h1 class="title">{{hospital_name}} quick numbers</h1>
-            <form action="" method='GET'>
-              <select name="" id="">
+            <form  method='POST' id='myForm'>
+              {% csrf_token %}
+              <select id="yearSelect" name='selected_year'>
                 {% for year in years  %}
-                <option value="{{year.year}}"><button type='submit'>{{year.year}}</button></option>
+                <option value="{{year.year}}">{{year.year}}</option>
                 
                 {% endfor %}
               </select>
@@ -389,7 +390,14 @@
               {% for data in measures_data %}
               <tr>
                 {% for objects in data%} {% for obj in objects.values %}
-                <td>{{obj}}</td>
+                
+                <td>{% if obj == None  %}
+                  --
+                  
+                  {% else %}
+                  {{obj}}
+                  
+                  {% endif %} </td>
                 {% endfor %} {% endfor %}
               </tr>
 
@@ -408,5 +416,17 @@
       type="text/javascript"
       src="{% static '/dashboard/js/main.js' %}"
     ></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+      $(document).ready(function() {
+        $('#yearSelect').change(function() {
+
+          console.log()
+          $('#myForm').submit();
+        });
+      });
+    </script>
   </body>
 </html>
