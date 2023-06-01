@@ -145,6 +145,14 @@ def index(request):
 @admin_required
 def chart_data(request):
     
+      # filtering the data based year
+    years = Measures.objects.distinct().annotate(year=ExtractYear('date_entered')).values('year')
+    # print(years)
+    selected_year = datetime.datetime.now().year
+    if request.method == 'POST':
+        selected_year = request.POST['selected_year']
+    print(selected_year)
+    
     bed_data = Bed.objects.all().count()
     acute_bed = Bed.objects.filter(type="acute bed").count()
     swing_bed = Bed.objects.filter(type="swing bed").count()
@@ -402,8 +410,8 @@ def singleHospital(request, hospital_id):
     
 
     # getting specific data of a single hospital
-    single_hospital_data = Census.objects.filter(hospital_id= hospital_id)
-    single_hospital_acute_swing_bed_transfers = Measures.objects.filter(hospital_id= hospital_id)
+    single_hospital_data = Census.objects.annotate(year=ExtractYear('date_entered')).filter(hospital_id= hospital_id, year=selected_year)
+    single_hospital_acute_swing_bed_transfers = Measures.objects.annotate(year=ExtractYear('date_entered')).filter(hospital_id= hospital_id, year=selected_year)
     # filtering the quick numbers cards
     total_inpatient = single_hospital_data.aggregate(total_inpatient=models.Sum('inpatient'))['total_inpatient']
     total_outpatient = single_hospital_data.aggregate(total_outpatient=models.Sum('outpatient'))['total_outpatient']

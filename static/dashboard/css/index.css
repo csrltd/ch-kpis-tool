@@ -282,8 +282,13 @@ body {
   align-items: center;
 }
 .content .main-content .filter form select {
-  padding: 0.5rem 5rem;
+  padding: 0.5rem 3rem;
   border-radius: 10px;
+  outline: none;
+}
+.content .main-content .filter form select option {
+  background-color: #54bc0e;
+  text-align: right;
 }
 .content .numbers .cards {
   display: flex;
