@@ -32,9 +32,9 @@ from django.utils.timezone import make_aware
 from django.db.models.functions import ExtractMonth, ExtractYear
 import uuid
 
-def generate_password():
-    password = str(uuid.uuid4())[:8]  
-    return password
+# def generate_password():
+#     password = str(uuid.uuid4())[:8]  
+#     return password
 
 
 def turnover_data(request, hospital_id=None):
@@ -397,6 +397,9 @@ def singleHospital(request, hospital_id):
     hospital_data = singleHospitalData(request, hospital_id)
     profileInfo = Profile.objects.get(user=request.user)
     
+    # checking the hospital ID for the logged in user
+    user_hospital_id = request.user.profile.hospital.id
+    
 
     # getting specific data of a single hospital
     single_hospital_data = Census.objects.filter(hospital_id= hospital_id)
@@ -439,6 +442,7 @@ def singleHospital(request, hospital_id):
         'page_title': page_title,
         'profileInfo': profileInfo,
         'years': years,
+        'user_hospital_id': user_hospital_id
     }
     return render(request, 'dashboard/hospital.html', context)
 

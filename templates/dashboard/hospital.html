@@ -50,10 +50,20 @@
                     alt=""
                 /></a>
                 {% for hospital in hospitals %}
-                <a href="{% url 'single-hospital' hospital_id=hospital.id %}"
-                  >{{ hospital.name }}</a
-                >
+                  {% if hospital.id == user_hospital_id %}
+                    <a href="{% url 'single-hospital' hospital_id=hospital.id %}">
+                      {{ hospital.name }}
+                      
+                    </a>
+                  {% endif %}
                 {% endfor %}
+
+                <a href="#">
+                  Measures
+                </a>
+                <a href="#">
+                  Turnovers
+                </a>
               </div>
             </li>
             <hr />
@@ -72,11 +82,20 @@
                     src="{% static '/dashboard/img/icons/plus.svg' %}"
                     alt=""
                 /></a>
-                <a href="">Mangum</a>
+                {% comment %} This might change later. This is semantically incorrect because the data displayed is from the hospital table {% endcomment %}
+                {% comment %} <a href="">Mangum</a>
                 <a href="">Prague</a>
                 <a href="">Pawhuska</a>
                 <a href="">Carnegie</a>
-                <a href="">Seilling</a>
+                <a href="">Seilling</a> {% endcomment %}
+                {% for hospital in hospitals %}
+                  {% if hospital.id == user_hospital_id %}
+                    <a href="{% url 'single-hospital' hospital_id=hospital.id %}">
+                      {{ hospital.name }}
+                      
+                    </a>
+                  {% endif %}
+                {% endfor %}
               </div>
             </li>
             <hr />
@@ -95,11 +114,19 @@
                     src="{% static '/dashboard/img/icons/plus.svg' %}"
                     alt=""
                 /></a>
-                <a href="">Mangum</a>
+                {% comment %} <a href="">Mangum</a>
                 <a href="">Prague</a>
                 <a href="">Pawhuska</a>
                 <a href="">Carnegie</a>
-                <a href="">Seilling</a>
+                <a href="">Seilling</a> {% endcomment %}
+                {% for hospital in hospitals %}
+                  {% if hospital.id == user_hospital_id %}
+                    <a href="{% url 'single-hospital' hospital_id=hospital.id %}">
+                      {{ hospital.name }}
+                      
+                    </a>
+                  {% endif %}
+                {% endfor %}
               </div>
             </li>
           </url>
