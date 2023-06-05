@@ -44,11 +44,26 @@ class HospitalForm(ModelForm):
         
 
 class ProfileForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        user_hospital_id = kwargs.pop('user_hospital_id', None)
+        user = kwargs.pop('user', None)
+    
+        super(ProfileForm, self).__init__(*args, **kwargs)
+    
+        if user_hospital_id:
+            # self.initial['user_hospital_id'] = user_hospital_id
+            self.fields['hospital'].queryset = Hospital.objects.filter(id=user_hospital_id)
+        
+        if user:
+            self.initial['user'] = user
+            self.fields['user'].queryset = User.objects.filter(id=user.id)
     
     class Meta:
         model = Profile
-        fields = ['user','hospital', 
-                  'role','department']
+        fields = ['user','hospital', 'role','department']
+        # widgets = {
+        #     'user': forms.HiddenInput(),
+        # }
 
 class patientForm(ModelForm):
     
@@ -71,9 +86,11 @@ class patientForm(ModelForm):
   
        
 class MeasuresForm(ModelForm):
-    
-   
-    
+    def __init__(self, *args, **kwargs):
+        user_hospital_id = kwargs.pop('user_hospital_id', None)
+        super(MeasuresForm, self).__init__(*args, **kwargs)
+        if user_hospital_id:
+            self.fields['hospital'].queryset = Hospital.objects.filter(id=user_hospital_id)
     class Meta:
         model = Measures
         fields = ['mortality_rate','readmissions','pressure_ulcer','discharges_home','emergency_room_transfers',
@@ -104,7 +121,11 @@ class MeasuresForm(ModelForm):
         
 
 class CensusForm(ModelForm):
-    
+    def __init__(self, *args, **kwargs):
+        user_hospital_id = kwargs.pop('user_hospital_id', None)
+        super(CensusForm, self).__init__(*args, **kwargs)
+        if user_hospital_id:
+            self.fields['hospital'].queryset = Hospital.objects.filter(id=user_hospital_id)
     class Meta:
         model = Census
         fields =['inpatient','swing_bed','observation',
@@ -124,7 +145,11 @@ class CensusForm(ModelForm):
         }
         
 class TurnoverForm(ModelForm):
-    
+    def __init__(self, *args, **kwargs):
+        user_hospital_id = kwargs.pop('user_hospital_id', None)
+        super(TurnoverForm, self).__init__(*args, **kwargs)
+        if user_hospital_id:
+            self.fields['hospital'].queryset = Hospital.objects.filter(id=user_hospital_id)
     class Meta:
         model = Turnover
         fields =['total','voluntary','hospital'

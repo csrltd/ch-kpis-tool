@@ -222,15 +222,18 @@ def signup(request):
             # user.set_password(password)
             # user.save()
             selected_group.user_set.add(user)
-            username = request.POST.get('username')
-            password = request.POST.get('password')
+            # username = request.POST.get('username')
+            # password = request.POST.get('password')
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
             user = authenticate(request, username=username, password=password)
-            # if user is not None:
-            login(request, user)
+            print(user)
+            if user is not None:
+                login(request, user)
             # custom_user = Profile.objects.get(user=user)
             # if not custom_user.is_profile_completed:
             # context = {'user':user}
-            return redirect('complete-profile' )
+                return redirect('complete-profile' )
             # custom_user.save()
             # return redirect('login')
         print(form.errors)
@@ -314,8 +317,9 @@ def departement(request):
 
 
 def complete_profile(request):
-    
+    # user_hospital_id = request.user.profile.hospital.id
     form = ProfileForm()
+    # user=request.user, user_hospital_id=user_hospital_id
     message = ''
     blocktitle = 'Add your profile'
     if request.method == 'POST':
@@ -393,7 +397,7 @@ def singleHospital(request, hospital_id):
     # print(years)
     selected_year = datetime.datetime.now().year
     if request.method == 'POST':
-        selected_year = request.POST['selected_year']
+        selected_year = request.POST.get('selected_year')
     print(selected_year)
     
     hospital_data = singleHospitalData(request, hospital_id)
@@ -482,9 +486,12 @@ def singleHospitalData(request, hospital_id):
 
 #Adding Measures data template
 def addMeasures(request):
-    form = MeasuresForm()
+    user_hospital_id = request.user.profile.hospital.id
+    form = MeasuresForm(user_hospital_id=user_hospital_id)
     page_title = 'Add Measures'
     blocktitle = 'Add Measures'
+    
+    
     context = {'form':form, 'page_title': page_title, 'blocktitle': blocktitle}
     
     if request.method == 'POST':
@@ -498,9 +505,10 @@ def addMeasures(request):
 
 #Adding Census data template
 def addCensus(request):
+    user_hospital_id = request.user.profile.hospital.id
     page_title = 'Add Census'
     blocktitle = 'Add Census'
-    form = CensusForm()
+    form = CensusForm(user_hospital_id=user_hospital_id)
     
     context = {'form':form, 'page_title': page_title, 'blocktitle': blocktitle}
     
@@ -516,9 +524,10 @@ def addCensus(request):
 
 #Adding Turnover data template
 def addTurnover(request):
+    user_hospital_id = request.user.profile.hospital.id
     page_title = 'Add Turnover'
     blocktitle = 'Add Turnover'
-    form = TurnoverForm()
+    form = TurnoverForm(user_hospital_id=user_hospital_id)
     
     context = {'form': form, 'page_title': page_title, 'blocktitle': blocktitle}
     
@@ -549,6 +558,41 @@ def addHiring(request):
             form.save()
     
     return render(request, 'dashboard/addHiring.html',context)
+
+def measuresView(request, hospital_id):
+    hospital = Hospital.objects.get(id=hospital_id)
+    hospitals = Hospital.objects.all()
+    # hospital_data = singleHospitalData(request, hospital_id)
+    profileInfo = Profile.objects.get(user=request.user)
+    user_hospital_id = request.user.profile.hospital.id
+    hospital_name = hospital.name
+    page_title = hospital_name
+    
+    years = Measures.objects.distinct().annotate(year=ExtractYear('date_entered')).values('year')
+    # print(years)
+    selected_year = datetime.datetime.now().year
+    if request.method == 'POST':
+        selected_year = request.POST.get('selected_year')
+    print(selected_year)
+    
+    measures_data = []
+    fields = ['mortality_rate','readmissions','pressure_ulcer','discharges_home','emergency_room_transfers','acute_swing_bed_transfers','medication_errors','falls',
+              'against_medical_advice','left_without_being_seen','hospital_acquired_infection','covid_vaccination_total_percentage_of_compliance','complaint','grievances'
+              ]
+    
+    for i in fields:
+        data = [{'field_name': i.replace('_',' ').capitalize()}]
+        for j in range(1, 13):
+            single_column = Measures.objects.annotate(month=ExtractMonth('date_entered'),year=ExtractYear('date_entered'))\
+            .order_by('month')\
+            .filter(month=j, hospital=hospital, year=selected_year)\
+            .aggregate(average= Round(Avg(i),2))
+            data.append(single_column)
+        measures_data.append(data)
+        
+    context = {'hospital':hospital, 'measures_data':measures_data, 'profileInfo':profileInfo, 'user_hospital_id': user_hospital_id, 'page_title': page_title, 'hospitals': hospitals, 'years':years}
+        
+    return render(request, 'dashboard/measures.html', context)
 
 
 def comingSoon(request):

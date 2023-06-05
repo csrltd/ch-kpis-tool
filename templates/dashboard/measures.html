@@ -25,7 +25,7 @@
           </div>
           <url class="menu-items">
             <li class="menu-item">
-              <a href=""
+              <a href="{% url 'single-hospital' hospital.id %}"
                 ><img
                   src="{% static '/dashboard/img/icons/tachometer-alt.svg' %}"
                   alt=""
@@ -286,8 +286,16 @@
         </div>
 
         <div class="main-content numbers">
+            
+                <a href="{% url 'add-measures' %}" class="button"
+                  ><span>Add Measures</span
+                  ><img
+                    src="{% static '/dashboard/img/icons/plus.svg' %}"
+                    alt=""
+                /></a>
+            
           <div class='filter'>
-            <h1 class="title">{{hospital_name}} quick numbers</h1>
+            {% comment %} <h1 class="title">{{hospital_name}} quick numbers</h1> {% endcomment %}
             <form  method='POST' id='myForm'>
               {% csrf_token %}
               <select id="yearSelect" name='selected_year'>
@@ -298,143 +306,9 @@
               </select>
             </form>
           </div>
-          <div class="cards">
-            <div class="card">
-              <img
-                class="card-img"
-                src="{% static '/dashboard/img/icons/inpatient.svg' %}"
-                alt=""
-                class="number-img"
-              />
-              <div class="number-content">
-                <p class="text">Inpatient</p>
-                <div class="number">
-                  <p>
-                    {% if total_inpatient == None  %}
-                    --
-                    
-                    {% else %}
-                    {{total_inpatient}}
-                    
-                    {% endif %}
-                    
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <img
-                class="card-img"
-                src="{% static '/dashboard/img/icons/outpatient.svg' %}"
-                alt=""
-                class="number-img"
-              />
-              <div class="number-content">
-                <p class="text">Outpatient</p>
-                <div class="number">
-                  <p>
-                    {% if total_outpatient == None  %}
-                    --
-                    
-                    {% else %}
-                    {{total_outpatient}}
-                    
-                    {% endif %}
-                    
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <img
-                class="card-img"
-                src="{% static '/dashboard/img/icons/swing-bed.svg' %}"
-                alt=""
-                class="number-img"
-              />
-              <div class="number-content">
-                <p class="text">Swing bed</p>
-                <div class="number">
-                  <p>
-                    {% if total_swing_bed == None  %}
-                    --
-                    
-                    {% else %}
-                    {{total_swing_bed}}
-                    
-                    {% endif %}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <img
-                class="card-img"
-                src="{% static '/dashboard/img/icons/acute-bed.svg' %}"
-                alt=""
-                class="number-img"
-              />
-              <div class="number-content">
-                <p class="text">Acute/swing bed transfers</p>
-                <div class="number">
-                  <p>
-                    {% if total_acute_swing_bed_transfers == None  %}
-                    --
-                    
-                    {% else %}
-                    {{total_acute_swing_bed_transfers}}
-                    
-                    {% endif %}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <img
-                class="card-img"
-                src="{% static '/dashboard/img/icons/emergency-room.svg' %}"
-                alt=""
-                class="number-img"
-              />
-              <div class="number-content">
-                <p class="text">Emergency room</p>
-                <div class="number">
-                  <p>
-                    {% if total_emergency_room == None  %}
-                    --
-                    
-                    {% else %}
-                    {{total_emergency_room}}
-                    
-                    {% endif %}</p>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <img
-                class="card-img"
-                src="{% static '/dashboard/img/icons/rural health clinic.svg' %}"
-                alt=""
-                class="number-img"
-              />
-              <div class="number-content">
-                <p class="text">Rural health clinic</p>
-                <div class="number">
-                  <p>
-                    {% if total_rural_health_clinic == None  %}
-                    --
-                    
-                    {% else %}
-                    {{total_rural_health_clinic}}
-                    
-                    {% endif %}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="main-content charts">
+          
+        </div> 
+        {% comment %} <div class="main-content charts">
           <h1 class="title">Charts</h1>
 
           <div class="charts-container">
@@ -447,7 +321,7 @@
               <canvas id="singleturnOvers"></canvas>
             </div>
           </div>
-        </div>
+        </div> {% endcomment %}
         <div class="main-content measures">
           <h1 class="title">Measures</h1>
           <table id="myTable">
@@ -503,13 +377,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script>
-      $(document).ready(function() {
-        $('#yearSelect').change(function() {
-
-          console.log()
-          $('#myForm').submit();
+        $(document).ready(function() {
+          $('#yearSelect').change(function() {
+  
+            console.log()
+            $('#myForm').submit();
+          });
         });
-      });
-    </script>
+      </script>
   </body>
-</html>

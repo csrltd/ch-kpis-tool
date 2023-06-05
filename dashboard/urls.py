@@ -19,6 +19,7 @@ urlpatterns = [
     path('add-census/',views.addCensus,name='add-census'),
     path('add-turnover/',views.addTurnover,name='add-turnover'),
     path('add-hiring/',views.addHiring,name='add-hiring'),
+    path('single-hospital/<int:hospital_id>/measures',views.measuresView,name='single-hospital-measures'),
     
 
     # fetching data url
