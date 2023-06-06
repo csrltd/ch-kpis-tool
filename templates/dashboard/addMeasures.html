@@ -9,6 +9,11 @@
     {% comment %} {{form.as_p}} {% endcomment %}
     <div class="input-fields">
         <div class="field">
+            {{form.hospital.label}}
+            {{form.hospital}}
+            
+        </div>
+        <div class="field">
             {{form.mortality_rate.label}}
             {{form.mortality_rate}}
         </div>
@@ -65,19 +70,15 @@
             {{form.grievances.label}}
             {{form.grievances}}
         </div>
-        <div class="field">
-            {{form.hospital.label}}
-            {{form.hospital}}
-            
-        </div>
+        
         <div class="field">
             {{form.date_entered.label}}
             {{form.date_entered}}
         </div>
-        <div class="field">
+        {% comment %} <div class="field">
             {{form.date_created.label}}
             {{form.date_created}}
-        </div>
+        </div> {% endcomment %}
        
        
     </div>

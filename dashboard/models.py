@@ -152,7 +152,7 @@ class Measures(models.Model):
     grievances = models.IntegerField()
     hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE, null=True)
     date_entered = models.DateTimeField()
-    date_created = models.DateTimeField()
+    date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.hospital.name

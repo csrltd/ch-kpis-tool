@@ -21,7 +21,8 @@
         <div class="col-left">
           <div class="text">
             <h1>Welcome back!!</h1>
-            <p>Welcome back! Please enter your details</p>
+            
+            <p>Please enter your login details</p>
           </div>
           {% if messages %} {% for message in messages %}
           <div class="error-message">
@@ -29,6 +30,7 @@
           </div>
           {% endfor %} {% endif %}
 
+          <br/>
           <form method="POST" action="">
             {% csrf_token %}
             <div class="email">
@@ -40,29 +42,29 @@
               <input type="password" name="password" placeholder="*********" />
             </div>
             <div class="remember">
-              <div class="check">
+              {% comment %} <div class="check">
                 <input type="checkbox" name="" id="" />Remember for 30 days
-              </div>
-              <span><a href="">Forget password</a></span>
+              </div> {% endcomment %}
+              <span><a href="mailto:salphonse@compstaffing.com">Forget password</a></span>
             </div>
             <input type="submit" class="signin-btn" value="Sign in" />
           </form>
-          <div class="signup">
+           <div class="signup">
             <p>
               Don't have an account? <a href="{% url 'signup' %}">Sign Up</a>
             </p>
-          </div>
+          </div> 
         </div>
         <div class="col-right">
           <div class="circle">
             <img src="{% static '/images/logo (3) 2.svg' %}" alt="" />
           </div>
-          <div class="content-login">
+          {% comment %} <div class="content-login">
             <a href="">
               <i class="ri-arrow-left-s-line"></i>
               <p>Go back</p>
             </a>
-          </div>
+          </div> {% endcomment %}
         </div>
       </div>
     </div>

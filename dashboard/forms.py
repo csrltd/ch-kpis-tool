@@ -96,7 +96,7 @@ class MeasuresForm(ModelForm):
         fields = ['mortality_rate','readmissions','pressure_ulcer','discharges_home','emergency_room_transfers',
                 'acute_swing_bed_transfers','medication_errors','falls','against_medical_advice','left_without_being_seen',
                 'hospital_acquired_infection','covid_vaccination_total_percentage_of_compliance','complaint','grievances','hospital',
-                'date_entered','date_created',
+                'date_entered',
                 ]
     
         widgets= {
@@ -116,7 +116,7 @@ class MeasuresForm(ModelForm):
             'grievances': NumberInput(),
             'hospital': forms.Select(),
             'date_entered': DateTimeInput(attrs={'type': 'datetime-local'}),
-            'date_created': DateTimeInput(attrs={'type':'datetime-local'}),
+            # 'date_created': DateTimeInput(attrs={'type':'datetime-local'}),
         }
         
 

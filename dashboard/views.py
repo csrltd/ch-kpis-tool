@@ -216,11 +216,9 @@ def signup(request):
         if form.is_valid():
             selected_group_id = form.cleaned_data['group'].id
             selected_group = Group.objects.get(id=selected_group_id)
-            # password = generate_password()
-            # print(password)
+            
             user = form.save()
-            # user.set_password(password)
-            # user.save()
+            
             selected_group.user_set.add(user)
             # username = request.POST.get('username')
             # password = request.POST.get('password')
@@ -230,12 +228,8 @@ def signup(request):
             print(user)
             if user is not None:
                 login(request, user)
-            # custom_user = Profile.objects.get(user=user)
-            # if not custom_user.is_profile_completed:
-            # context = {'user':user}
+            
                 return redirect('complete-profile' )
-            # custom_user.save()
-            # return redirect('login')
         print(form.errors)
     return render(request, 'authentication/signup.html', context)
 
@@ -270,10 +264,10 @@ def loginPage(request):
                 
             else:
                 return redirect('login')  
-        return redirect('login')
-    else:
-        messages.error(
-            request, 'Invalid credentials!!! Please enter correct username or password')
+        # return redirect('login')
+        else:
+            messages.error(
+                request, 'Invalid credentials!!! Please enter correct username or password')
         
     return render(request, 'authentication/login.html')
 
@@ -406,8 +400,8 @@ def singleHospital(request, hospital_id):
     # title displaying as the hospital name when a user is viewing data of that particular hospital
     page_title = hospital_name
     
-    hospital_data = singleHospitalData(request, hospital_id)
-    profileInfo = Profile.objects.get(user=request.user)
+    # hospital_data = singleHospitalData(request, hospital_id)
+    # profileInfo = Profile.objects.get(user=request.user)
     
     # checking the hospital ID for the logged in user
     user_hospital_id = request.user.profile.hospital.id
@@ -425,7 +419,7 @@ def singleHospital(request, hospital_id):
     total_acute_swing_bed_transfers = single_hospital_acute_swing_bed_transfers.aggregate(total_acute_swing_bed_transfers=models.Sum('acute_swing_bed_transfers'))['total_acute_swing_bed_transfers']
 
     measures_data = []
-    fields = ['mortality_rate','readmissions','pressure_ulcer','discharges_home','emergency_room_transfers','acute_swing_bed_transfers','medication_errors','falls',
+    fields = ['readmissions','pressure_ulcer','discharges_home','emergency_room_transfers','acute_swing_bed_transfers','medication_errors','falls',
               'against_medical_advice','left_without_being_seen','hospital_acquired_infection','covid_vaccination_total_percentage_of_compliance','complaint','grievances'
               ]
     
