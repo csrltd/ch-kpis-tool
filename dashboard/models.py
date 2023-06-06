@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+
 class Hospital(models.Model):
     hospitalId = models.CharField(max_length=6, unique=True, null=True)
     name = models.CharField(max_length=255, null=True)
@@ -23,7 +24,6 @@ class Hospital(models.Model):
 
     def get_absolute_url(self):
         return reverse("model_detail", kwargs={"pk": self.pk})
-    
 
 
 class Department(models.Model):
@@ -48,14 +48,13 @@ class Profile(models.Model):
     department = models.ForeignKey(
         Department, on_delete=models.CASCADE, null=True)
     is_profile_completed = models.BooleanField(default=False)
-    date_created = models.DateTimeField(auto_now_add=True, null=True) 
+    date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.user.username
 
     def get_absolute_url(self):
         return reverse("model_detail", kwargs={"pk": self.pk})
-
 
 
 class Diagnosis(models.Model):
@@ -84,20 +83,26 @@ class Patient(models.Model):
     EMERGENCY_ROOM = [('yes', 'Yes'), ('no', 'No')]
     MEDICAL_ADVICE = [('against medical advice', 'Against medical advice'),
                       ('with medical advice', 'With medical advice')]
-    status = models.CharField(max_length=255, choices=PATIENT_STATUS, null=True)
-    emergency_room = models.CharField(max_length=255, choices=EMERGENCY_ROOM, null=True)
-    medical_advice = models.CharField(max_length=255, choices=MEDICAL_ADVICE, null=True)
+    status = models.CharField(
+        max_length=255, choices=PATIENT_STATUS, null=True)
+    emergency_room = models.CharField(
+        max_length=255, choices=EMERGENCY_ROOM, null=True)
+    medical_advice = models.CharField(
+        max_length=255, choices=MEDICAL_ADVICE, null=True)
     patient_id = models.IntegerField(null=True)
     first_name = models.CharField(max_length=255, null=True)
     last_name = models.CharField(max_length=255, null=True)
     phone_number = models.CharField(max_length=255, null=True)
     birthday = models.DateTimeField(null=True)
     doctor = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
-    hospital = models.ForeignKey(Hospital, null=True, on_delete=models.SET_NULL)
+    hospital = models.ForeignKey(
+        Hospital, null=True, on_delete=models.SET_NULL)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     admission_date = models.DateTimeField(auto_now_add=False, null=True)
+
     def __str__(self):
         return self.first_name
+
 
 class Complaint(models.Model):
     complainer = models.ForeignKey(Patient, on_delete=models.CASCADE)
@@ -108,7 +113,6 @@ class Complaint(models.Model):
         return reverse("model_detail", kwargs={"pk": self.pk})
 
 
-
 # new models from the sheet
 class Census(models.Model):
     inpatient = models.IntegerField()
@@ -117,7 +121,7 @@ class Census(models.Model):
     emergency_room = models.IntegerField(null=True)
     outpatient = models.IntegerField()
     rural_health_clinic = models.IntegerField()
-    hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE, null=True)
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE, null=True)
     date_entered = models.DateTimeField()
     date_created = models.DateTimeField()
 
@@ -126,9 +130,10 @@ class Census(models.Model):
 
     class Meta:
         verbose_name_plural = ('Census')
-    
+
     def get_absolute_url(self):
         return reverse("model_detail", kwargs={"pk": self.pk})
+
 
 class Measures(models.Model):
     mortality_rate = models.IntegerField(null=True)
@@ -145,35 +150,36 @@ class Measures(models.Model):
     covid_vaccination_total_percentage_of_compliance = models.IntegerField()
     complaint = models.IntegerField()
     grievances = models.IntegerField()
-    hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE, null=True)
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE, null=True)
     date_entered = models.DateTimeField()
     date_created = models.DateTimeField()
 
     def __str__(self):
         return self.hospital.name
-    
+
     class Meta:
         verbose_name_plural = ('Measures')
 
     def get_absolute_url(self):
         return reverse("model_detail", kwargs={"pk": self.pk})
 
+
 class Turnover(models.Model):
     total = models.DecimalField(max_digits=10, decimal_places=5)
     voluntary = models.IntegerField()
-    hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE, null=True)
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE, null=True)
     date_entered = models.DateTimeField()
     date_created = models.DateTimeField()
 
     def __str__(self):
         return self.hospital.name
+
 
 class Hiring(models.Model):
     new_hires = models.IntegerField()
-    hospital = models.ForeignKey(Hospital,on_delete=models.CASCADE, null=True)
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE, null=True)
     date_entered = models.DateTimeField()
     date_created = models.DateTimeField()
 
     def __str__(self):
         return self.hospital.name
-
