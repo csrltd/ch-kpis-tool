@@ -454,17 +454,19 @@
                         color: #00AEEF;
                     }
                 }
-                .submit-btn {
-                    background-color: #07AEEF;
-                    padding: 17px 35px;
-                    gap: 10px;
-                    width: 212px;
-                    height: 61px;
-                    border: none;
-                    color: white;
-                    font-size: 20px;
-                    font-weight: bold;
-    
+                .measures-btns {
+                    display: flex;
+                    align-items: center;
+                    gap: 48px;
+                    
+                    button {
+                        padding: 15px 25px;
+                        font-size: 16px;
+
+                        a {
+                            color: white;
+                        }
+                    }
                 }
             }
 

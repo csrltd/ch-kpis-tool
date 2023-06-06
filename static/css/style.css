@@ -341,16 +341,17 @@
   border: 1px solid #00AEEF;
   color: #00AEEF;
 }
-.container .row .col-2 form .submit-btn {
-  background-color: #07AEEF;
-  padding: 17px 35px;
-  gap: 10px;
-  width: 212px;
-  height: 61px;
-  border: none;
+.container .row .col-2 form .measures-btns {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+.container .row .col-2 form .measures-btns button {
+  padding: 15px 25px;
+  font-size: 16px;
+}
+.container .row .col-2 form .measures-btns button a {
   color: white;
-  font-size: 20px;
-  font-weight: bold;
 }
 .container .row .col-2 .smaller-forms {
   width: 100%;

@@ -486,7 +486,7 @@ def addMeasures(request):
     blocktitle = 'Add Measures'
     
     
-    context = {'form':form, 'page_title': page_title, 'blocktitle': blocktitle}
+    context = {'form':form, 'page_title': page_title, 'blocktitle': blocktitle, 'user_hospital_id': user_hospital_id}
     
     if request.method == 'POST':
         

@@ -276,6 +276,14 @@ body {
   gap: 12px;
   padding-right: 20px;
 }
+.content .main-content .top-btns {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.content .main-content .top-btns button a {
+  color: #DEEEFA;
+}
 .content .main-content .filter {
   display: flex;
   justify-content: space-between;

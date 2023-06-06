@@ -338,6 +338,18 @@ body {
         gap: 12px;
         padding-right: 20px;
 
+        .top-btns {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            button {
+                a {
+                    color: $cSecondary;
+                }
+            }
+        }
+
         .filter{
             display: flex;
             justify-content: space-between;
