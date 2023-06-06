@@ -108,7 +108,7 @@ def index(request):
     total_rural_health_clinic = Census.objects.aggregate(total=Sum('rural_health_clinic'))['total']
 
     measures_data = []
-    fields = ['mortality_rate','readmissions','pressure_ulcer','discharges_home','emergency_room_transfers','acute_swing_bed_transfers','medication_errors','falls',
+    fields = ['readmissions','pressure_ulcer','discharges_home','emergency_room_transfers','acute_swing_bed_transfers','medication_errors','falls',
               'against_medical_advice','left_without_being_seen','hospital_acquired_infection','covid_vaccination_total_percentage_of_compliance','complaint','grievances'
               ]
     

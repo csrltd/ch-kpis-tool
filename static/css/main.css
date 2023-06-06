@@ -6,11 +6,6 @@ button {
   cursor: pointer;
   padding: 10px 25px;
 }
-.button {
-  cursor: pointer;
-  padding: 10px 25px;
-  width: fit-content;
-}
 
 .light-blue {
   background: #00AEEF;
