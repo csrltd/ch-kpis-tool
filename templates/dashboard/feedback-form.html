@@ -1,0 +1,224 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="{% static 'css/feedback-form.css' %}">
+</head>
+
+<body>
+    <section class="feedback container">
+        <h1 class="title">Give you feedback</h1>
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna.
+            Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices.
+        </p>
+
+        <div class="form">
+            <form method='POST'>
+                {% csrf_token %}
+                <div class="fields">
+                    <div class="field">
+                        <div class="label">
+                            First name
+                        </div>
+                        {% comment %} <input type="text" placeholder="SIBOMANA"> {% endcomment %}
+                        {{form.first_name}}
+                    </div>
+
+                    <div class="field">
+                        <div class="label">
+                            Second name
+                        </div>
+                        {% comment %} <input type="text" placeholder="Alphonse"> {% endcomment %}
+                        {{form.last_name}}
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="label">
+                        Email
+                    </div>
+                    {% comment %} <input type="text" placeholder="salphonse@compstaffing.com"> {% endcomment %}
+                    {{form.email}}
+                </div>
+                <div class="field yes-no">
+                    <div class="label">
+                        Is the software easy to install and set up? Were there any difficulties encountered during the
+                        installation process?
+                    </div>
+                    <div class="choices">
+                        {% comment %} <div class="choice">
+                            <input type="radio" name="yes" id="yes">
+                            <label for="yes">Yes</label>
+                        </div>
+                        <div class="choice">
+                            <input class="answer-is-no" type="radio" name="no" id="no">
+                            <label for="no">No</label>
+                        </div> {% endcomment %}
+                        {% for radio in form.is_installable %}
+                        {{ radio.tag }}
+                        {{ radio.choice_label }}
+                        {% comment %} <br> {% endcomment %}
+                        
+                        {% endfor %}
+                    </div>
+
+                </div>
+
+                <div class="field choice-input-answer">
+                    {% comment %} <input type="text" placeholder="If No, what made it difficult"> {% endcomment %}
+                    {{form.installable_description}}
+                </div>
+
+                <div class="field yes-no">
+                    <div class="label">
+                        How intuitive is the user interface? Did you find it easy to navigate, read or add data?
+                    </div>
+                    <div class="choices">
+                        {% comment %} <div class="choice">
+                            <input type="radio" name="yes" id="yes">
+                            <label for="yes">Yes</label>
+                        </div>
+                        <div class="choice">
+                            <input type="radio" name="no" id="no">
+                            <label for="no">No</label>
+                        </div> {% endcomment %}
+                        {% for radio in form.is_UI_intuitive %}
+                        {{ radio.tag }}
+                        {{ radio.choice_label }}
+                        {% endfor %}
+                    </div>
+                    {% comment %} <input type="text" placeholder="If No, what made it difficult"> {% endcomment %}
+                    {{form.intuitive_description}}
+                </div>
+
+                <div class="field yes-no">
+                    <div class="label">
+                        Were all the features and functionalities clear to you? Were there any features that you felt
+                        were missing or could be improved?
+                    </div>
+                    <div class="choices">
+                        {% comment %} <div class="choice">
+                            <input type="radio" name="yes" id="yes">
+                            <label for="yes">Yes</label>
+                        </div>
+                        <div class="choice">
+                            <input type="radio" name="no" id="no">
+                            <label for="no">No</label>
+                        </div> {% endcomment %}
+                        {% for radio in form.are_features_clear %}
+                        {{ radio.tag }}
+                        {{ radio.choice_label }}
+                        {% endfor %}
+                    </div>
+                    {% comment %} <input type="text" placeholder="Features that we need to improve"> {% endcomment %}
+                    {{form.features_description}}
+                </div>
+
+                <div class="field yes-no">
+                    <div class="label">
+                        Did the software meet your expectations?
+                    </div>
+                    <div class="choices">
+                        {% comment %} <div class="choice">
+                            <input type="radio" name="yes" id="yes">
+                            <label for="yes">Yes</label>
+                        </div>
+                        <div class="choice">
+                            <input type="radio" name="no" id="no">
+                            <label for="no">No</label>
+                        </div> {% endcomment %}
+                        {% for radio in form.are_expectations_met %}
+                        {{ radio.tag }}
+                        {{ radio.choice_label }}
+                        {% endfor %}
+                    </div>
+                    {% comment %} <input type="text" placeholder="If not, what were your expectations, and how did the software fall short?"> {% endcomment %}
+                    {{form.expectations_descriptions}}
+                </div>
+
+                <div class="field yes-no">
+                    <div class="label">
+                        Did you encounter any bugs or technical issues while using the software?
+                    </div>
+                    <div class="choices">
+                        {% comment %} <div class="choice">
+                            <input type="radio" name="yes" id="yes">
+                            <label for="yes">Yes</label>
+                        </div>
+                        <div class="choice">
+                            <input type="radio" name="no" id="no">
+                            <label for="no">No</label>
+                        </div> {% endcomment %}
+                        {% for radio in form.is_bug_free %}
+                        {{ radio.tag }}
+                        {{ radio.choice_label }}
+                        {% endfor %}
+                    </div>
+                    {% comment %} <input type="text" placeholder=" If so, please describe them"> {% endcomment %}
+                    {{form.bug_description}}
+                </div>
+
+                <div class="field yes-no">
+                    <div class="label">
+                        How would you rate the performance and speed of the software? Did it respond quickly and
+                        efficiently?
+                    </div>
+                    <div class="choices">
+                        {% comment %} <div class="choice">
+                            <input type="radio" name="yes" id="yes">
+                            <label for="yes">Yes</label>
+                        </div>
+                        <div class="choice">
+                            <input class="choice-input" type="radio" name="no" id="no">
+                            <label for="no">No</label>
+                        </div> {% endcomment %}
+                        {% for radio in form.is_quick %}
+                        {{ radio.tag }}
+                        {{ radio.choice_label }}
+                        {% endfor %}
+                    </div>
+                    {% comment %} <input class="choice-input-answer" type="text" placeholder="Iiif not, what can we improve?"> {% endcomment %}
+                    {{form.quick_description}}
+                </div>
+
+                <div class="field yes-no">
+                    <div class="label">
+                        How satisfied are you with the overall user experience?
+                    </div>
+                    <div class="choice satisfaction">
+                        {% comment %} <input type="range" name="satisfaction" id="" min="40" max="99"> {% endcomment %}
+                        {{form.satisfaction_rate}}
+                        {% comment %} <input type="text" placeholder="Was there anything that stood out as particularly positive or negative?"> {% endcomment %}
+                        <div class='field'>
+                            {{form.satisfaction_description}}
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="label">
+                            What additional features would you like to see in future versions of the software?
+                        </div>
+                        {% comment %} <input type="text" placeholder="Type what features you would like to see in the future"> {% endcomment %}
+                        {{form.additional_feature}}
+                    </div>
+
+                    <div class="field">
+                        <div class="label">
+                            First name
+                        </div>
+                        {% comment %} <textarea name="" id="" cols="30" rows="10" placeholder="Type your feedback"></textarea> {% endcomment %}
+                        {{form.feedback_text}}
+                    </div>
+                    <input type="submit" value="Submit your feedback">
+            </form>
+        </div>
+    </section>
+    <script src="/feedback-form.js"></script>
+</body>
+
+</html>

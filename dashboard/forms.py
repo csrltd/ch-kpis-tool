@@ -2,8 +2,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
-from .models import Hospital, Patient, Measures, Census, Turnover, Hiring, Profile
-from django.forms import ModelForm, TextInput, Select, RadioSelect, DateTimeInput, NumberInput
+from .models import Hospital, Patient, Measures, Census, Turnover, Hiring, Profile, FeedBack
+from django.forms import ModelForm, TextInput, Select, RadioSelect, DateTimeInput, NumberInput,EmailInput,Textarea
 
 
 class UserRegistration(UserCreationForm):
@@ -174,4 +174,38 @@ class HiringForm(ModelForm):
             'hospital':Select(),
             'date_entered':DateTimeInput(attrs={'type': 'datetime-local'}),
             'date_created':DateTimeInput(attrs={'type': 'datetime-local'}),
+        }
+        
+        
+class FeedbackForm(ModelForm):
+    
+    class Meta:
+        model = FeedBack
+        fields = [
+            'first_name','last_name','email','is_installable','installable_description',
+            'is_UI_intuitive','intuitive_description','are_features_clear','features_description','are_expectations_met',
+            'expectations_descriptions','is_bug_free','bug_description','is_quick','quick_description',
+            'satisfaction_rate','satisfaction_description','additional_feature','feedback_text',
+        ]
+        
+        widgets = {
+            'first_name':TextInput(attrs={'placeholder':'Alphonse'}),
+            'last_name':TextInput(attrs={'placeholder':'SIBOMANA'}),
+            'email':EmailInput(attrs={'placeholder':'salphonse@compstaffing.com'}),
+            'is_installable': RadioSelect(),
+            'installable_description': TextInput(attrs={'placeholder':'If No, what made it difficult'}),
+            'is_UI_intuitive': RadioSelect(),
+            'intuitive_description': TextInput(attrs={'placeholder':'If No, what made it difficult'}),
+            'are_features_clear': RadioSelect(),
+            'features_description': TextInput(attrs={'placeholder':'Features that we need to improve'}),
+            'are_expectations_met': RadioSelect(),
+            'expectations_descriptions': TextInput(attrs={'placeholder':'If not, what were your expectations, and how did the software fall short?'}),
+            'is_bug_free': RadioSelect(),
+            'bug_description': TextInput(attrs={'placeholder':'If so, please describe them?'}),
+            'is_quick': RadioSelect(),
+            'quick_description': TextInput(attrs={'placeholder':'If not, what can we improve?'}),
+            'satisfaction_rate': NumberInput(attrs={'type':'range'}),
+            'satisfaction_description': TextInput(attrs={'placeholder':'Was there anything that stood out as particularly positive or negative?'}),
+            'additional_feature': TextInput(attrs={'placeholder':'Type what features you would like to see in the future'}),
+            'feedback_text': Textarea(attrs={'placeholder':'Type your feedback'}),
         }

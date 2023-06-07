@@ -26,6 +26,10 @@ urlpatterns = [
     path('measures_data/', views.measures_data, name='measures_data'),
     path('single-hospital-data/<int:hospital_id>', views.singleHospitalData, name="single-hospital-data"),
     
+    
+    #feedback
+    path('feedback-form/', views.feedbackForm,name='feedback-form'),
+    
 
     # urls that were used before but might be needed later
     path('patient/', views.patient, name='patient'),

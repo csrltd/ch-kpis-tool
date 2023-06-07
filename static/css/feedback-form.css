@@ -1,0 +1,78 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+input,
+textarea {
+  padding: 12px 25px;
+  border: 1px solid rgb(102, 168, 225);
+  width: 100%;
+}
+input::-moz-placeholder, textarea::-moz-placeholder {
+  font-size: 16px;
+}
+input::placeholder,
+textarea::placeholder {
+  font-size: 16px;
+}
+
+input[type=submit] {
+  width: -moz-fit-content;
+  width: fit-content;
+  background-color: rgb(102, 168, 225);
+  color: white;
+}
+
+.container {
+  margin: auto;
+  max-width: 800px;
+  display: grid;
+  gap: 24px;
+}
+
+.feedback {
+  padding: 80px 0;
+}
+.feedback .title {
+  font-size: 48px;
+}
+
+.form form {
+  display: grid;
+  gap: 48px;
+}
+.form form .fields {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.form form .fields .field {
+  width: 50%;
+}
+.form form .field {
+  display: grid;
+  gap: 6px;
+}
+.form form .field .choice-input-answer {
+  display: none;
+}
+.form form .hidden {
+  display: none;
+}
+.form form .yes-no .choices {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+.form form .yes-no .choices .choice {
+  width: -moz-fit-content;
+  width: fit-content;
+  display: flex;
+  gap: 6px;
+}
+.form form .yes-no .satisfaction {
+  width: 50px;
+}/*# sourceMappingURL=feedback-form.css.map */

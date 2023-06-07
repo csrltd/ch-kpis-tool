@@ -591,3 +591,22 @@ def measuresView(request, hospital_id):
 
 def comingSoon(request):
     return render(request, 'rhc/coming-soon.html')
+
+
+def feedbackForm(request):
+    
+    form = FeedbackForm()
+    
+    if (request.method == 'POST'):
+        
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            form.save()
+            
+            redirect('feedback-form')
+
+    context = {
+        'form':form
+    }
+    
+    return render(request,'dashboard/feedback-form.html',context)

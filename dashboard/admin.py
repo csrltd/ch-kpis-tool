@@ -18,3 +18,5 @@ admin.site.register(Hiring)
 @admin.register(Measures)
 class MeasuresAdmin(admin.ModelAdmin):
     list_display = ('date_entered', 'hospital',  'readmissions', 'pressure_ulcer', 'against_medical_advice')
+    
+admin.site.register(FeedBack)
