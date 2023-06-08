@@ -185,10 +185,11 @@ class Hiring(models.Model):
 
     def __str__(self):
         return self.hospital.name
-    
+
+
 class FeedBack(models.Model):
-    
-    satificationChoices =[
+
+    satificationChoices = [
         ('strongly_dissatisfied', '0-10'),
         ('quite_dissatisfied', '11-30'),
         ('dissatisfied', '31-50'),
@@ -196,35 +197,34 @@ class FeedBack(models.Model):
         ('quite_satisfied', '61-80'),
         ('strongly_satisfied', '81-100'),
     ]
-    
-    RADIO_CHOICES =[
+
+    RADIO_CHOICES = [
         (True, 'Yes'),
-        (False,'No'),
+        (False, 'No'),
     ]
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     email = models.EmailField()
-    is_installable = models.BooleanField(choices=RADIO_CHOICES ,default=True)
-    installable_description= models.TextField()
-    is_UI_intuitive = models.BooleanField(choices=RADIO_CHOICES,default=True)
+    hospital = models.CharField(max_length=144, null=True)
+    is_installable = models.BooleanField(choices=RADIO_CHOICES, default=True)
+    installable_description = models.TextField()
+    is_UI_intuitive = models.BooleanField(choices=RADIO_CHOICES, default=True)
     intuitive_description = models.TextField()
-    are_features_clear = models.BooleanField(choices=RADIO_CHOICES,default=True)
-    features_description =models.TextField()
-    are_expectations_met = models.BooleanField(choices=RADIO_CHOICES,default=True)
-    expectations_descriptions= models.TextField()
-    is_bug_free = models.BooleanField(choices=RADIO_CHOICES,default=True)
+    are_features_clear = models.BooleanField(
+        choices=RADIO_CHOICES, default=True)
+    features_description = models.TextField()
+    are_expectations_met = models.BooleanField(
+        choices=RADIO_CHOICES, default=True)
+    expectations_descriptions = models.TextField()
+    is_bug_free = models.BooleanField(choices=RADIO_CHOICES, default=True)
     bug_description = models.TextField()
-    is_quick = models.BooleanField(choices=RADIO_CHOICES,default=True)
+    is_quick = models.BooleanField(choices=RADIO_CHOICES, default=True)
     quick_description = models.TextField()
-    satisfaction_rate = models.CharField(max_length=21 ,choices=satificationChoices, default='strongly_dissatisfied')
+    satisfaction_rate = models.CharField(
+        max_length=21, choices=satificationChoices, default='strongly_dissatisfied')
     satisfaction_description = models.TextField()
     additional_feature = models.CharField(max_length=255)
     feedback_text = models.TextField()
-    
-    def __str__(self) :
+
+    def __str__(self):
         return self.first_name + ' ' + self.last_name
-    
-    
-    
-
-

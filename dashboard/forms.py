@@ -3,16 +3,18 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 from .models import Hospital, Patient, Measures, Census, Turnover, Hiring, Profile, FeedBack
-from django.forms import ModelForm, TextInput, Select, RadioSelect, DateTimeInput, NumberInput,EmailInput,Textarea
+from django.forms import ModelForm, TextInput, Select, RadioSelect, DateTimeInput, NumberInput, EmailInput, Textarea
 
 
 class UserRegistration(UserCreationForm):
     phone_number = forms.CharField(max_length=255)
     group = forms.ModelChoiceField(queryset=Group.objects.all())
     # hospitals = forms.ModelChoiceField(queryset=Hospital.objects.all())
+
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'phone_number', 'password1', 'password2', 'group']
+        fields = ['username', 'first_name', 'last_name', 'email',
+                  'phone_number', 'password1', 'password2', 'group']
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -39,34 +41,36 @@ class UserRegistration(UserCreationForm):
 class HospitalForm(ModelForm):
     class Meta:
         model = Hospital
-        fields = ['hospitalId', 'name', 'address', 'phone_number', 'email','mortality_rate',
+        fields = ['hospitalId', 'name', 'address', 'phone_number', 'email', 'mortality_rate',
                   'covid_vaccination', 'pressure_ulcers', 'complaints', 'complaints', 'hires']
-        
+
 
 class ProfileForm(ModelForm):
     def __init__(self, *args, **kwargs):
         user_hospital_id = kwargs.pop('user_hospital_id', None)
         user = kwargs.pop('user', None)
-    
+
         super(ProfileForm, self).__init__(*args, **kwargs)
-    
+
         if user_hospital_id:
             # self.initial['user_hospital_id'] = user_hospital_id
-            self.fields['hospital'].queryset = Hospital.objects.filter(id=user_hospital_id)
-        
+            self.fields['hospital'].queryset = Hospital.objects.filter(
+                id=user_hospital_id)
+
         if user:
             self.initial['user'] = user
             self.fields['user'].queryset = User.objects.filter(id=user.id)
-    
+
     class Meta:
         model = Profile
-        fields = ['user','hospital', 'role','department']
+        fields = ['user', 'hospital', 'role', 'department']
         # widgets = {
         #     'user': forms.HiddenInput(),
         # }
 
+
 class patientForm(ModelForm):
-    
+
     class Meta:
         model = Patient
         fields = ['status', 'emergency_room', 'medical_advice', 'patient_id',
@@ -83,23 +87,25 @@ class patientForm(ModelForm):
             'admission_date': DateTimeInput(attrs={'type': 'datetime-local'}),
             'emergency_room': RadioSelect(),
         }
-  
-       
+
+
 class MeasuresForm(ModelForm):
     def __init__(self, *args, **kwargs):
         user_hospital_id = kwargs.pop('user_hospital_id', None)
         super(MeasuresForm, self).__init__(*args, **kwargs)
         if user_hospital_id:
-            self.fields['hospital'].queryset = Hospital.objects.filter(id=user_hospital_id)
+            self.fields['hospital'].queryset = Hospital.objects.filter(
+                id=user_hospital_id)
+
     class Meta:
         model = Measures
-        fields = ['mortality_rate','readmissions','pressure_ulcer','discharges_home','emergency_room_transfers',
-                'acute_swing_bed_transfers','medication_errors','falls','against_medical_advice','left_without_being_seen',
-                'hospital_acquired_infection','covid_vaccination_total_percentage_of_compliance','complaint','grievances','hospital',
-                'date_entered',
-                ]
-    
-        widgets= {
+        fields = ['mortality_rate', 'readmissions', 'pressure_ulcer', 'discharges_home', 'emergency_room_transfers',
+                  'acute_swing_bed_transfers', 'medication_errors', 'falls', 'against_medical_advice', 'left_without_being_seen',
+                  'hospital_acquired_infection', 'covid_vaccination_total_percentage_of_compliance', 'complaint', 'grievances', 'hospital',
+                  'date_entered',
+                  ]
+
+        widgets = {
             'mortality_rate': NumberInput(),
             'readmissions': NumberInput(),
             'pressure_ulcer': NumberInput(),
@@ -118,94 +124,113 @@ class MeasuresForm(ModelForm):
             'date_entered': DateTimeInput(attrs={'type': 'datetime-local'}),
             # 'date_created': DateTimeInput(attrs={'type':'datetime-local'}),
         }
-        
+
 
 class CensusForm(ModelForm):
     def __init__(self, *args, **kwargs):
         user_hospital_id = kwargs.pop('user_hospital_id', None)
         super(CensusForm, self).__init__(*args, **kwargs)
         if user_hospital_id:
-            self.fields['hospital'].queryset = Hospital.objects.filter(id=user_hospital_id)
+            self.fields['hospital'].queryset = Hospital.objects.filter(
+                id=user_hospital_id)
+
     class Meta:
         model = Census
-        fields =['inpatient','swing_bed','observation',
-                 'emergency_room','outpatient','rural_health_clinic',
-                 'hospital','date_entered','date_created']
-        
+        fields = ['inpatient', 'swing_bed', 'observation',
+                  'emergency_room', 'outpatient', 'rural_health_clinic',
+                  'hospital', 'date_entered', 'date_created']
+
         widgets = {
             'inpatient': NumberInput(),
-            'swing_bed':NumberInput(),
-            'observation':NumberInput(),
-            'emergency_room':NumberInput(),
-            'outpatient':NumberInput(),
-            'rural_health_clinic':NumberInput(),
-            'hospital':Select(),
-            'date_entered':DateTimeInput(attrs={'type': 'datetime-local'}),
-            'date_created':DateTimeInput(attrs={'type': 'datetime-local'}),
+            'swing_bed': NumberInput(),
+            'observation': NumberInput(),
+            'emergency_room': NumberInput(),
+            'outpatient': NumberInput(),
+            'rural_health_clinic': NumberInput(),
+            'hospital': Select(),
+            'date_entered': DateTimeInput(attrs={'type': 'datetime-local'}),
+            'date_created': DateTimeInput(attrs={'type': 'datetime-local'}),
         }
-        
+
+
 class TurnoverForm(ModelForm):
     def __init__(self, *args, **kwargs):
         user_hospital_id = kwargs.pop('user_hospital_id', None)
         super(TurnoverForm, self).__init__(*args, **kwargs)
         if user_hospital_id:
-            self.fields['hospital'].queryset = Hospital.objects.filter(id=user_hospital_id)
+            self.fields['hospital'].queryset = Hospital.objects.filter(
+                id=user_hospital_id)
+
     class Meta:
         model = Turnover
-        fields =['total','voluntary','hospital'
-                 ,'date_entered','date_created']
-        
+        fields = ['total', 'voluntary', 'hospital',
+                  'date_entered', 'date_created']
+
         widgets = {
             'total': NumberInput(),
-            'voluntary':NumberInput(),
-            'hospital':Select(),
-            'date_entered':DateTimeInput(attrs={'type': 'datetime-local'}),
-            'date_created':DateTimeInput(attrs={'type': 'datetime-local'}),
+            'voluntary': NumberInput(),
+            'hospital': Select(),
+            'date_entered': DateTimeInput(attrs={'type': 'datetime-local'}),
+            'date_created': DateTimeInput(attrs={'type': 'datetime-local'}),
         }
-        
+
+
 class HiringForm(ModelForm):
-    
+
     class Meta:
         model = Hiring
-        fields = ['new_hires','hospital','date_entered','date_created']
-    
+        fields = ['new_hires', 'hospital', 'date_entered', 'date_created']
+
         widgets = {
             'new_hires': NumberInput(),
-            'hospital':Select(),
-            'date_entered':DateTimeInput(attrs={'type': 'datetime-local'}),
-            'date_created':DateTimeInput(attrs={'type': 'datetime-local'}),
+            'hospital': Select(),
+            'date_entered': DateTimeInput(attrs={'type': 'datetime-local'}),
+            'date_created': DateTimeInput(attrs={'type': 'datetime-local'}),
         }
-        
-        
+
+
 class FeedbackForm(ModelForm):
-    
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super(FeedbackForm, self).__init__(*args, **kwargs)
+        user_first_name = self.request.user.first_name
+        user_last_name = self.request.user.last_name
+        user_email = self.request.user.email
+        user_hospital = Profile.objects.get(user=self.request.user)
+        # user_first_name = self.request.user.first_name
+        self.fields['first_name'].initial = user_first_name
+        self.fields['last_name'].initial = user_last_name
+        self.fields['email'].initial = user_email
+        self.fields['hospital'].initial = user_hospital.hospital
+
     class Meta:
         model = FeedBack
         fields = [
-            'first_name','last_name','email','is_installable','installable_description',
-            'is_UI_intuitive','intuitive_description','are_features_clear','features_description','are_expectations_met',
-            'expectations_descriptions','is_bug_free','bug_description','is_quick','quick_description',
-            'satisfaction_rate','satisfaction_description','additional_feature','feedback_text',
+            'first_name', 'last_name', 'email', 'hospital', 'is_installable', 'installable_description',
+            'is_UI_intuitive', 'intuitive_description', 'are_features_clear', 'features_description', 'are_expectations_met',
+            'expectations_descriptions', 'is_bug_free', 'bug_description', 'is_quick', 'quick_description',
+            'satisfaction_rate', 'satisfaction_description', 'additional_feature', 'feedback_text',
         ]
-        
+
         widgets = {
-            'first_name':TextInput(attrs={'placeholder':'Alphonse'}),
-            'last_name':TextInput(attrs={'placeholder':'SIBOMANA'}),
-            'email':EmailInput(attrs={'placeholder':'salphonse@compstaffing.com'}),
-            'is_installable': RadioSelect(),
-            'installable_description': TextInput(attrs={'placeholder':'If No, what made it difficult'}),
-            'is_UI_intuitive': RadioSelect(),
-            'intuitive_description': TextInput(attrs={'placeholder':'If No, what made it difficult'}),
-            'are_features_clear': RadioSelect(),
-            'features_description': TextInput(attrs={'placeholder':'Features that we need to improve'}),
-            'are_expectations_met': RadioSelect(),
-            'expectations_descriptions': TextInput(attrs={'placeholder':'If not, what were your expectations, and how did the software fall short?'}),
-            'is_bug_free': RadioSelect(),
-            'bug_description': TextInput(attrs={'placeholder':'If so, please describe them?'}),
-            'is_quick': RadioSelect(),
-            'quick_description': TextInput(attrs={'placeholder':'If not, what can we improve?'}),
-            'satisfaction_rate': RadioSelect(),
-            'satisfaction_description': TextInput(attrs={'placeholder':'Was there anything that stood out as particularly positive or negative?'}),
-            'additional_feature': TextInput(attrs={'placeholder':'Type what features you would like to see in the future'}),
-            'feedback_text': Textarea(attrs={'placeholder':'Type your feedback'}),
+            'first_name': TextInput(attrs={'default': 'Testing', 'readonly': 'True'}),
+            'last_name': TextInput(attrs={'readonly': 'True'}),
+            'email': EmailInput(attrs={'readonly': 'True'}),
+            'hospital': TextInput(attrs={'readonly': 'True'}),
+            'is_installable': RadioSelect(attrs={'class': 'choice'}),
+            'installable_description': TextInput(attrs={'placeholder': 'If No, what made it difficult'}),
+            'is_UI_intuitive': RadioSelect(attrs={'class': 'choice'}),
+            'intuitive_description': TextInput(attrs={'placeholder': 'If No, what made it difficult'}),
+            'are_features_clear': RadioSelect(attrs={'class': 'choice'}),
+            'features_description': TextInput(attrs={'placeholder': 'Features that we need to improve'}),
+            'are_expectations_met': RadioSelect(attrs={'class': 'choice'}),
+            'expectations_descriptions': TextInput(attrs={'placeholder': 'If not, what were your expectations, and how did the software fall short?'}),
+            'is_bug_free': RadioSelect(attrs={'class': 'choice'}),
+            'bug_description': TextInput(attrs={'placeholder': 'If so, please describe them?'}),
+            'is_quick': RadioSelect(attrs={'class': 'choice'}),
+            'quick_description': TextInput(attrs={'placeholder': 'If not, what can we improve?'}),
+            'satisfaction_rate': RadioSelect(attrs={'class': 'choice'}),
+            'satisfaction_description': TextInput(attrs={'placeholder': 'Was there anything that stood out as particularly positive or negative?'}),
+            'additional_feature': TextInput(attrs={'placeholder': 'Type what features you would like to see in the future'}),
+            'feedback_text': Textarea(attrs={'placeholder': 'Type your feedback'}),
         }
