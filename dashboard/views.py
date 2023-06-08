@@ -644,7 +644,7 @@ def feedbackForm(request):
         form = FeedbackForm(request.POST, request=request)
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('thank-you')
     else:
         user = request.user
         profile = Profile.objects.get(user=user)
@@ -663,3 +663,19 @@ def feedbackForm(request):
     }
 
     return render(request, 'dashboard/feedback-form.html', context)
+
+
+def thankPage(request):
+    
+    user = request.user
+    profile = Profile.objects.get(user=user)
+    
+    page_title = 'Thank You'
+    
+    context = {
+        'page_title':page_title,
+        'hospital': profile.hospital,
+        
+    }
+    
+    return render(request, 'dashboard/thank-you.html',context)

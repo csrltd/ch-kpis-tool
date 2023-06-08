@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/thank-you/thank-you.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="col col-1">
+         
+                <img src="{% static 'images/logo (3) 2.svg' %}" alt="">
+            <h1>Cohesive Heath Care KPI Tool</h1>
+          
+        </div>
+        <div class="col col-2">
+            <h1>Thank You!</h1>
+            <p>Thank you for your interest in working with us. Our team will be reaching out to you as soon as possible</p>
+
+            <div class='email-phone'>
+                <div class=''>
+                    <img src="{% static 'images/thank-you icons/🦆 icon _Envelope_.svg' %}" alt="">
+                    <p>info@csrlimited.com</p>
+                </div>
+                <div class=''>
+                    <img src="{% static 'images/thank-you icons/🦆 icon _Alternate Phone_.svg' %}" alt="">
+                    <p>+250791902159</p>
+                </div>
+
+            </div>
+            <div class="contacts">
+                <img src="{% static 'images/thank-you icons/🦆 icon _LinkedIn_.svg' %}" alt="">
+                <img src="{% static 'images/thank-you icons/🦆 icon _Twitter Square_.svg' %}" alt="">
+                <img src="{% static 'images/thank-you icons/🦆 icon _Facebook_.svg' %}" alt="">
+                <img src="{% static 'images/thank-you icons/🦆 icon _YouTube Square_.svg' %}" alt="">
+            </div>
+
+            <a href="{% url 'single-hospital' hospital_id=hospital.id %}"  class='back-btn'>
+                <button>Back to Hospital</button>
+            </a>
+
+        </div>
+    </div>
+</body>
+</html>

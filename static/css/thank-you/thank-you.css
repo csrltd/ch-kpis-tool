@@ -1,0 +1,71 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+}
+.container .col {
+  height: 100%;
+}
+.container .col-1 {
+  background: linear-gradient(127.31deg, rgba(0, 0, 0, 0.5) 44.53%, rgba(40, 39, 39, 0.5) 83.52%), url("/static/images/hospital.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.container .col-1 img {
+  width: 80px;
+}
+.container .col-1 h1 {
+  color: white;
+  font-size: 24px;
+}
+.container .col-2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  width: 55%;
+  padding: 0 15rem 0 5rem;
+}
+.container .col-2 h1 {
+  color: #0D76BC;
+  font-weight: bold;
+}
+.container .col-2 p {
+  font-size: 14px;
+}
+.container .col-2 .email-phone {
+  display: flex;
+  gap: 20px;
+}
+.container .col-2 .email-phone div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.container .col-2 .contacts {
+  display: flex;
+  gap: 20px;
+}
+.container .col-2 .back-btn {
+  text-decoration: none;
+  margin-top: 2rem;
+}
+.container .col-2 .back-btn button {
+  background-color: #0D76BC;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  cursor: pointer;
+}/*# sourceMappingURL=thank-you.css.map */

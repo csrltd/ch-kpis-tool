@@ -33,6 +33,9 @@ urlpatterns = [
 
     # feedback
     path('feedback-form/', views.feedbackForm, name='feedback-form'),
+    
+    #Thank you page
+    path('thank-you',views.thankPage, name='thank-you'),
 
 
     # urls that were used before but might be needed later
