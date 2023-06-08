@@ -191,11 +191,18 @@
                     <div class="label">
                         How satisfied are you with the overall user experience?
                     </div>
-                    <div class="choice satisfaction">
+                    <div class="choices" style="display: flex;flex-direction:column;" >
                         {% comment %} <input type="range" name="satisfaction" id="" min="40" max="99"> {% endcomment %}
-                        {{form.satisfaction_rate}}
+                        <div style="display: flex; width:100%; gap:10px; justify-content:space-around;">
+                            {% for radio in form.satisfaction_rate %}
+                        <div style="display: flex; flex-direction:column; align-items:center; gap:10px;">
+                            {{ radio.tag }}
+                            {{ radio.choice_label }}
+                        </div>
+                        {% endfor %}
+                        </div>
                         {% comment %} <input type="text" placeholder="Was there anything that stood out as particularly positive or negative?"> {% endcomment %}
-                        <div class='field'>
+                        <div class='field' style="width:100%;">
                             {{form.satisfaction_description}}
                         </div>
                     </div>

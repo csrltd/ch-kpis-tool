@@ -204,7 +204,7 @@ class FeedbackForm(ModelForm):
             'bug_description': TextInput(attrs={'placeholder':'If so, please describe them?'}),
             'is_quick': RadioSelect(),
             'quick_description': TextInput(attrs={'placeholder':'If not, what can we improve?'}),
-            'satisfaction_rate': NumberInput(attrs={'type':'range'}),
+            'satisfaction_rate': RadioSelect(),
             'satisfaction_description': TextInput(attrs={'placeholder':'Was there anything that stood out as particularly positive or negative?'}),
             'additional_feature': TextInput(attrs={'placeholder':'Type what features you would like to see in the future'}),
             'feedback_text': Textarea(attrs={'placeholder':'Type your feedback'}),

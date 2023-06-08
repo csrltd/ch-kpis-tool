@@ -188,14 +188,14 @@ class Hiring(models.Model):
     
 class FeedBack(models.Model):
     
-    satificationChoices ={
-        'strongly_dissatisfied': '0-10',
-        'quite_dissatisfied': '11-30',
-        'dissatisfied': '31-50',
-        'satisfied': '51-60',
-        'quite_satisfied': '61-80',
-        'strongly_satisfied': '81-100',
-    }
+    satificationChoices =[
+        ('strongly_dissatisfied', '0-10'),
+        ('quite_dissatisfied', '11-30'),
+        ('dissatisfied', '31-50'),
+        ('satisfied', '51-60'),
+        ('quite_satisfied', '61-80'),
+        ('strongly_satisfied', '81-100'),
+    ]
     
     RADIO_CHOICES =[
         (True, 'Yes'),
@@ -216,7 +216,7 @@ class FeedBack(models.Model):
     bug_description = models.TextField()
     is_quick = models.BooleanField(choices=RADIO_CHOICES,default=True)
     quick_description = models.TextField()
-    satisfaction_rate = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
+    satisfaction_rate = models.CharField(max_length=21 ,choices=satificationChoices, default='strongly_dissatisfied')
     satisfaction_description = models.TextField()
     additional_feature = models.CharField(max_length=255)
     feedback_text = models.TextField()
