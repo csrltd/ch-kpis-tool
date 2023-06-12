@@ -33,43 +33,39 @@ from django.utils.timezone import make_aware
 from django.db.models.functions import ExtractMonth, ExtractYear
 import uuid
 
-# def generate_password():
-#     password = str(uuid.uuid4())[:8]
-#     return password
 
 
 def turnover_data(request, hospital_id=None):
     current_year = datetime.datetime.now().year
     hospitals = Hospital.objects.all()
-
     data = {
         'labels': [],
         'datasets': []
     }
-
+    unique_months = set()  # Collect unique months across all hospitals
     for hospital in hospitals:
         turnover_data = Turnover.objects.filter(hospital=hospital) \
                                         .annotate(month=TruncMonth('date_entered')) \
                                         .values('month') \
                                         .annotate(total=Sum('total'), voluntary=Sum('voluntary')) \
                                         .values('month', 'total', 'voluntary')
-
+        turnover_data = sorted(turnover_data, key=lambda item: item['month'].date())
         turnover_dataset = {
             'label': hospital.name,
             'data': [],
             'fill': False
         }
-
         for item in turnover_data:
             month = item['month'].strftime('%b %y')
             turnover_dataset['data'].append(item['total'])
-            data['labels'].append(month)
-
+            unique_months.add(month)  # Add month to the unique_months set
         data['datasets'].append(turnover_dataset)
 
-        # print(f'Turnover data for {hospital.name}: {turnover_data}')
+    # Sort the unique months in chronological order
+    sorted_months = sorted(unique_months, key=lambda x: datetime.datetime.strptime(x, '%b %y'))
 
-    # print(f'Final data: {data}')
+    # Populate the labels only with the unique months that have data
+    data['labels'] = sorted_months
 
     return JsonResponse(data)
 
@@ -413,7 +409,7 @@ def singleHospital(request, hospital_id):
     # filtering the data based year
     years = Measures.objects.distinct().annotate(
         year=ExtractYear('date_entered')).values('year')
-    # print(years)
+    
     selected_year = datetime.datetime.now().year
     if request.method == 'POST':
         selected_year = request.POST.get('selected_year')
@@ -424,9 +420,6 @@ def singleHospital(request, hospital_id):
 
     # title displaying as the hospital name when a user is viewing data of that particular hospital
     page_title = hospital_name
-
-    # hospital_data = singleHospitalData(request, hospital_id)
-    # profileInfo = Profile.objects.get(user=request.user)
 
     # checking the hospital ID for the logged in user
     user_hospital_id = request.user.profile.hospital.id
@@ -496,6 +489,9 @@ def singleHospitalData(request, hospital_id):
         .values('month') \
         .annotate(total=Sum('total'), voluntary=Sum('voluntary')) \
         .values('month', 'total', 'voluntary')
+    
+    # sorts the months on the chart in chronological order(Jan - Dec)
+    turnover_data = sorted(turnover_data, key=lambda item: item['month'].date())
 
     turnover_dataset = {
         'label': hospital.name,
