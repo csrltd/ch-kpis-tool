@@ -16,6 +16,7 @@ from django.db.models import Avg, Sum, DecimalField
 from django.db.models.functions import Round
 from django.views.decorators.http import require_http_methods
 from django.db.models import Count
+from django.core.exceptions import ObjectDoesNotExist
 
 
 # Permissions
@@ -396,7 +397,25 @@ def HospitalCreateView(request):
         id_suffix = str(random.randint(0, 999)).zfill(4)
         id_prefix = "CH"
         hospital_id = f"{id_prefix}{id_suffix}"
+        
 
+def get_measures_data(request):
+    hospital_id = request.GET.get('hospital_id')
+    selected_measure = request.GET.get('selected_measure')
+    print(selected_measure)
+    
+    # Retrieve the measures data for the selected hospital and measure
+    selected_measures_data = Measures.objects.filter(hospital_id=hospital_id).annotate(month=ExtractMonth('date_entered')).values('month', selected_measure)
+    
+    # Create a dictionary to hold the measures data
+    measures_data_dict = {}
+    
+    # Loop through the selected measures data and retrieve the month and value
+    data = selected_measures_data.values_list('month', selected_measure)
+    measures_data_dict['data'] = list(data)
+    print(measures_data_dict)
+    
+    return JsonResponse(measures_data_dict)
 
 def singleHospital(request, hospital_id):
     # getting all the hospitals
@@ -409,7 +428,6 @@ def singleHospital(request, hospital_id):
     # filtering the data based year
     years = Measures.objects.distinct().annotate(
         year=ExtractYear('date_entered')).values('year')
-    
     selected_year = datetime.datetime.now().year
     if request.method == 'POST':
         selected_year = request.POST.get('selected_year')
@@ -417,12 +435,11 @@ def singleHospital(request, hospital_id):
 
     hospital_data = singleHospitalData(request, hospital_id)
     profileInfo = Profile.objects.get(user=request.user)
-
-    # title displaying as the hospital name when a user is viewing data of that particular hospital
     page_title = hospital_name
 
     # checking the hospital ID for the logged in user
     user_hospital_id = request.user.profile.hospital.id
+    
 
     # getting specific data of a single hospital
     single_hospital_data = Census.objects.annotate(year=ExtractYear(
@@ -457,6 +474,23 @@ def singleHospital(request, hospital_id):
                 .aggregate(average=Round(Avg(i), 2))
             data.append(single_column)
         measures_data.append(data)
+    
+    selected_measures = Measures.objects.filter(hospital_id=hospital_id)
+    measures_data_dict = {}
+    
+    # Loop through the measures list and retrieve the data for each measure
+    for measure in fields:
+        data = []
+        for month in range(1, 13):
+            try:
+                filtered_measures = selected_measures.filter(date_entered__year=selected_year)
+                single_column = filtered_measures.values_list(measure, flat=True).get(date_entered__month=month)
+                data.append(single_column)
+            except Measures.DoesNotExist:
+                data.append(None)  
+        print(data)
+        measures_data_dict[measure] = data
+    
 
     context = {
         'hospital_name': hospital_name,
@@ -473,7 +507,8 @@ def singleHospital(request, hospital_id):
         'page_title': page_title,
         'profileInfo': profileInfo,
         'years': years,
-        'user_hospital_id': user_hospital_id
+        'user_hospital_id': user_hospital_id,
+        'hospital_id':hospital_id,
     }
     return render(request, 'dashboard/hospital.html', context)
 

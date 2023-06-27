@@ -7,9 +7,161 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="{% static '/dashboard/css/single-hospital.css' %}" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <title>Dashboard</title>
+  <script>
+    $(document).ready(function() {
+      $('#measureDropdown').change(function() {
+        
+        var selected_measure = $(this).val();
+        var hospitalId = {{hospital_id}};
+        console.log(selected_measure);
+        $.ajax({
+            url: '/get_measures_data/',
+            data: {
+                hospital_id: hospitalId,
+                selected_measure: selected_measure
+            },
+            dataType: 'json',
+            success: function(response) {
+                var measuresData = response.data;
+                var selectedMeasure = $('#measureDropdown option:selected').text();
+                updateChart(measuresData, selectedMeasure);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+      });
+  
+      function updateChart(measuresData, selectedMeasure) {
+        var labels = [];
+        var data = [];
+
+      
+        // Initialize an empty object to hold the aggregated data
+        var aggregatedData = {};
+      
+        // Aggregate the values for each month
+        for (var i = 0; i < measuresData.length; i++) {
+          var month = measuresData[i][0];
+          var value = measuresData[i][1];
+      
+          // Check if the month already exists in the aggregated data
+          if (aggregatedData.hasOwnProperty(month)) {
+            // Add the value to the existing month's data
+            aggregatedData[month] += value;
+          } else {
+            // Create a new entry for the month with the value
+            aggregatedData[month] = value;
+          }
+        }
+      
+        // Sort the months in ascending order
+        var sortedMonths = Object.keys(aggregatedData).sort(function(a, b) {
+          return a - b;
+        });
+      
+        // Populate the labels and data arrays for months with non-zero values
+        for (var j = 0; j < sortedMonths.length; j++) {
+          var month = sortedMonths[j];
+          var value = aggregatedData[month];
+      
+          // Exclude months with a value of 0
+          if (value !== undefined) {
+            var monthName = getMonthName(month);
+            labels.push(monthName);
+            data.push(value);
+          } 
+        }
+
+        // Populate the labels and data arrays for months with non-zero values
+        
+        // Updates the card title 
+        $('.measure').text(selectedMeasure);
+      
+        // ================ LINE CHART FOR MEASURES FILTER =====================
+        var ctx = document.getElementById('pieChart').getContext('2d');
+        var lineChart = Chart.getChart(ctx) || new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: selectedMeasure,
+              data: data,
+              backgroundColor: 'rgba(54, 162, 235, 0.6)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 2,
+              pointRadius: 4,
+              pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+              pointBorderColor: 'rgba(255, 255, 255, 1)',
+              pointHoverRadius: 6,
+              pointHoverBackgroundColor: 'rgba(54, 162, 235, 1)',
+              pointHoverBorderColor: 'rgba(255, 255, 255, 1)',
+            }]
+          },
+          options: {
+            responsive: true,
+            title: {
+              display: true,
+              text: 'Measures Distribution - ' + selectedMeasure,
+              fontSize: 18,
+              fontColor: '#333'
+            },
+            legend: {
+              display: false
+            },
+            scales: {
+              x: {
+                display: true,
+                title: {
+                  display: true,
+                  text: 'Months',
+                  font: {
+                    weight: 'bold'
+                  }
+                }
+              },
+              y: {
+                display: true,
+                title: {
+                  display: true,
+                  text: 'Values',
+                  font: {
+                    weight: 'bold'
+                  }
+                }
+              }
+            },
+            tooltips: {
+              enabled: true,
+              backgroundColor: '#555',
+              bodyFontColor: '#fff'
+            }
+          }
+        });
+      
+        // Update the chart data and options
+        lineChart.data.labels = labels;
+        lineChart.data.datasets[0].label = selectedMeasure;
+        lineChart.data.datasets[0].data = data;
+        lineChart.options.title.text = 'Measures Distribution - ' + selectedMeasure;
+      
+        // Update the chart
+        lineChart.update();
+      }
+      
+  
+      function getMonthName(month) {
+          var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+          return monthNames[month - 1];
+      }
+    });
+  </script>
+
 </head>
 
 <body>
@@ -334,12 +486,36 @@
       </div>
       <div class="main-content charts">
         <h1 class="title">Charts</h1>
+		<form method='POST' id='myForm'>
+            {% csrf_token %}
+			<select id="measureDropdown">
+				<option value="" selected disabled>Select a measure</option>
+				<option value="mortality_rate">Mortality rate</option>
+				<option value="readmissions">Readmissions</option>
+				<option value="pressure_ulcer">Pressure ulcer</option>
+				<option value="discharges_home">Discharges home</option>
+				<option value="emergency_room_transfers">Emergency room transfers</option>
+				<option value="acute_swing_bed_transfers">Acute swing bed transfers</option>
+				<option value="medication_errors">Medication errors</option>
+				<option value="falls">Falls</option>
+				<option value="against_medical_advice">Against medical advice</option>
+				<option value="left_without_being_seen">Left without being seen</option>
+				<option value="hospital_acquired_infection">Hospital acquired infection</option>
+				<option value="covid_vaccination_total_percentage_of_compliance"> Covid vaccination </option>
+				<option value="complaint">Complaint</option>
+				<option value="grievances">Grievances</option>
+			</select>
+		</form>
 
         <div class="charts-container">
-          <!-- <div class="chart census">
+           {% comment %} <div class="chart census">
             <h3 class="title">Mortality rate</h3>
             <canvas id="mortality-rate"></canvas>
-          </div> -->
+          </div> {% endcomment %}
+          <div class="chart turnovers">
+            <h3 class="title measure">Mortality rate</h3>
+            <canvas id="pieChart"></canvas>
+          </div>
           <div class="chart turnovers">
             <h3 class="title">Turnovers</h3>
             <canvas id="singleturnOvers"></canvas>
@@ -397,15 +573,6 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-  <script>
-    $(document).ready(function () {
-      $('#yearSelect').change(function () {
-
-        console.log()
-        $('#myForm').submit();
-      });
-    });
-  </script>
 </body>
 
 </html>
