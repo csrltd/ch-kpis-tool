@@ -8,7 +8,157 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="{% static '/dashboard/css/index.css' %}" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <title>{{ page_title }}</title>
+
+
+  <!-- ========================== SCRIPT FOR AJAX ========================== -->
+
+<script>
+    $(document).ready(function() {
+      var lineChart;
+      $('#measureDropdown').change(function() {
+        
+        var selected_measure = $(this).val();
+        console.log(selected_measure);
+        $.ajax({
+            url: '/get_general_measures_data/',
+            data: {
+                selected_measure: selected_measure
+            },
+            dataType: 'json',
+            success: function(response) {
+                var measuresData = response.data;
+                var selectedMeasure = $('#measureDropdown option:selected').text();
+                updateChart(measuresData, selectedMeasure);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+      });
+  
+      function updateChart(measuresData, selectedMeasure) {
+        var labels = [];
+        var datasets = [];
+        var colorPalette = ['#4BC0C0', '#FFB266', '#FFCD56', '#FF6384', '#36A2EB'];
+        var aggregatedData = {}
+
+        // Iterate over each hospital's measures data
+        for (var i = 0; i < measuresData.length; i++) {
+          var hospitalData = measuresData[i];
+          var hospitalId = hospitalData.hospital_id;
+          var hospitalName = hospitalData.hospital_name;
+          var data = hospitalData.data;
+          
+          var colorIndex = parseInt(hospitalId) - 1; 
+          var color = colorPalette[colorIndex];
+
+          var dataPoints = [];
+          for (var j = 0; j < data.length; j++) {
+            var month = data[j][0];
+            var value = data[j][1];
+
+            if (aggregatedData[month]) {
+              aggregatedData[month] += value;
+            } else {
+              aggregatedData[month] = value;
+            }
+          }
+
+          for (var month in aggregatedData) {
+            if (aggregatedData.hasOwnProperty(month)) {
+              dataPoints.push({ x: getMonthName(month), y: aggregatedData[month] });
+            }
+          }
+
+          datasets.push({
+            label: hospitalName,
+            data: dataPoints,
+            fill: false,
+            borderColor: color,
+            borderWidth: 3,
+            pointRadius: 5,
+            pointBackgroundColor: color,
+            pointBorderColor: '#fff',
+            pointHoverRadius: 6,
+            pointHoverBackgroundColor: color,
+            pointHoverBorderColor: '#fff'
+          });
+        }
+
+        // Updates the card title 
+        $('.measure').text(selectedMeasure);
+
+        
+      
+        // ================ LINE CHART FOR MEASURES FILTER =====================
+        var ctx = document.getElementById('pieChart').getContext('2d');
+        if (lineChart ){
+          lineChart.destroy();
+        }
+        lineChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: datasets
+          },
+          options: {
+            responsive: true,
+            title: {
+              display: true,
+              text: 'Measures Distribution - ' + selectedMeasure,
+              fontSize: 18,
+              fontColor: '#333'
+            },
+            legend: {
+              display: true,
+              position: 'bottom'
+            },
+            scales: {
+              x: {
+                display: true,
+                title: {
+                  display: true,
+                  text: 'Months',
+                  font: {
+                    weight: 'bold'
+                  }
+                },
+                
+              },
+              y: {
+                display: true,
+                title: {
+                  display: true,
+                  text: 'Values',
+                  font: {
+                    weight: 'bold'
+                  }
+                }
+              }
+            },
+            tooltips: {
+              mode: 'nearest',
+              intersect: false
+            }
+          }
+        });
+        
+      }
+      
+      function getMonthName(month) {
+        var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+        return monthNames[month - 1];
+      }
+      
+      
+    });
+</script>
+
+  
+
+
 </head>
 
 <body>
@@ -239,11 +389,43 @@
       </div>
       <div class="main-content charts">
         <h1 class="title">Charts</h1>
-
+          <form method='POST' id='myForm'>
+            {% csrf_token %}
+            <select id="measureDropdown">
+              <option value="" selected disabled>Select a measure</option>
+              <option value="mortality_rate">Mortality rate</option>
+              <option value="readmissions">Readmissions</option>
+              <option value="pressure_ulcer">Pressure ulcer</option>
+              <option value="discharges_home">Discharges home</option>
+              <option value="emergency_room_transfers">Emergency room transfers</option>
+              <option value="acute_swing_bed_transfers">Acute swing bed transfers</option>
+              <option value="medication_errors">Medication errors</option>
+              <option value="falls">Falls</option>
+              <option value="against_medical_advice">Against medical advice</option>
+              <option value="left_without_being_seen">Left without being seen</option>
+              <option value="hospital_acquired_infection">Hospital acquired infection</option>
+              <option value="covid_vaccination_total_percentage_of_compliance"> Covid vaccination </option>
+              <option value="complaint">Complaint</option>
+              <option value="grievances">Grievances</option>
+            </select>
+          </form>
+          <!-- <form action="" method="post">
+            {% csrf_token %}
+            <select id="yearDropdown">
+              <option value="2021">202</option>
+              <option value="2022">2022</option>
+              <option value="2023">2023</option>
+            </select> -->
+            
+          </form>
         <div class="charts-container">
-          <div class="chart census">
+          <!-- <div class="chart turnovers">
             <h3 class="title">Mortality rate</h3>
             <canvas id="mortality-rate"></canvas>
+          </div> -->
+          <div class="chart turnovers">
+            <h3 class="title measure">Mortality rate</h3>
+            <canvas id="pieChart"></canvas>
           </div>
           <div class="chart turnovers">
             <h3 class="title">Turnovers</h3>

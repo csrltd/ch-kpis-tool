@@ -70,7 +70,7 @@
           var month = sortedMonths[j];
           var value = aggregatedData[month];
       
-          // Exclude months with a value of 0
+          // Exclude months with a value of undefined
           if (value !== undefined) {
             var monthName = getMonthName(month);
             labels.push(monthName);
@@ -78,7 +78,6 @@
           } 
         }
 
-        // Populate the labels and data arrays for months with non-zero values
         
         // Updates the card title 
         $('.measure').text(selectedMeasure);
@@ -366,7 +365,7 @@
       <div class="main-content numbers">
         <div class='filter'>
           <h1 class="title">{{hospital_name}} quick numbers</h1>
-          <form method='POST' id='myForm'>
+          {% comment %} <form method='POST' id='myForm'>
             {% csrf_token %}
             <select id="yearSelect" name='selected_year'>
               {% for year in years %}
@@ -374,7 +373,7 @@
 
               {% endfor %}
             </select>
-          </form>
+          </form> {% endcomment %}
         </div>
         <div class="cards">
           <div class="card">
@@ -486,26 +485,26 @@
       </div>
       <div class="main-content charts">
         <h1 class="title">Charts</h1>
-		<form method='POST' id='myForm'>
-            {% csrf_token %}
-			<select id="measureDropdown">
-				<option value="" selected disabled>Select a measure</option>
-				<option value="mortality_rate">Mortality rate</option>
-				<option value="readmissions">Readmissions</option>
-				<option value="pressure_ulcer">Pressure ulcer</option>
-				<option value="discharges_home">Discharges home</option>
-				<option value="emergency_room_transfers">Emergency room transfers</option>
-				<option value="acute_swing_bed_transfers">Acute swing bed transfers</option>
-				<option value="medication_errors">Medication errors</option>
-				<option value="falls">Falls</option>
-				<option value="against_medical_advice">Against medical advice</option>
-				<option value="left_without_being_seen">Left without being seen</option>
-				<option value="hospital_acquired_infection">Hospital acquired infection</option>
-				<option value="covid_vaccination_total_percentage_of_compliance"> Covid vaccination </option>
-				<option value="complaint">Complaint</option>
-				<option value="grievances">Grievances</option>
-			</select>
-		</form>
+          <form method='POST' id='myForm'>
+                  {% csrf_token %}
+            <select id="measureDropdown">
+              <option value="" selected disabled>Select a measure</option>
+              <option value="mortality_rate">Mortality rate</option>
+              <option value="readmissions">Readmissions</option>
+              <option value="pressure_ulcer">Pressure ulcer</option>
+              <option value="discharges_home">Discharges home</option>
+              <option value="emergency_room_transfers">Emergency room transfers</option>
+              <option value="acute_swing_bed_transfers">Acute swing bed transfers</option>
+              <option value="medication_errors">Medication errors</option>
+              <option value="falls">Falls</option>
+              <option value="against_medical_advice">Against medical advice</option>
+              <option value="left_without_being_seen">Left without being seen</option>
+              <option value="hospital_acquired_infection">Hospital acquired infection</option>
+              <option value="covid_vaccination_total_percentage_of_compliance"> Covid vaccination </option>
+              <option value="complaint">Complaint</option>
+              <option value="grievances">Grievances</option>
+            </select>
+          </form>
 
         <div class="charts-container">
            {% comment %} <div class="chart census">
