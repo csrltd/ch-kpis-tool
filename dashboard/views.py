@@ -97,7 +97,9 @@ def get_general_measures_data(request):
     selected_measure = request.GET.get('selected_measure')
     print(selected_measure)
     # Retrieve the measures data for all hospitals and the selected measure
-    selected_measures_data = Measures.objects.annotate(month=ExtractMonth('date_entered')).values('hospital_id', 'month', selected_measure)
+    selected_measures_data = Measures.objects.filter(date_entered__year=2022).annotate(month=ExtractMonth('date_entered')).values('hospital_id', 'month', selected_measure)
+    
+
     measures_data_dict = {}
 
     # Group the measures data by hospital
@@ -432,10 +434,18 @@ def get_measures_data(request):
     """Gets a particular data for a particular hospital """
     hospital_id = request.GET.get('hospital_id')
     selected_measure = request.GET.get('selected_measure')
-    print(selected_measure)
+    print(selected_measure, hospital_id)
     
+    # for testing purposes on how to filter data by year
+    selected_year = 2022 
+
     # Retrieve the measures data for the selected hospital and measure
-    selected_measures_data = Measures.objects.filter(hospital_id=hospital_id).annotate(month=ExtractMonth('date_entered')).values('month', selected_measure)
+    selected_measures_data = (
+    Measures.objects.filter(hospital_id=hospital_id, date_entered__year=2022)
+    .annotate(month=ExtractMonth('date_entered'))
+    .values('month', selected_measure)
+    )
+
     
     # Create a dictionary to hold the measures data
     measures_data_dict = {}

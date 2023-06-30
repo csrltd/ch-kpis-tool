@@ -64,6 +64,13 @@
             } else {
               aggregatedData[month] = value;
             }
+
+            // Exclude months with a value of undefined
+            if (value !== undefined) {
+              var monthName = getMonthName(month);
+              labels.push(monthName);
+              data.push(value);
+            } 
           }
 
           for (var month in aggregatedData) {
@@ -90,7 +97,12 @@
         // Updates the card title 
         $('.measure').text(selectedMeasure);
 
-        
+        labels = Object.keys(aggregatedData).sort(function(a, b) {
+          return a - b;
+        }).map(function(month) {
+          return getMonthName(month);
+        });
+
       
         // ================ LINE CHART FOR MEASURES FILTER =====================
         var ctx = document.getElementById('pieChart').getContext('2d');
