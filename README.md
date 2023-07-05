@@ -20,3 +20,9 @@ I added the filter for measures on the graph on the general hospital dashboard a
 I spent the day validating the data displayed on the line graph for the general dashboard and single hospital dashboard. Now, on the single dashboard, the data displayed on the line graph is for a static year I have set in the view so it displays the accurate values for each measure selected. I used static value for year for now. However, on the general dashboard, the values printed on the terminal are accurate but the ones displayed on the line graph are not. I have figured out why the values don't correspond to the actual values. 
 
 I will fix this next week after the break.
+
+5th July
+
+I validated the data displayed on the line graph on all the dashboards. Also, I removed the static year that was used for testing the functionality of filtering by year. Now, users can filter by year on the single hospital dashboard. I also added the link to return users from the single hospital dashboard to the main dashboard.
+
+Next, I will replicate the filtering by year on the general dashboard, thus removing the static year that was used for testing the functionality of filtering. And adding the hover effect on the measures.

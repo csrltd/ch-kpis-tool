@@ -35,7 +35,6 @@ from django.db.models.functions import ExtractMonth, ExtractYear
 import uuid
 
 
-
 def turnover_data(request, hospital_id=None):
     current_year = datetime.datetime.now().year
     hospitals = Hospital.objects.all()
@@ -50,7 +49,8 @@ def turnover_data(request, hospital_id=None):
                                         .values('month') \
                                         .annotate(total=Sum('total'), voluntary=Sum('voluntary')) \
                                         .values('month', 'total', 'voluntary')
-        turnover_data = sorted(turnover_data, key=lambda item: item['month'].date())
+        turnover_data = sorted(
+            turnover_data, key=lambda item: item['month'].date())
         turnover_dataset = {
             'label': hospital.name,
             'data': [],
@@ -63,7 +63,8 @@ def turnover_data(request, hospital_id=None):
         data['datasets'].append(turnover_dataset)
 
     # Sort the unique months in chronological order
-    sorted_months = sorted(unique_months, key=lambda x: datetime.datetime.strptime(x, '%b %y'))
+    sorted_months = sorted(
+        unique_months, key=lambda x: datetime.datetime.strptime(x, '%b %y'))
 
     # Populate the labels only with the unique months that have data
     data['labels'] = sorted_months
@@ -93,12 +94,13 @@ def hospital_mortality_rate(request):
         })
     return JsonResponse(data, safe=False)
 
+
 def get_general_measures_data(request):
     selected_measure = request.GET.get('selected_measure')
     print(selected_measure)
     # Retrieve the measures data for all hospitals and the selected measure
-    selected_measures_data = Measures.objects.filter(date_entered__year=2022).annotate(month=ExtractMonth('date_entered')).values('hospital_id', 'month', selected_measure)
-    
+    selected_measures_data = Measures.objects.filter(date_entered__year=2022).annotate(
+        month=ExtractMonth('date_entered')).values('hospital_id', 'month', selected_measure)
 
     measures_data_dict = {}
 
@@ -113,14 +115,17 @@ def get_general_measures_data(request):
             grouped_data[hospital_id] = []
 
         grouped_data[hospital_id].append([month, value])
-    
+
     # Fetch the hospital names based on hospital IDs
     hospital_ids = grouped_data.keys()
-    hospital_names = Hospital.objects.filter(id__in=hospital_ids).values('id', 'name')
-    hospital_names_dict = {hospital['id']: hospital['name'] for hospital in hospital_names}
+    hospital_names = Hospital.objects.filter(
+        id__in=hospital_ids).values('id', 'name')
+    hospital_names_dict = {hospital['id']: hospital['name']
+                           for hospital in hospital_names}
 
     # Populate the measures data dictionary
-    measures_data_dict['data'] = [{'hospital_id': hospital_id, 'hospital_name': hospital_names_dict[hospital_id], 'data': data} for hospital_id, data in grouped_data.items()]
+    measures_data_dict['data'] = [{'hospital_id': hospital_id, 'hospital_name': hospital_names_dict[hospital_id],
+                                   'data': data} for hospital_id, data in grouped_data.items()]
     print(measures_data_dict)
     return JsonResponse(measures_data_dict)
 
@@ -428,34 +433,78 @@ def HospitalCreateView(request):
         id_suffix = str(random.randint(0, 999)).zfill(4)
         id_prefix = "CH"
         hospital_id = f"{id_prefix}{id_suffix}"
-        
+
+
+# def get_measures_data(request):
+#     """Gets a particular data for a particular hospital """
+#     hospital_id = request.GET.get('hospital_id')
+#     selected_measure = request.GET.get('selected_measure')
+#     print(selected_measure, hospital_id)
+
+#     # for testing purposes on how to filter data by year
+#     selected_year = 2022
+
+#     # Retrieve the measures data for the selected hospital and measure
+#     selected_measures_data = (
+#         Measures.objects.filter(hospital_id=hospital_id,
+#                                 date_entered__year=2022)
+#         .annotate(month=ExtractMonth('date_entered'))
+#         .values('month', selected_measure)
+#     )
+
+#     # Create a dictionary to hold the measures data
+#     measures_data_dict = {}
+
+#     # Loop through the selected measures data and retrieve the month and value
+#     data = selected_measures_data.values_list('month', selected_measure)
+#     measures_data_dict['data'] = list(data)
+#     print(measures_data_dict)
+
+#     return JsonResponse(measures_data_dict)
+
 
 def get_measures_data(request):
     """Gets a particular data for a particular hospital """
     hospital_id = request.GET.get('hospital_id')
     selected_measure = request.GET.get('selected_measure')
     print(selected_measure, hospital_id)
-    
-    # for testing purposes on how to filter data by year
-    selected_year = 2022 
+
+    # Retrieve the selected year from the request or user input
+    # Assuming it's passed as a query parameter
+    selected_year = request.GET.get('selected_year')
+    print(selected_year)
+
+    # Convert the selected_year to an integer if needed
+    selected_year = int(selected_year) if selected_year else None
+    print(selected_year)
+
+    # Prepare the filter conditions for the selected year
+    filter_conditions = {
+        'hospital_id': hospital_id,
+        'date_entered__year': selected_year
+    }
+
+    # Exclude the year filter if selected_year is not provided or None
+    if selected_year is None:
+        del filter_conditions['date_entered__year']
 
     # Retrieve the measures data for the selected hospital and measure
     selected_measures_data = (
-    Measures.objects.filter(hospital_id=hospital_id, date_entered__year=2022)
-    .annotate(month=ExtractMonth('date_entered'))
-    .values('month', selected_measure)
+        Measures.objects.filter(**filter_conditions)
+        .annotate(month=ExtractMonth('date_entered'))
+        .values('month', selected_measure)
     )
 
-    
     # Create a dictionary to hold the measures data
     measures_data_dict = {}
-    
+
     # Loop through the selected measures data and retrieve the month and value
     data = selected_measures_data.values_list('month', selected_measure)
     measures_data_dict['data'] = list(data)
     print(measures_data_dict)
-    
+
     return JsonResponse(measures_data_dict)
+
 
 def singleHospital(request, hospital_id):
     # getting all the hospitals
@@ -479,7 +528,6 @@ def singleHospital(request, hospital_id):
 
     # checking the hospital ID for the logged in user
     user_hospital_id = request.user.profile.hospital.id
-    
 
     # getting specific data of a single hospital
     single_hospital_data = Census.objects.annotate(year=ExtractYear(
@@ -514,23 +562,10 @@ def singleHospital(request, hospital_id):
                 .aggregate(average=Round(Avg(i), 2))
             data.append(single_column)
         measures_data.append(data)
-    
+        # average=Round(Avg(i), 2)
+
     selected_measures = Measures.objects.filter(hospital_id=hospital_id)
     measures_data_dict = {}
-    
-    # Loop through the measures list and retrieve the data for each measure
-    # for measure in fields:
-    #     data = []
-    #     for month in range(1, 13):
-    #         try:
-    #             filtered_measures = selected_measures.filter(date_entered__year=selected_year)
-    #             single_column = filtered_measures.values_list(measure, flat=True).get(date_entered__month=month)
-    #             data.append(single_column)
-    #         except Measures.DoesNotExist:
-    #             data.append(None)  
-    #     print(data)
-    #     measures_data_dict[measure] = data
-    
 
     context = {
         'hospital_name': hospital_name,
@@ -548,7 +583,7 @@ def singleHospital(request, hospital_id):
         'profileInfo': profileInfo,
         # 'years': years,
         'user_hospital_id': user_hospital_id,
-        'hospital_id':hospital_id,
+        'hospital_id': hospital_id,
     }
     return render(request, 'dashboard/hospital.html', context)
 
@@ -564,9 +599,10 @@ def singleHospitalData(request, hospital_id):
         .values('month') \
         .annotate(total=Sum('total'), voluntary=Sum('voluntary')) \
         .values('month', 'total', 'voluntary')
-    
+
     # sorts the months on the chart in chronological order(Jan - Dec)
-    turnover_data = sorted(turnover_data, key=lambda item: item['month'].date())
+    turnover_data = sorted(
+        turnover_data, key=lambda item: item['month'].date())
 
     turnover_dataset = {
         'label': hospital.name,
@@ -679,29 +715,33 @@ def measuresView(request, hospital_id):
 
     years = Measures.objects.distinct().annotate(
         year=ExtractYear('date_entered')).values('year')
-    # print(years)
-    selected_year = datetime.datetime.now().year
-    if request.method == 'POST':
-        selected_year = request.POST.get('selected_year')
-    print(selected_year)
+    # # print(years)
+    # selected_year = datetime.datetime.now().year
+    # if request.method == 'POST':
+    #     selected_year = request.POST.get('selected_year')
+    # print(selected_year)
 
     measures_data = []
     fields = ['mortality_rate', 'readmissions', 'pressure_ulcer', 'discharges_home', 'emergency_room_transfers', 'acute_swing_bed_transfers', 'medication_errors', 'falls',
               'against_medical_advice', 'left_without_being_seen', 'hospital_acquired_infection', 'covid_vaccination_total_percentage_of_compliance', 'complaint', 'grievances'
               ]
 
+    # For now, the selected_year is static for establishing the functionality and desired results. It would be changed.
+    selected_year = 2022
+
+    # The average of the values for each measure for a particular month has been changed to sum instead.
     for i in fields:
         data = [{'field_name': i.replace('_', ' ').capitalize()}]
         for j in range(1, 13):
             single_column = Measures.objects.annotate(month=ExtractMonth('date_entered'), year=ExtractYear('date_entered'))\
                 .order_by('month')\
                 .filter(month=j, hospital=hospital, year=selected_year)\
-                .aggregate(average=Round(Avg(i), 2))
+                .aggregate(sum=Sum(i))
             data.append(single_column)
         measures_data.append(data)
 
     context = {'hospital': hospital, 'measures_data': measures_data, 'profileInfo': profileInfo,
-               'user_hospital_id': user_hospital_id, 'page_title': page_title, 'hospitals': hospitals, 'years': years}
+               'user_hospital_id': user_hospital_id, 'page_title': page_title, 'hospitals': hospitals}
 
     return render(request, 'dashboard/measures.html', context)
 
@@ -737,16 +777,16 @@ def feedbackForm(request):
 
 
 def thankPage(request):
-    
+
     user = request.user
     profile = Profile.objects.get(user=user)
-    
+
     page_title = 'Thank You'
-    
+
     context = {
-        'page_title':page_title,
+        'page_title': page_title,
         'hospital': profile.hospital,
-        
+
     }
-    
-    return render(request, 'dashboard/thank-you.html',context)
+
+    return render(request, 'dashboard/thank-you.html', context)

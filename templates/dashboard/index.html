@@ -42,8 +42,7 @@
         var labels = [];
         var datasets = [];
         var colorPalette = ['#4BC0C0', '#FFB266', '#FFCD56', '#FF6384', '#36A2EB'];
-        var aggregatedData = {}
-
+        
         // Iterate over each hospital's measures data
         for (var i = 0; i < measuresData.length; i++) {
           var hospitalData = measuresData[i];
@@ -54,6 +53,7 @@
           var colorIndex = parseInt(hospitalId) - 1; 
           var color = colorPalette[colorIndex];
 
+          var aggregatedData = {}
           var dataPoints = [];
           for (var j = 0; j < data.length; j++) {
             var month = data[j][0];
