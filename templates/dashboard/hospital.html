@@ -185,10 +185,6 @@
           selected_year = $(this).val();
           updateChart(selected_measure, selected_year);
         });
-
-        //
-        
-        
     
         function updateChart(measure, year) {
           var hospitalId = {{hospital_id}};
@@ -209,6 +205,8 @@
               var labels = [];
               var data = [];
               var colorPalette = ['#4BC0C0', '#FFB266', '#FFCD56', '#FF6384', '#36A2EB'];
+
+              var color = colorPalette[{{hospital_id}} - 1]
     
               // Initialize an empty object to hold the aggregated data
               var aggregatedData = {};
@@ -260,14 +258,14 @@
                   datasets: [{
                     label: selectedMeasure,
                     data: data,
-                    backgroundColor: '#FFB266',
-                    borderColor: '#FFB266',
+                    backgroundColor: color,
+                    borderColor: color,
                     borderWidth: 2,
                     pointRadius: 4,
-                    pointBackgroundColor: '#FFB266',
+                    pointBackgroundColor: color,
                     pointBorderColor: 'rgba(255, 255, 255, 1)',
                     pointHoverRadius: 6,
-                    pointHoverBackgroundColor: '#FFB266',
+                    pointHoverBackgroundColor: color,
                     pointHoverBorderColor: 'rgba(255, 255, 255, 1)',
                   }]
                 },
@@ -691,8 +689,11 @@
                 <p class="text">Acute/swing bed transfers</p>
                 <div class="number">
                   <p>
-                    {% if total_acute_swing_bed_transfers == None %} -- {% else
-                    %} {{total_acute_swing_bed_transfers}} {% endif %}
+                    {% if total_acute_swing_bed_transfers == None %}
+                     -- 
+                     {% else%} 
+                     {{total_acute_swing_bed_transfers}} 
+                     {% endif %}
                   </p>
                 </div>
               </div>
@@ -708,8 +709,11 @@
                 <p class="text">Emergency room</p>
                 <div class="number">
                   <p>
-                    {% if total_emergency_room == None %} -- {% else %}
-                    {{total_emergency_room}} {% endif %}
+                    {% if total_emergency_room == None %}
+                     -- 
+                     {% else %}
+                    {{total_emergency_room}} 
+                    {% endif %}
                   </p>
                 </div>
               </div>
@@ -735,49 +739,50 @@
         </div>
         <div class="main-content charts">
           <h1 class="title">Charts</h1>
-          <form method="POST" id="myForm">
-            {% csrf_token %}
-            <select id="measureDropdown">
-              <option value="" selected disabled>Select a measure</option>
-              <option value="mortality_rate">Mortality rate</option>
-              <option value="readmissions">Readmissions</option>
-              <option value="pressure_ulcer">Pressure ulcer</option>
-              <option value="discharges_home">Discharges home</option>
-              <option value="emergency_room_transfers">
-                Emergency room transfers
-              </option>
-              <option value="acute_swing_bed_transfers">
-                Acute swing bed transfers
-              </option>
-              <option value="medication_errors">Medication errors</option>
-              <option value="falls">Falls</option>
-              <option value="against_medical_advice">
-                Against medical advice
-              </option>
-              <option value="left_without_being_seen">
-                Left without being seen
-              </option>
-              <option value="hospital_acquired_infection">
-                Hospital acquired infection
-              </option>
-              <option value="covid_vaccination_total_percentage_of_compliance">
-                Covid vaccination
-              </option>
-              <option value="complaint">Complaint</option>
-              <option value="grievances">Grievances</option>
-            </select>
-          </form>
-
-          
-            <form action="127.0.0.1:8000/get_measures_data/">
-              <select id="selected_year" name="selected_year">
-                <option value="" selected disabled>Select a year</option>
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-                <!-- Add more options for available years -->
+          <div class='filter'>
+            <form method="POST" id="myForm">
+              {% csrf_token %}
+              <select id="measureDropdown">
+                <option value="" selected disabled>Select a measure</option>
+                <option value="mortality_rate">Mortality rate</option>
+                <option value="readmissions">Readmissions</option>
+                <option value="pressure_ulcer">Pressure ulcer</option>
+                <option value="discharges_home">Discharges home</option>
+                <option value="emergency_room_transfers">
+                  Emergency room transfers
+                </option>
+                <option value="acute_swing_bed_transfers">
+                  Acute swing bed transfers
+                </option>
+                <option value="medication_errors">Medication errors</option>
+                <option value="falls">Falls</option>
+                <option value="against_medical_advice">
+                  Against medical advice
+                </option>
+                <option value="left_without_being_seen">
+                  Left without being seen
+                </option>
+                <option value="hospital_acquired_infection">
+                  Hospital acquired infection
+                </option>
+                <option value="covid_vaccination_total_percentage_of_compliance">
+                  Covid vaccination
+                </option>
+                <option value="complaint">Complaint</option>
+                <option value="grievances">Grievances</option>
               </select>
             </form>
+            
+              <form action="127.0.0.1:8000/get_measures_data/">
+                <select id="selected_year" name="selected_year">
+                  <option value="" selected disabled>Select a year</option>
+                  <option value="2023">2023</option>
+                  <option value="2022">2022</option>
+                  <option value="2021">2021</option>
+                  <!-- Add more options for available years in the database -->
+                </select>
+              </form>
+          </div>
 
 
           <div class="charts-container">

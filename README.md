@@ -26,3 +26,8 @@ I will fix this next week after the break.
 I validated the data displayed on the line graph on all the dashboards. Also, I removed the static year that was used for testing the functionality of filtering by year. Now, users can filter by year on the single hospital dashboard. I also added the link to return users from the single hospital dashboard to the main dashboard.
 
 Next, I will replicate the filtering by year on the general dashboard, thus removing the static year that was used for testing the functionality of filtering. And adding the hover effect on the measures.
+
+
+6th July
+I have removed the static year that was used for testing the functionality of filtering on all the dashboards. Now, users can filter by year and measure on the dashboards. Users can alternate the filtering between different measure after selecting a specific year. However, on the general dashboard, users have to select a measure followed by the year before the graph is rendered. 
+All feedback have been completed except the tooltip hover effect on the measures. I tried different ways to do it but I was unsuccessful.

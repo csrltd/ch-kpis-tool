@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from .forms import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .models import Hospital, Department, Profile, Hospital
+from .models import Hospital, Department, Profile, Hospital, Turnover
 from .models import *
 from .models import Patient, Hospital
 from django.http import JsonResponse
@@ -17,22 +17,15 @@ from django.db.models.functions import Round
 from django.views.decorators.http import require_http_methods
 from django.db.models import Count
 from django.core.exceptions import ObjectDoesNotExist
-
-
+from django.db.models.functions import TruncMonth
+from django.utils.timezone import make_aware
+from django.db.models.functions import ExtractMonth, ExtractYear
+import datetime
 # Permissions
 from .decorators import *
 
 # all view are secured to admin level. If you want to work on it, go
 # the admin dashboard and change your user group to admin
-from django.shortcuts import render
-from django.http import JsonResponse
-from .models import Turnover
-from django.db.models.functions import TruncMonth
-import datetime
-
-from django.utils.timezone import make_aware
-from django.db.models.functions import ExtractMonth, ExtractYear
-import uuid
 
 
 def turnover_data(request, hospital_id=None):
@@ -97,9 +90,13 @@ def hospital_mortality_rate(request):
 
 def get_general_measures_data(request):
     selected_measure = request.GET.get('selected_measure')
-    print(selected_measure)
+    selected_year = request.GET.get('selected_year')
+
+    # Convert the selected_year to an integer if needed
+    selected_year = int(selected_year) if selected_year else None
+
     # Retrieve the measures data for all hospitals and the selected measure
-    selected_measures_data = Measures.objects.filter(date_entered__year=2022).annotate(
+    selected_measures_data = Measures.objects.filter(date_entered__year=selected_year).annotate(
         month=ExtractMonth('date_entered')).values('hospital_id', 'month', selected_measure)
 
     measures_data_dict = {}
@@ -126,7 +123,10 @@ def get_general_measures_data(request):
     # Populate the measures data dictionary
     measures_data_dict['data'] = [{'hospital_id': hospital_id, 'hospital_name': hospital_names_dict[hospital_id],
                                    'data': data} for hospital_id, data in grouped_data.items()]
-    print(measures_data_dict)
+
+    measures_data_dict['selected_measure'] = selected_measure
+    measures_data_dict['selected_year'] = selected_year
+
     return JsonResponse(measures_data_dict)
 
 
@@ -494,10 +494,8 @@ def get_measures_data(request):
         .annotate(month=ExtractMonth('date_entered'))
         .values('month', selected_measure)
     )
-
     # Create a dictionary to hold the measures data
     measures_data_dict = {}
-
     # Loop through the selected measures data and retrieve the month and value
     data = selected_measures_data.values_list('month', selected_measure)
     measures_data_dict['data'] = list(data)

@@ -334,7 +334,7 @@ body {
 
     .main-content {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         gap: 12px;
         padding-right: 20px;
 
@@ -352,18 +352,18 @@ body {
 
         .filter{
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-
+            text-align: left;
             form{
                 select{
                     padding: .5rem 3rem;
                     border-radius: 10px;
                     outline: none;
-
+                    text-align: left;
                     option{
                         // background-color: #54bc0e;
-                        text-align: right;
+                        text-align: left;
                     }
                 }
             }
