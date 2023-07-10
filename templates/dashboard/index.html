@@ -12,6 +12,24 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <title>{{ page_title }}</title>
 
+  <style>
+    .measure-cell {
+      position: relative;
+      cursor: pointer;
+    }
+
+    #tooltip {
+      display: none;
+      background-color: white;
+      color: #0E76BC;
+      padding: 1rem;
+      font-weight: bold;
+      width: 300px;
+      border-radius: 4px;
+    }
+  </style>
+  
+
 
   <!-- ========================== SCRIPT FOR AJAX ========================== -->
 
@@ -187,14 +205,7 @@
       // updateTable(selected_measure, selected_year);
     });
 
-    // Tooltip
-    
-    
-
     function updateChart(measure, year) {
-      
-      
-
       // AJAX request to retrieve measures data
       $.ajax({
         url: '/get_general_measures_data/',
@@ -217,8 +228,8 @@
             var hospitalId = hospitalData.hospital_id;
             var hospitalName = hospitalData.hospital_name;
             var data = hospitalData.data;
-            
-            var colorIndex = parseInt(hospitalId) - 1; 
+
+            var colorIndex = parseInt(hospitalId) - 1;
             var color = colorPalette[colorIndex];
 
             var aggregatedData = {}
@@ -238,7 +249,7 @@
                 var monthName = getMonthName(month);
                 labels.push(monthName);
                 data.push(value);
-              } 
+              }
             }
 
             for (var month in aggregatedData) {
@@ -262,7 +273,7 @@
             });
           }
 
-          // Updates the card title 
+          // Updates the card title
           $('.measure').text(selectedMeasure);
 
           labels = Object.keys(aggregatedData).sort(function(a, b) {
@@ -303,8 +314,7 @@
                     font: {
                       weight: 'bold'
                     }
-                  },
-                  
+                  }
                 },
                 y: {
                   display: true,
@@ -323,23 +333,19 @@
               }
             }
           });
+
           
         }
       });
-
-      
     }
-    
+
     function getMonthName(month) {
       var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
       return monthNames[month - 1];
     }
-
-    
-    
-    
   });
-</script> 
+</script>
+
 
   
 
@@ -624,7 +630,7 @@
       </div>
       <div class="main-content measures">
         <h1 class="title">Measures</h1>
-        <table id="myTable">
+         {% comment %} <table id="myTable">
           <thead>
             <tr class="tableHead">
               <th>Measures</th>
@@ -659,10 +665,88 @@
 
               {% endfor %}
           </tbody>
+        </table>  {% endcomment %}
+
+        {% comment %} ============= Hover feature ============= {% endcomment %}
+        <table id="myTable">
+          <div id="tooltip">
+            <span id="tooltipContent"></span>
+          </div>
+          <thead>
+            <tr class="tableHead">
+              <th>Measures</th>
+              <th>Jan</th>
+              <th>Feb</th>
+              <th>Mar</th>
+              <th>Apr</th>
+              <th>May</th>
+              <th>Jun</th>
+              <th>Jul</th>
+              <th>Aug</th>
+              <th>Sep</th>
+              <th>Oct</th>
+              <th>Nov</th>
+              <th>Dec</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% comment %} {% for data in measures_data %}
+            <tr>
+              <td class="measure-cell" data-tooltip="{{ data.0.definition }}">{{ data.0.field_name }}</td>
+              {% for value in data.1 %}
+              <td>{{ value.average }}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %} {% endcomment %}
+            {% for data in measures_data %}
+              {% for item in data %}
+                {% if forloop.counter == 1 %}
+                  <tr>
+                    <td class="measure-cell" data-tooltip="{{ item.definition }}">{{ item.field_name }}</td>
+                {% else %}
+                <td>
+                  {% if item.average == None %}
+                    --
+                  {% else %}
+                    {{ item.average }}
+                  {% endif %} 
+                </td>
+                {% endif %}
+              {% endfor %}
+                  </tr>
+            {% endfor %}
+          </tbody>
         </table>
       </div>
     </div>
   </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var tooltip = document.getElementById("tooltip");
+      var tooltipContentElement = document.getElementById("tooltipContent");
+  
+      var measureCells = document.querySelectorAll(".measure-cell");
+      measureCells.forEach(function(cell) {
+        cell.addEventListener("mouseenter", function(event) {
+          var tooltipContent = this.dataset.tooltip;
+  
+          if (tooltipContent) {
+            // Show the tooltip
+            tooltipContentElement.textContent = tooltipContent;
+            tooltip.style.display = "block";
+            tooltip.style.left = event.pageX + "px";
+            tooltip.style.top = event.pageY + "px";
+          }
+        });
+  
+        cell.addEventListener("mouseleave", function() {
+          // Hide the tooltip
+          tooltip.style.display = "none";
+        });
+      });
+    });
+  </script>
+  
   <script src="{% static '/dashboard/js/navigation.js' %}"></script>
   <script src="{% static '/dashboard/js/chartTurnover.js' %}"></script>
   <script src="{% static '/dashboard/js/piChart.js' %}"></script>

@@ -31,3 +31,15 @@ Next, I will replicate the filtering by year on the general dashboard, thus remo
 6th July
 I have removed the static year that was used for testing the functionality of filtering on all the dashboards. Now, users can filter by year and measure on the dashboards. Users can alternate the filtering between different measure after selecting a specific year. However, on the general dashboard, users have to select a measure followed by the year before the graph is rendered. 
 All feedback have been completed except the tooltip hover effect on the measures. I tried different ways to do it but I was unsuccessful.
+
+7th July
+These are the feedbacks:
+    1.	Make the colors for each hospital consistent on all the charts
+    2.	Link to return users from the individual hospital dashboard to the main dashboard
+    3.	Some hospital names need correction
+    4.	A hover over each measure that show definitions & explanations
+    5.	Ability to change chart data for each measure
+
+All the feedbacks are completed. I worked on the last feedback today. Users can hover over the measures in the table and a tooltip will pop up on top of the table showing the definition.
+
+

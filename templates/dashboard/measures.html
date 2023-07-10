@@ -12,6 +12,23 @@
 
 
   <title>Dashboard</title>
+  <style>
+    .measure-cell {
+      position: relative;
+      cursor: pointer;
+    }
+
+    #tooltip {
+      display: none;
+      background-color: white;
+      color: #0E76BC;
+      padding: 1rem;
+      font-weight: bold;
+      width: 300px;
+      border-radius: 4px;
+    }
+  </style>
+
 </head>
 
 <body>
@@ -40,7 +57,6 @@
               {% if hospital.id == user_hospital_id %}
               <a href="{% url 'single-hospital' hospital_id=hospital.id %}">
                 {{ hospital.name }}
-
               </a>
               {% endif %}
               {% endfor %}
@@ -131,7 +147,11 @@
           <h1 class="system-title">KPIs Tool</h1>
         </div>
         <div class="bread-crumbs">
-          <p>Home > <b>{{ page_title }}</b></p>
+          <p>
+            <a href="{% url 'single-hospital' hospital.id %}" style="text-decoration: none; font-weight: 700">Home</a>
+             > 
+             <b>{{ page_title }}</b>
+          </p>
         </div>
         <div class="right-content">
           <div class="notification">
@@ -222,18 +242,16 @@
               src="{% static '/dashboard/img/icons/plus.svg' %}" alt="" /></a>
           </button>
 
-          <!-- <div class='filter'>
-            {% comment %} <h1 class="title">{{hospital_name}} quick numbers</h1> {% endcomment %}
-            <form method='POST' id='myForm'>
-              {% csrf_token %}
-              <select id="yearSelect" name='selected_year'>
-                {% for year in years %}
-                <option value="{{year.year}}">{{year.year}}</option>
-
-                {% endfor %}
-              </select>
-            </form>
-          </div> -->
+          {% comment %} <form id="yearSelectionForm">
+            <select id="selected_year" name="selected_year">
+              <option value="" selected disabled>Select a year</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <!-- Add more options for available years in the database -->
+            </select>
+          </form> {% endcomment %}
+          
         </div>
 
       </div>
@@ -253,7 +271,7 @@
       </div> {% endcomment %}
       <div class="main-content measures">
         <h1 class="title">Measures</h1>
-        <table id="myTable">
+        {% comment %} <table id="myTable">
           <thead>
             <tr class="tableHead">
               <th>Measures</th>
@@ -291,10 +309,79 @@
               {% endfor %}
             </tr>
           </tbody>
+        </table> {% endcomment %}
+
+        <table id="myTable">
+          <div id="tooltip">
+            <span id="tooltipContent"></span>
+          </div>
+          <thead>
+            <tr class="tableHead">
+              <th>Measures</th>
+              <th>Jan</th>
+              <th>Feb</th>
+              <th>Mar</th>
+              <th>Apr</th>
+              <th>May</th>
+              <th>Jun</th>
+              <th>Jul</th>
+              <th>Aug</th>
+              <th>Sep</th>
+              <th>Oct</th>
+              <th>Nov</th>
+              <th>Dec</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for data in measures_data %}
+              {% for item in data %}
+                {% if forloop.counter == 1 %}
+                  <tr>
+                    <td class="measure-cell" data-tooltip="{{ item.definition }}">{{ item.field_name }}</td>
+                {% else %}
+                    <td>
+                      {% if item.sum == None %}
+                        --
+                      {% else %}
+                        {{ item.sum }}
+                      {% endif %} 
+                    </td>
+                {% endif %}
+              {% endfor %}
+                  </tr>
+            {% endfor %}
+          </tbody>
         </table>
       </div>
     </div>
   </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var tooltip = document.getElementById("tooltip");
+      var tooltipContentElement = document.getElementById("tooltipContent");
+  
+      var measureCells = document.querySelectorAll(".measure-cell");
+      measureCells.forEach(function(cell) {
+        cell.addEventListener("mouseenter", function(event) {
+          var tooltipContent = this.dataset.tooltip;
+  
+          if (tooltipContent) {
+            // Show the tooltip
+            tooltipContentElement.textContent = tooltipContent;
+            tooltip.style.display = "block";
+            tooltip.style.left = event.pageX + "px";
+            tooltip.style.top = event.pageY + "px";
+          }
+        });
+  
+        cell.addEventListener("mouseleave", function() {
+          // Hide the tooltip
+          tooltip.style.display = "none";
+        });
+      });
+    });
+  </script>
   <script src="{% static '/dashboard/js/navigation.js' %}"></script>
   <script src="{% static '/dashboard/js/chartTurnover.js' %}"></script>
   <script src="{% static '/dashboard/js/piChart.js' %}"></script>

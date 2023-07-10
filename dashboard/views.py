@@ -1,3 +1,4 @@
+from django.template.defaultfilters import default
 from .forms import FeedbackForm
 from datetime import timezone
 from django.shortcuts import render, redirect
@@ -149,12 +150,30 @@ def index(request):
         total=Sum('rural_health_clinic'))['total']
 
     measures_data = []
-    fields = ['readmissions', 'pressure_ulcer', 'discharges_home', 'emergency_room_transfers', 'acute_swing_bed_transfers', 'medication_errors', 'falls',
+    fields = ['mortality_rate', 'readmissions', 'pressure_ulcer', 'discharges_home', 'emergency_room_transfers', 'acute_swing_bed_transfers', 'medication_errors', 'falls',
               'against_medical_advice', 'left_without_being_seen', 'hospital_acquired_infection', 'covid_vaccination_total_percentage_of_compliance', 'complaint', 'grievances'
               ]
 
+    measure_definitions = {
+        'mortality_rate': 'Definition of Mortality Rate',
+        'readmissions': 'Definition of Readmissions',
+        'pressure_ulcer': 'Definition of Pressure ulcer',
+        'discharges_home': 'Definition of Discharges home',
+        'emergency_room_transfers': 'Definition of Emergency room transfers',
+        'acute_swing_bed_transfers': 'Definition of Acute-swing bed transfers',
+        'medication_errors': 'Definition of Medication errors',
+        'falls': 'Definition of Falls',
+        'against_medical_advice': 'Definition of Against medical advice',
+        'left_without_being_seen': 'Definition of Left without being seen',
+        'hospital_acquired_infection': 'Definition of Hospital acquired infection',
+        'covid_vaccination_total_percentage_of_compliance': 'Definition of Covid vaccination total percentage of compliance',
+        'complaint': 'Definition of Complaint',
+        'grievances': 'Definition of Grievances. These are the number of instances of the diagnostic method'
+    }
+
     for i in fields:
-        data = [{'field_name': i.replace('_', ' ').capitalize()}]
+        data = [{'field_name': i.replace(
+            '_', ' ').capitalize(), 'definition': measure_definitions[i]}]
         for j in range(1, 13):
             single_column = Measures.objects.annotate(month=ExtractMonth('date_entered'),)\
                 .order_by('month')\
@@ -162,6 +181,7 @@ def index(request):
                 .aggregate(average=Round(Avg(i), 2))
             data.append(single_column)
         measures_data.append(data)
+        # print(measures_data)
 
     context = {
         'hospitals': hospitals,
@@ -173,7 +193,8 @@ def index(request):
         'emergency_room_count': emergency_room_count,
         'total_rural_health_clinic': total_rural_health_clinic,
         'acute_swing_bed_transfers_count': acute_swing_bed_transfers_count,
-        'page_title': page_title
+        'page_title': page_title,
+        'measure_definitions': measure_definitions,
     }
 
     return render(request, 'dashboard/index.html', context)
@@ -512,14 +533,6 @@ def singleHospital(request, hospital_id):
     hospital = Hospital.objects.get(id=hospital_id)
     hospital_name = hospital.name
 
-    # filtering the data based year
-    # years = Measures.objects.distinct().annotate(
-    #     year=ExtractYear('date_entered')).values('year')
-    # selected_year = datetime.datetime.now().year
-    # if request.method == 'POST':
-    #     selected_year = request.POST.get('selected_year')
-    # print(selected_year)
-
     hospital_data = singleHospitalData(request, hospital_id)
     profileInfo = Profile.objects.get(user=request.user)
     page_title = hospital_name
@@ -551,8 +564,26 @@ def singleHospital(request, hospital_id):
               'against_medical_advice', 'left_without_being_seen', 'hospital_acquired_infection', 'covid_vaccination_total_percentage_of_compliance', 'complaint', 'grievances'
               ]
 
+    measure_definitions = {
+        'mortality_rate': 'Definition of Mortality Rate',
+        'readmissions': 'Definition of Readmissions',
+        'pressure_ulcer': 'Definition of Pressure ulcer',
+        'discharges_home': 'Definition of Discharges home',
+        'emergency_room_transfers': 'Definition of Emergency room transfers',
+        'acute_swing_bed_transfers': 'Definition of Acute-swing bed transfers',
+        'medication_errors': 'Definition of Medication errors',
+        'falls': 'Definition of Falls',
+        'against_medical_advice': 'Definition of Against medical advice',
+        'left_without_being_seen': 'Definition of Left without being seen',
+        'hospital_acquired_infection': 'Definition of Hospital acquired infection',
+        'covid_vaccination_total_percentage_of_compliance': 'Definition of Covid vaccination total percentage of compliance',
+        'complaint': 'Definition of Complaint',
+        'grievances': 'Definition of Grievances. These are the number of instances of the diagnostic method'
+    }
+
     for i in fields:
-        data = [{'field_name': i.replace('_', ' ').capitalize()}]
+        data = [{'field_name': i.replace(
+            '_', ' ').capitalize(), 'definition': measure_definitions[i]}]
         for j in range(1, 13):
             single_column = Measures.objects.annotate(month=ExtractMonth('date_entered'), year=ExtractYear('date_entered'))\
                 .order_by('month')\
@@ -713,23 +744,36 @@ def measuresView(request, hospital_id):
 
     years = Measures.objects.distinct().annotate(
         year=ExtractYear('date_entered')).values('year')
-    # # print(years)
-    # selected_year = datetime.datetime.now().year
-    # if request.method == 'POST':
-    #     selected_year = request.POST.get('selected_year')
-    # print(selected_year)
 
     measures_data = []
     fields = ['mortality_rate', 'readmissions', 'pressure_ulcer', 'discharges_home', 'emergency_room_transfers', 'acute_swing_bed_transfers', 'medication_errors', 'falls',
               'against_medical_advice', 'left_without_being_seen', 'hospital_acquired_infection', 'covid_vaccination_total_percentage_of_compliance', 'complaint', 'grievances'
               ]
 
+    measure_definitions = {
+        'mortality_rate': 'Definition of Mortality Rate',
+        'readmissions': 'Definition of Readmissions',
+        'pressure_ulcer': 'Definition of Pressure ulcer',
+        'discharges_home': 'Definition of Discharges home',
+        'emergency_room_transfers': 'Definition of Emergency room transfers',
+        'acute_swing_bed_transfers': 'Definition of Acute-swing bed transfers',
+        'medication_errors': 'Definition of Medication errors',
+        'falls': 'Definition of Falls',
+        'against_medical_advice': 'Definition of Against medical advice',
+        'left_without_being_seen': 'Definition of Left without being seen',
+        'hospital_acquired_infection': 'Definition of Hospital acquired infection',
+        'covid_vaccination_total_percentage_of_compliance': 'Definition of Covid vaccination total percentage of compliance',
+        'complaint': 'Definition of Complaint',
+        'grievances': 'Definition of Grievances. These are the number of instances of the diagnostic method'
+    }
+
     # For now, the selected_year is static for establishing the functionality and desired results. It would be changed.
     selected_year = 2022
 
     # The average of the values for each measure for a particular month has been changed to sum instead.
     for i in fields:
-        data = [{'field_name': i.replace('_', ' ').capitalize()}]
+        data = [{'field_name': i.replace(
+            '_', ' ').capitalize(), 'definition': measure_definitions[i]}]
         for j in range(1, 13):
             single_column = Measures.objects.annotate(month=ExtractMonth('date_entered'), year=ExtractYear('date_entered'))\
                 .order_by('month')\
@@ -737,6 +781,7 @@ def measuresView(request, hospital_id):
                 .aggregate(sum=Sum(i))
             data.append(single_column)
         measures_data.append(data)
+        # print(measures_data)
 
     context = {'hospital': hospital, 'measures_data': measures_data, 'profileInfo': profileInfo,
                'user_hospital_id': user_hospital_id, 'page_title': page_title, 'hospitals': hospitals}

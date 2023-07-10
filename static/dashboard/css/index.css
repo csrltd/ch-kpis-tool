@@ -272,7 +272,7 @@ body {
 }
 .content .main-content {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 12px;
   padding-right: 20px;
 }
@@ -286,18 +286,16 @@ body {
 }
 .content .main-content .filter {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  text-align: left;
 }
 .content .main-content .filter form select {
   padding: 0.5rem 3rem;
   border-radius: 10px;
   outline: none;
-  text-align: left;
 }
 .content .main-content .filter form select option {
-  text-align: left;
+  text-align: right;
 }
 .content .numbers .cards {
   display: flex;
