@@ -22,7 +22,6 @@ from django.db.models.functions import TruncMonth
 from django.utils.timezone import make_aware
 from django.db.models.functions import ExtractMonth, ExtractYear
 import datetime
-# Permissions
 from .decorators import *
 
 # all view are secured to admin level. If you want to work on it, go
@@ -382,9 +381,8 @@ def departement(request):
 
 
 def complete_profile(request):
-    # user_hospital_id = request.user.profile.hospital.id
     form = ProfileForm()
-    # user=request.user, user_hospital_id=user_hospital_id
+
     message = ''
     blocktitle = 'Add your profile'
     if request.method == 'POST':
@@ -488,16 +486,12 @@ def get_measures_data(request):
     """Gets a particular data for a particular hospital """
     hospital_id = request.GET.get('hospital_id')
     selected_measure = request.GET.get('selected_measure')
-    print(selected_measure, hospital_id)
 
     # Retrieve the selected year from the request or user input
-    # Assuming it's passed as a query parameter
     selected_year = request.GET.get('selected_year')
-    print(selected_year)
 
     # Convert the selected_year to an integer if needed
     selected_year = int(selected_year) if selected_year else None
-    print(selected_year)
 
     # Prepare the filter conditions for the selected year
     filter_conditions = {
@@ -610,7 +604,6 @@ def singleHospital(request, hospital_id):
         'total_acute_swing_bed_transfers': total_acute_swing_bed_transfers,
         'page_title': page_title,
         'profileInfo': profileInfo,
-        # 'years': years,
         'user_hospital_id': user_hospital_id,
         'hospital_id': hospital_id,
     }
@@ -647,8 +640,6 @@ def singleHospitalData(request, hospital_id):
     data['datasets'].append(turnover_dataset)
     return JsonResponse(data)
 
-# Adding Measures data template
-
 
 def addMeasures(request):
     user_hospital_id = request.user.profile.hospital.id
@@ -666,8 +657,6 @@ def addMeasures(request):
             form.save()
 
     return render(request, 'dashboard/addMeasures.html', context)
-
-# Adding Census data template
 
 
 def addCensus(request):
@@ -815,12 +804,10 @@ def feedbackForm(request):
     context = {
         'form': form,
     }
-
     return render(request, 'dashboard/feedback-form.html', context)
 
 
 def thankPage(request):
-
     user = request.user
     profile = Profile.objects.get(user=user)
 
@@ -829,7 +816,6 @@ def thankPage(request):
     context = {
         'page_title': page_title,
         'hospital': profile.hospital,
-
     }
 
     return render(request, 'dashboard/thank-you.html', context)

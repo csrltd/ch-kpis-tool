@@ -29,11 +29,9 @@
     }
   </style>
   
-
-
   <!-- ========================== SCRIPT FOR AJAX ========================== -->
 
- {% comment %} <script>
+ <!-- <script>
     $(document).ready(function() {
       var lineChart;
       $('#measureDropdown').change(function() {
@@ -185,7 +183,7 @@
       
       
     });
-</script>  {% endcomment %}
+</script>   -->
 
 
 <script>
@@ -282,7 +280,7 @@
             return getMonthName(month);
           });
 
-          // ================ LINE CHART FOR MEASURES FILTER =====================
+          // ================ LINE CHART FOR MEASURES FILTER ===================
           var ctx = document.getElementById('pieChart').getContext('2d');
           if (lineChart) {
             lineChart.destroy();
@@ -346,11 +344,8 @@
   });
 </script>
 
-
-  
-
-
 </head>
+
 
 <body>
   <div class="row">
@@ -581,6 +576,7 @@
       <div class="main-content charts">
         <h1 class="title">Charts</h1>
           <div class='filter'>
+            {% comment %} Use the right url when deploying {% endcomment %}
             <form method='POST' id='myForm' action="127.0.0.1:8000/get_general_measures_data/" >
               {% csrf_token %}
               <select id="measureDropdown">
@@ -612,7 +608,7 @@
             </form>
           </div>
             
-          {% comment %} </form> {% endcomment %}
+          
         <div class="charts-container">
           <!-- <div class="chart turnovers">
             <h3 class="title">Mortality rate</h3>

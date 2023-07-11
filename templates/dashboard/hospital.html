@@ -33,7 +33,7 @@
     </style>
 
     
-    {% comment %} Filtering the data using AJAX {% endcomment %}
+     <!-- Filtering the data using AJAX  -->
     <script>
       $(document).ready(function() {
         var selected_measure = '';
@@ -50,7 +50,7 @@
         });
     
         function updateChart(measure, year) {
-          var hospitalId = {{hospital_id}};
+          var hospitalId = '{{hospital_id}}';
     
           // AJAX request to retrieve measures data
           $.ajax({
@@ -69,7 +69,7 @@
               var data = [];
               var colorPalette = ['#4BC0C0', '#FFB266', '#FFCD56', '#FF6384', '#36A2EB'];
 
-              var color = colorPalette[{{hospital_id}} - 1]
+              var color = colorPalette['{{hospital_id}}' - 1]
     
               // Initialize an empty object to hold the aggregated data
               var aggregatedData = {};
@@ -78,6 +78,7 @@
               for (var i = 0; i < measuresData.length; i++) {
                 var month = measuresData[i][0];
                 var value = measuresData[i][1];
+                var hospitalName = measuresData.hospital_name;
     
                 // Check if the month already exists in the aggregated data
                 if (aggregatedData.hasOwnProperty(month)) {
