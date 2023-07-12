@@ -189,8 +189,10 @@
 <script>
   $(document).ready(function() {
     var lineChart;
-    var selected_measure = '';
-    var selected_year = '';
+    var selected_measure = 'mortality_rate';
+    var selected_year = '2023';
+
+    updateChart(selected_measure, selected_year);
 
     $('#measureDropdown').change(function() {
       selected_measure = $(this).val();
@@ -580,8 +582,8 @@
             <form method='POST' id='myForm' action="127.0.0.1:8000/get_general_measures_data/" >
               {% csrf_token %}
               <select id="measureDropdown">
-                <option value="" selected disabled>Select a measure</option>
-                <option value="mortality_rate" >Mortality rate</option>
+                <option value="" disabled>Select a measure</option>
+                <option value="mortality_rate" selected>Mortality rate</option>
                 <option value="readmissions">Readmissions</option>
                 <option value="pressure_ulcer">Pressure ulcer</option>
                 <option value="discharges_home">Discharges home</option>
@@ -599,8 +601,8 @@
             </form>
             <form action="127.0.0.1:8000/get_general_measures_data/">
               <select id="selected_year" name="selected_year">
-                <option value="" selected disabled>Select a year</option>
-                <option value="2023">2023</option>
+                <option value="" disabled>Select a year</option>
+                <option value="2023" selected>2023</option>
                 <option value="2022">2022</option>
                 <option value="2021">2021</option>
                 <!-- Add more options for available years in the database -->

@@ -22,6 +22,9 @@
     <title>Dashboard</title>
 
     <style>
+      #myTable {
+        position: relative;
+      }
       .measure-cell {
         position: relative;
         cursor: pointer;
@@ -35,6 +38,10 @@
         font-weight: bold;
         width: 300px;
         border-radius: 4px;
+        position: absolute;
+        top: -20%;
+        left: 80%;
+        right: 80%;
       }
     </style>
 
@@ -42,8 +49,12 @@
      <!-- Filtering the data using AJAX  -->
     <script>
       $(document).ready(function() {
-        var selected_measure = '';
-        var selected_year = '';
+
+        var selected_measure = 'mortality_rate';
+        var selected_year = '2023';
+
+        updateChart(selected_measure, selected_year);
+        $('.measure').text(selected_measure);
     
         $('#measureDropdown').change(function() {
           selected_measure = $(this).val();
@@ -54,6 +65,10 @@
           selected_year = $(this).val();
           updateChart(selected_measure, selected_year);
         });
+
+
+        
+        
     
         function updateChart(measure, year) {
           var hospitalId = '{{hospital_id}}';
@@ -114,7 +129,6 @@
                 }
               }
 
-              //updateTable(measuresData, selected_year);
     
               // Updates the card title
               $('.measure').text(selectedMeasure);
@@ -608,8 +622,8 @@
             <form method="POST" id="myForm">
               {% csrf_token %}
               <select id="measureDropdown">
-                <option value="" selected disabled>Select a measure</option>
-                <option value="mortality_rate">Mortality rate</option>
+                <option value="" disabled>Select a measure</option>
+                <option value="mortality_rate" selected>Mortality rate</option>
                 <option value="readmissions">Readmissions</option>
                 <option value="pressure_ulcer">Pressure ulcer</option>
                 <option value="discharges_home">Discharges home</option>
@@ -640,8 +654,8 @@
             
               <form action="127.0.0.1:8000/get_measures_data/">
                 <select id="selected_year" name="selected_year">
-                  <option value="" selected disabled>Select a year</option>
-                  <option value="2023">2023</option>
+                  <option value="" disabled>Select a year</option>
+                  <option value="2023" selected>2023</option>
                   <option value="2022">2022</option>
                   <option value="2021">2021</option>
                   <!-- Add more options for available years in the database -->

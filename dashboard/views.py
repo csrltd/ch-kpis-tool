@@ -88,6 +88,7 @@ def hospital_mortality_rate(request):
     return JsonResponse(data, safe=False)
 
 
+@require_http_methods(['GET'])
 def get_general_measures_data(request):
     selected_measure = request.GET.get('selected_measure')
     selected_year = request.GET.get('selected_year')
@@ -481,7 +482,7 @@ def HospitalCreateView(request):
 
 #     return JsonResponse(measures_data_dict)
 
-
+@require_http_methods(['GET'])
 def get_measures_data(request):
     """Gets a particular data for a particular hospital """
     hospital_id = request.GET.get('hospital_id')
@@ -514,11 +515,13 @@ def get_measures_data(request):
     # Loop through the selected measures data and retrieve the month and value
     data = selected_measures_data.values_list('month', selected_measure)
     measures_data_dict['data'] = list(data)
+
     print(measures_data_dict)
 
     return JsonResponse(measures_data_dict)
 
 
+@admin_required
 def singleHospital(request, hospital_id):
     # getting all the hospitals
     hospitals = Hospital.objects.all()
