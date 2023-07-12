@@ -51,7 +51,8 @@
       $(document).ready(function() {
 
         var selected_measure = 'mortality_rate';
-        var selected_year = '2023';
+        var currentDate = new Date();
+        var selected_year = currentDate.getFullYear();
 
         updateChart(selected_measure, selected_year);
         $('.measure').text(selected_measure);
@@ -66,10 +67,6 @@
           updateChart(selected_measure, selected_year);
         });
 
-
-        
-        
-    
         function updateChart(measure, year) {
           var hospitalId = '{{hospital_id}}';
     
@@ -251,7 +248,7 @@
                 />
               </div>
               <div class="dropdown-content hspdropdown-content">
-                <a href="" class="button"
+                <a href="{% url 'add-measures' %}" class="button"
                   ><span>Add data</span
                   ><img
                     src="{% static '/dashboard/img/icons/plus.svg' %}"

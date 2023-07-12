@@ -190,7 +190,8 @@
   $(document).ready(function() {
     var lineChart;
     var selected_measure = 'mortality_rate';
-    var selected_year = '2023';
+    var currentDate = new Date();
+    var selected_year = currentDate.getFullYear();
 
     updateChart(selected_measure, selected_year);
 

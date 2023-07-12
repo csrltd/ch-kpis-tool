@@ -66,6 +66,7 @@ def turnover_data(request, hospital_id=None):
 
 
 @require_http_methods(['GET'])
+@admin_required
 def measures_data(request):
     measures = Measures.objects.values('hospital__name').annotate(
         total_mortality_rate=Sum('mortality_rate')
@@ -89,6 +90,7 @@ def hospital_mortality_rate(request):
 
 
 @require_http_methods(['GET'])
+@admin_required
 def get_general_measures_data(request):
     selected_measure = request.GET.get('selected_measure')
     selected_year = request.GET.get('selected_year')
@@ -202,7 +204,6 @@ def index(request):
 
 @admin_required
 def chart_data(request):
-
     # filtering the data based year
     years = Measures.objects.distinct().annotate(
         year=ExtractYear('date_entered')).values('year')
@@ -231,7 +232,6 @@ def chart_data(request):
         'inpatient': inpatient,
         'outpatient': outpatient
     }
-
     return JsonResponse(context)
 
 # New way to get data
@@ -272,11 +272,9 @@ def filter_patients_by_month(request):
         data[hospital_name.name]['outpatient_totals'] = outpatient_totals
     return JsonResponse(data)
 
-# @admin_required
 
-
+@admin_required
 def signup(request):
-
     form = UserRegistration()
     context = {'form': form}
     if request.method == 'POST':
@@ -284,12 +282,8 @@ def signup(request):
         if form.is_valid():
             selected_group_id = form.cleaned_data['group'].id
             selected_group = Group.objects.get(id=selected_group_id)
-
             user = form.save()
-
             selected_group.user_set.add(user)
-            # username = request.POST.get('username')
-            # password = request.POST.get('password')
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
             user = authenticate(request, username=username, password=password)
@@ -301,9 +295,8 @@ def signup(request):
         print(form.errors)
     return render(request, 'authentication/signup.html', context)
 
-# @hospital_admin_required
 
-
+@admin_required
 def loginPage(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -343,9 +336,7 @@ def loginPage(request):
 
 
 def logOutPage(request):
-    # user = request.user
     logout(request)
-
     return redirect('login')
 
 
@@ -381,6 +372,7 @@ def departement(request):
     return render(request, 'dashboard/add-departement.html', context)
 
 
+@admin_required
 def complete_profile(request):
     form = ProfileForm()
 
@@ -454,33 +446,6 @@ def HospitalCreateView(request):
         id_prefix = "CH"
         hospital_id = f"{id_prefix}{id_suffix}"
 
-
-# def get_measures_data(request):
-#     """Gets a particular data for a particular hospital """
-#     hospital_id = request.GET.get('hospital_id')
-#     selected_measure = request.GET.get('selected_measure')
-#     print(selected_measure, hospital_id)
-
-#     # for testing purposes on how to filter data by year
-#     selected_year = 2022
-
-#     # Retrieve the measures data for the selected hospital and measure
-#     selected_measures_data = (
-#         Measures.objects.filter(hospital_id=hospital_id,
-#                                 date_entered__year=2022)
-#         .annotate(month=ExtractMonth('date_entered'))
-#         .values('month', selected_measure)
-#     )
-
-#     # Create a dictionary to hold the measures data
-#     measures_data_dict = {}
-
-#     # Loop through the selected measures data and retrieve the month and value
-#     data = selected_measures_data.values_list('month', selected_measure)
-#     measures_data_dict['data'] = list(data)
-#     print(measures_data_dict)
-
-#     return JsonResponse(measures_data_dict)
 
 @require_http_methods(['GET'])
 def get_measures_data(request):
@@ -588,10 +553,6 @@ def singleHospital(request, hospital_id):
                 .aggregate(average=Round(Avg(i), 2))
             data.append(single_column)
         measures_data.append(data)
-        # average=Round(Avg(i), 2)
-
-    selected_measures = Measures.objects.filter(hospital_id=hospital_id)
-    measures_data_dict = {}
 
     context = {
         'hospital_name': hospital_name,
@@ -613,6 +574,7 @@ def singleHospital(request, hospital_id):
     return render(request, 'dashboard/hospital.html', context)
 
 
+@admin_required
 def singleHospitalData(request, hospital_id):
     hospital = Hospital.objects.get(id=hospital_id)
     data = {
@@ -644,6 +606,7 @@ def singleHospitalData(request, hospital_id):
     return JsonResponse(data)
 
 
+@admin_required
 def addMeasures(request):
     user_hospital_id = request.user.profile.hospital.id
     form = MeasuresForm(user_hospital_id=user_hospital_id)
@@ -662,6 +625,7 @@ def addMeasures(request):
     return render(request, 'dashboard/addMeasures.html', context)
 
 
+@admin_required
 def addCensus(request):
     user_hospital_id = request.user.profile.hospital.id
     page_title = 'Add Census'
@@ -684,6 +648,7 @@ def addCensus(request):
 # Adding Turnover data template
 
 
+@admin_required
 def addTurnover(request):
     user_hospital_id = request.user.profile.hospital.id
     page_title = 'Add Turnover'
@@ -706,6 +671,7 @@ def addTurnover(request):
 # Adding Hiring data template
 
 
+@admin_required
 def addHiring(request):
     page_title = 'Add hiring'
     blocktitle = 'Add hiring'
@@ -715,7 +681,6 @@ def addHiring(request):
                'blocktitle': blocktitle}
 
     if request.method == 'POST':
-
         form = HiringForm(request.POST)
 
         if form.is_valid:
@@ -725,6 +690,7 @@ def addHiring(request):
     return render(request, 'dashboard/addHiring.html', context)
 
 
+@admin_required
 def measuresView(request, hospital_id):
     hospital = Hospital.objects.get(id=hospital_id)
     hospitals = Hospital.objects.all()
