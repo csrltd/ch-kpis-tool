@@ -30,4 +30,14 @@ ul {
   font-size: 18px;
   font-weight: bold;
   margin: 10px 0;
+}
+
+#myTable {
+  position: relative;
+}
+#myTable #tooltip {
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  right: 20%;
 }/*# sourceMappingURL=main.css.map */
