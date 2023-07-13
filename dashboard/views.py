@@ -28,6 +28,36 @@ from .decorators import *
 # the admin dashboard and change your user group to admin
 
 
+# Definitions of the measures
+measure_definitions = {
+    'mortality_rate': 'Definition of Mortality Rate. Represents the number of mortality rates recorded in the hospital(s).',
+
+    'readmissions': 'Definition of Readmissions. Readmissions represent the number of patients who have been readmitted in the hospital.',
+
+    'pressure_ulcer': 'Definition of Pressure ulcer. This is the record of the number of pressure ulcer cases recorded in the hospital.',
+
+    'discharges_home': 'Definition of Discharges home. This number represents the number of patients who have been discharged from the hospital.',
+    'emergency_room_transfers': 'Definition of Emergency room transfers. Represents the number of patients transferred to the emergency room.',
+
+    'acute_swing_bed_transfers': 'Definition of Acute-swing bed transfers. Represents the number of acute-swing beds that are transferred.',
+
+    'medication_errors': 'Definition of Medication errors. These are the number of medication errors made by the hospital',
+
+    'falls': 'Definition of Falls. This number shows the fallen patients in the hospital',
+    'against_medical_advice': 'Definition of Against medical advice. Represent the number of patients who left against medical advice',
+
+    'left_without_being_seen': "Definition of Left without being seen. This number represents the number of patients who left without being seen",
+
+    'hospital_acquired_infection': 'Definition of Hospital acquired infection. Represents patient that acquired infections at the hospital',
+
+    'covid_vaccination_total_percentage_of_compliance': 'Definition of Covid vaccination total percentage of compliance. This value is the percentage of compliance to covid vaccination',
+
+    'complaint': 'Definition of Complaint. This represents the complaints of patients',
+
+    'grievances': 'Definition of Grievances. These are the number of instances of the diagnostic method'
+}
+
+
 def turnover_data(request, hospital_id=None):
     current_year = datetime.datetime.now().year
     hospitals = Hospital.objects.all()
@@ -134,6 +164,7 @@ def get_general_measures_data(request):
 
 
 @admin_required
+# @ceo_required
 def index(request):
     page_title = 'Overview'
     profileInfo = Profile.objects.get(user=request.user)
@@ -155,23 +186,6 @@ def index(request):
     fields = ['mortality_rate', 'readmissions', 'pressure_ulcer', 'discharges_home', 'emergency_room_transfers', 'acute_swing_bed_transfers', 'medication_errors', 'falls',
               'against_medical_advice', 'left_without_being_seen', 'hospital_acquired_infection', 'covid_vaccination_total_percentage_of_compliance', 'complaint', 'grievances'
               ]
-
-    measure_definitions = {
-        'mortality_rate': 'Definition of Mortality Rate',
-        'readmissions': 'Definition of Readmissions',
-        'pressure_ulcer': 'Definition of Pressure ulcer',
-        'discharges_home': 'Definition of Discharges home',
-        'emergency_room_transfers': 'Definition of Emergency room transfers',
-        'acute_swing_bed_transfers': 'Definition of Acute-swing bed transfers',
-        'medication_errors': 'Definition of Medication errors',
-        'falls': 'Definition of Falls',
-        'against_medical_advice': 'Definition of Against medical advice',
-        'left_without_being_seen': 'Definition of Left without being seen',
-        'hospital_acquired_infection': 'Definition of Hospital acquired infection',
-        'covid_vaccination_total_percentage_of_compliance': 'Definition of Covid vaccination total percentage of compliance',
-        'complaint': 'Definition of Complaint',
-        'grievances': 'Definition of Grievances. These are the number of instances of the diagnostic method'
-    }
 
     for i in fields:
         data = [{'field_name': i.replace(
@@ -202,7 +216,7 @@ def index(request):
     return render(request, 'dashboard/index.html', context)
 
 
-@admin_required
+# @admin_required
 def chart_data(request):
     # filtering the data based year
     years = Measures.objects.distinct().annotate(
@@ -237,7 +251,7 @@ def chart_data(request):
 # New way to get data
 
 
-@admin_required
+# @admin_required
 def filter_patients_by_month(request):
     hospital_names = Hospital.objects.all()
     data = {}
@@ -296,7 +310,7 @@ def signup(request):
     return render(request, 'authentication/signup.html', context)
 
 
-@admin_required
+# @admin_required
 def loginPage(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -486,6 +500,7 @@ def get_measures_data(request):
     return JsonResponse(measures_data_dict)
 
 
+# @hospital_admin_required
 @admin_required
 def singleHospital(request, hospital_id):
     # getting all the hospitals
@@ -525,23 +540,6 @@ def singleHospital(request, hospital_id):
     fields = ['mortality_rate', 'readmissions', 'pressure_ulcer', 'discharges_home', 'emergency_room_transfers', 'acute_swing_bed_transfers', 'medication_errors', 'falls',
               'against_medical_advice', 'left_without_being_seen', 'hospital_acquired_infection', 'covid_vaccination_total_percentage_of_compliance', 'complaint', 'grievances'
               ]
-
-    measure_definitions = {
-        'mortality_rate': 'Definition of Mortality Rate',
-        'readmissions': 'Definition of Readmissions',
-        'pressure_ulcer': 'Definition of Pressure ulcer',
-        'discharges_home': 'Definition of Discharges home',
-        'emergency_room_transfers': 'Definition of Emergency room transfers',
-        'acute_swing_bed_transfers': 'Definition of Acute-swing bed transfers',
-        'medication_errors': 'Definition of Medication errors',
-        'falls': 'Definition of Falls',
-        'against_medical_advice': 'Definition of Against medical advice',
-        'left_without_being_seen': 'Definition of Left without being seen',
-        'hospital_acquired_infection': 'Definition of Hospital acquired infection',
-        'covid_vaccination_total_percentage_of_compliance': 'Definition of Covid vaccination total percentage of compliance',
-        'complaint': 'Definition of Complaint',
-        'grievances': 'Definition of Grievances. These are the number of instances of the diagnostic method'
-    }
 
     for i in fields:
         data = [{'field_name': i.replace(
@@ -707,23 +705,6 @@ def measuresView(request, hospital_id):
     fields = ['mortality_rate', 'readmissions', 'pressure_ulcer', 'discharges_home', 'emergency_room_transfers', 'acute_swing_bed_transfers', 'medication_errors', 'falls',
               'against_medical_advice', 'left_without_being_seen', 'hospital_acquired_infection', 'covid_vaccination_total_percentage_of_compliance', 'complaint', 'grievances'
               ]
-
-    measure_definitions = {
-        'mortality_rate': 'Definition of Mortality Rate',
-        'readmissions': 'Definition of Readmissions',
-        'pressure_ulcer': 'Definition of Pressure ulcer',
-        'discharges_home': 'Definition of Discharges home',
-        'emergency_room_transfers': 'Definition of Emergency room transfers',
-        'acute_swing_bed_transfers': 'Definition of Acute-swing bed transfers',
-        'medication_errors': 'Definition of Medication errors',
-        'falls': 'Definition of Falls',
-        'against_medical_advice': 'Definition of Against medical advice',
-        'left_without_being_seen': 'Definition of Left without being seen',
-        'hospital_acquired_infection': 'Definition of Hospital acquired infection',
-        'covid_vaccination_total_percentage_of_compliance': 'Definition of Covid vaccination total percentage of compliance',
-        'complaint': 'Definition of Complaint',
-        'grievances': 'Definition of Grievances. These are the number of instances of the diagnostic method'
-    }
 
     # For now, the selected_year is static for establishing the functionality and desired results. It would be changed.
     selected_year = 2022

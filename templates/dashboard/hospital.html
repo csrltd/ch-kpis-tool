@@ -22,26 +22,24 @@
     <title>Dashboard</title>
 
     <style>
-      #myTable {
-        position: relative;
-      }
       .measure-cell {
         position: relative;
         cursor: pointer;
       }
-  
-      #tooltip {
-        display: none;
-        background-color: white;
-        color: #0E76BC;
-        padding: 1rem;
-        font-weight: bold;
-        width: 300px;
-        border-radius: 4px;
+
+      .measure-cell:hover::before {
+        content: attr(data-tooltip);
         position: absolute;
-        top: -20%;
-        left: 80%;
-        right: 80%;
+        background-color: #0E76BC;
+        color: white;
+        padding: 8px;
+        font-weight: 500;
+        font-size: 14px;
+        border-radius: 4px;
+        top: 0;
+        left: 50%;
+        white-space: wrap;
+        z-index: 1;
       }
     </style>
 
@@ -367,7 +365,8 @@
               <a href="{% url 'index' %}" style="text-decoration: none; color: #0E76BC; font-weight: 700;">
                  Home 
                 </a>
-                 > <b>{{ page_title }}</b>
+                 &gt;
+                <b>{{ page_title }}</b>
                 </p>
           </div>
           <div class="right-content">
@@ -715,9 +714,9 @@
           </table> {% endcomment %}
 
           <table id="myTable">
-            <div id="tooltip">
+            {% comment %} <div id="tooltip">
               <span id="tooltipContent"></span>
-            </div>
+            </div> {% endcomment %}
             <thead>
               <tr class="tableHead">
                 <th>Measures</th>
