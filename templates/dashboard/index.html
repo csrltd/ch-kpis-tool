@@ -430,7 +430,7 @@
         <h1 class="title">Charts</h1>
           <div class='filter'>
             {% comment %} Use the right url when deploying {% endcomment %}
-            <form method='POST' id='myForm' action="127.0.0.1:8000/get_general_measures_data/" >
+            <form method='POST' id='myForm'  >
               {% csrf_token %}
               <select id="measureDropdown">
                 <option value="" disabled>Select a measure</option>
