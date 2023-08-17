@@ -30,31 +30,33 @@ from .decorators import *
 
 # Definitions of the measures
 measure_definitions = {
-    'mortality_rate': 'Definition of Mortality Rate. Represents the number of mortality rates recorded in the hospital(s).',
+    'mortality_rate': 'Percent of acute and swing bed patient deaths for any reason during the reporting period. Total # of deaths (acute & swing bed), divided by the total # of patient days (acute & swing bed)',
 
-    'readmissions': 'Definition of Readmissions. Readmissions represent the number of patients who have been readmitted in the hospital.',
+    'readmissions': 'Rate of acute and swing bed patients from the CAH with an unplanned readmission to the same CAH within 30 days per 100 patient discharges. Total # of inpatients from the CAH with an unplanned readmission within 30 days of discharge to the same CAH, divided by the total # of inpatient discharges during the reporting period, multiplied by 100',
 
-    'pressure_ulcer': 'Definition of Pressure ulcer. This is the record of the number of pressure ulcer cases recorded in the hospital.',
+    'pressure_ulcer': 'Percent of acute and swing bed patient admissions who develop one or more pressure ulcers Stage II or greater during the reporting period. Total # of acute and swing bed patients who develop one or more Stage II pressure ulcers during the reporting period, divided by the total # of patients admitted during the reporting period.',
 
-    'discharges_home': 'Definition of Discharges home. This number represents the number of patients who have been discharged from the hospital.',
-    'emergency_room_transfers': 'Definition of Emergency room transfers. Represents the number of patients transferred to the emergency room.',
+    'discharges_home': 'Total # of acute and swing bed patients with a Home discharge disposition on the day of discharge. Total count of acute and swing bed patients with a Home discharge disposition on the day of discharge as documented in the medical record during the reporting period.',
 
-    'acute_swing_bed_transfers': 'Definition of Acute-swing bed transfers. Represents the number of acute-swing beds that are transferred.',
+    'emergency_room_transfers': 'Total number of transfers from the ED to a tertiary facility. Total # of patients admitted to the ED who were then discharged, transferred, or returned to a tertiary facility. ',
 
-    'medication_errors': 'Definition of Medication errors. These are the number of medication errors made by the hospital',
+    'acute_swing_bed_transfers': 'Total number of transfers from acute or swing bed to a tertiary facility. Total # of patients admitted to acute care or swing bed and is transferred to a tertiary facility.',
 
-    'falls': 'Definition of Falls. This number shows the fallen patients in the hospital',
-    'against_medical_advice': 'Definition of Against medical advice. Represent the number of patients who left against medical advice',
+    'medication_errors': 'Total number of reported medication errors during the reporting period. Total number of reported/suspected medication errors',
 
-    'left_without_being_seen': "Definition of Left without being seen. This number represents the number of patients who left without being seen",
+    'falls': 'Sum of all Hospital falls. Total # of acute, swing bed, and ED patients with a reported fall during hospitalization. Data is automatically calculated based on reported fall data.',
 
-    'hospital_acquired_infection': 'Definition of Hospital acquired infection. Represents patient that acquired infections at the hospital',
+    'against_medical_advice': 'Total number of patient encounters who left the hospital against medical advice. (ED, Obs, Acute, and SWB). Total # of acute, swing bed, observation, and ED hospital encounters with a discharge against medical advice.',
 
-    'covid_vaccination_total_percentage_of_compliance': 'Definition of Covid vaccination total percentage of compliance. This value is the percentage of compliance to covid vaccination',
+    'left_without_being_seen': "Total number of ED encounters the patient left the hospital without being seen. Total # of ED encounters with a left without being seen discharge.",
 
-    'complaint': 'Definition of Complaint. This represents the complaints of patients',
+    'hospital_acquired_infection': 'Total number of hospital acquired infections. Total # of acute and swing bed hospitalizations with hospital acquired/onset infections that occur during the reporting period.',
 
-    'grievances': 'Definition of Grievances. These are the number of instances of the diagnostic method'
+    'covid_vaccination_total_percentage_of_compliance': 'Percentage of current staff (including Hospital & contract/agency staff) who have been partially/fully vaccinated or have an exemption. Percentage of current Hospital employees (including Hospital & contract/agency staff) who have been partially vaccinated, fully vaccinated, or have an exemption for the reporting period.',
+
+    'complaint': 'Sum of all Hospital complaints reported. Total # of reported complaints from acute, swing bed, and ED hospital encounters. Total # of reported complaints from acute, swing bed, and ED hospital encounters. Data will be automatically calculated from previous data.',
+
+    'grievances': 'Sum of all Hospital grievances. Total # of reported grievances from acute, swing bed, and ED hospital encounters. Data will be automatically calculated from previous data'
 }
 
 
