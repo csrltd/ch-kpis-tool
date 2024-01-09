@@ -219,12 +219,15 @@
               <span>Hospitals</span><img src="{% static '/dashboard/img/icons/ange-righ.svg' %}" alt="" />
             </div>
             <div class="dropdown-content hspdropdown-content">
-              <a href="{% url 'add-measures' %}" class="button"><span>Add data</span><img src="{% static '/dashboard/img/icons/plus.svg' %}"
-                  alt="" /></a>
+              
               {% for hospital in hospitals %}
               <a href="{% url 'single-hospital' hospital_id=hospital.id %}">{{ hospital.name }}</a>
               {% endfor %}
 
+              <a href="{% url 'add-measures' %}" class="button"><span>Add Measures</span><img src="{% static '/dashboard/img/icons/plus.svg' %}"
+                  alt="" /></a>
+              <a href="{% url 'add-census' %}" class="button"><span>Add Census</span><img src="{% static '/dashboard/img/icons/plus.svg' %}"
+                  alt="" /></a>
             </div>
           </li>
           <hr />
@@ -373,7 +376,14 @@
             <div class="number-content">
               <p class="text">Inpatient</p>
               <div class="number">
-                <p>{{ inpatient_count }}</p>
+                <p>
+                    {% if inpatient_count == None %} 
+                    -- 
+                    {% else %}
+                    {{inpatient_count}} 
+                    {% endif %}
+                  </p>
+                <!-- <p>{{ inpatient_count }}</p> -->
               </div>
             </div>
           </div>
@@ -382,7 +392,14 @@
             <div class="number-content">
               <p class="text">Outpatient</p>
               <div class="number">
-                <p>{{ outpatient_count }}</p>
+                <p>
+                    {% if outpatient_count == None %} 
+                    -- 
+                    {% else %}
+                    {{outpatient_count}} 
+                    {% endif %}
+                  </p>
+                <!-- <p>{{ outpatient_count }}</p> -->
               </div>
             </div>
           </div>
@@ -391,16 +408,30 @@
             <div class="number-content">
               <p class="text">Swing bed</p>
               <div class="number">
-                <p>{{ swing_bed_count }}</p>
+                <p>
+                    {% if swing_bed_count == None %} 
+                    -- 
+                    {% else %}
+                    {{swing_bed_count}} 
+                    {% endif %}
+                  </p>
+                <!-- <p>{{ swing_bed_count }}</p> -->
               </div>
             </div>
           </div>
           <div class="card">
             <img class="card-img" src="{% static '/dashboard/img/icons/acute-bed.svg' %}" alt="" class="number-img" />
             <div class="number-content">
-              <p class="text">Acute & swing bed transfers</p>
+              <p class="text">Acute swing bed transfers</p>
               <div class="number">
-                <p>{{ acute_swing_bed_transfers_count }}</p>
+                <p>
+                    {% if acute_swing_bed_transfers_count == None %}
+                     -- 
+                     {% else%} 
+                     {{acute_swing_bed_transfers_count}} 
+                     {% endif %}
+                  </p>
+                <!-- <p>{{ acute_swing_bed_transfers_count }}</p> -->
               </div>
             </div>
           </div>
@@ -410,7 +441,14 @@
             <div class="number-content">
               <p class="text">Emergency room</p>
               <div class="number">
-                <p>{{ emergency_room_count }}</p>
+                <p>
+                    {% if emergency_room_count == None %}
+                     -- 
+                     {% else %}
+                    {{emergency_room_count}} 
+                    {% endif %}
+                  </p>
+                <!-- <p>{{ emergency_room_count }}</p> -->
               </div>
             </div>
           </div>
@@ -420,7 +458,11 @@
             <div class="number-content">
               <p class="text">Rural health clinic</p>
               <div class="number">
-                <p>{{ total_rural_health_clinic }}</p>
+                <p>
+                    {% if total_rural_health_clinic == None %} -- {% else %}
+                    {{total_rural_health_clinic}} {% endif %}
+                  </p>
+                <!-- <p>{{ total_rural_health_clinic }}</p> -->
               </div>
             </div>
           </div>
@@ -453,7 +495,8 @@
             <form action="127.0.0.1:8000/get_general_measures_data/">
               <select id="selected_year" name="selected_year">
                 <option value="" disabled>Select a year</option>
-                <option value="2023" selected>2023</option>
+                <option value="2024" selected>2024</option>
+                <option value="2023">2023</option>
                 <option value="2022">2022</option>
                 <option value="2021">2021</option>
                 <!-- Add more options for available years in the database -->

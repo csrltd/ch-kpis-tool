@@ -166,7 +166,6 @@ def get_general_measures_data(request):
 
 
 @admin_required
-# @ceo_required
 def index(request):
     page_title = 'Overview'
     profileInfo = Profile.objects.get(user=request.user)
@@ -289,7 +288,7 @@ def filter_patients_by_month(request):
     return JsonResponse(data)
 
 
-@admin_required
+# @admin_required
 def signup(request):
     form = UserRegistration()
     context = {'form': form}
@@ -356,6 +355,7 @@ def logOutPage(request):
     return redirect('login')
 
 
+@hospital_admin_required
 @admin_required
 def hospitalDashboard(request):
     form = HospitalForm()
@@ -388,10 +388,9 @@ def departement(request):
     return render(request, 'dashboard/add-departement.html', context)
 
 
-@admin_required
+# @admin_required
 def complete_profile(request):
     form = ProfileForm()
-
     message = ''
     blocktitle = 'Add your profile'
     if request.method == 'POST':
@@ -417,7 +416,7 @@ def complete_profile(request):
     return render(request, 'dashboard/complete-profile.html', context)
 
 
-@admin_required
+@hospital_admin_required
 def patient(request):
     users = Profile.objects.filter(role='doctor')
     form = patientForm()
@@ -503,7 +502,8 @@ def get_measures_data(request):
 
 
 # @hospital_admin_required
-@admin_required
+# @admin_required
+@admin_and_hospital_admin_required
 def singleHospital(request, hospital_id):
     # getting all the hospitals
     hospitals = Hospital.objects.all()
@@ -574,7 +574,9 @@ def singleHospital(request, hospital_id):
     return render(request, 'dashboard/hospital.html', context)
 
 
-@admin_required
+# @admin_required
+# @hospital_admin_required
+@admin_and_hospital_admin_required
 def singleHospitalData(request, hospital_id):
     hospital = Hospital.objects.get(id=hospital_id)
     data = {
@@ -606,7 +608,9 @@ def singleHospitalData(request, hospital_id):
     return JsonResponse(data)
 
 
-@admin_required
+# @admin_required
+# @hospital_admin_required
+@admin_and_hospital_admin_required
 def addMeasures(request):
     user_hospital_id = request.user.profile.hospital.id
     form = MeasuresForm(user_hospital_id=user_hospital_id)
@@ -625,7 +629,9 @@ def addMeasures(request):
     return render(request, 'dashboard/addMeasures.html', context)
 
 
-@admin_required
+# @admin_required
+# @hospital_admin_required
+@admin_and_hospital_admin_required
 def addCensus(request):
     user_hospital_id = request.user.profile.hospital.id
     page_title = 'Add Census'
@@ -633,7 +639,7 @@ def addCensus(request):
     form = CensusForm(user_hospital_id=user_hospital_id)
 
     context = {'form': form, 'page_title': page_title,
-               'blocktitle': blocktitle}
+               'blocktitle': blocktitle, 'user_hospital_id': user_hospital_id}
 
     if request.method == 'POST':
 
@@ -648,7 +654,9 @@ def addCensus(request):
 # Adding Turnover data template
 
 
-@admin_required
+# @admin_required
+# @hospital_admin_required
+@admin_and_hospital_admin_required
 def addTurnover(request):
     user_hospital_id = request.user.profile.hospital.id
     page_title = 'Add Turnover'
@@ -671,7 +679,9 @@ def addTurnover(request):
 # Adding Hiring data template
 
 
-@admin_required
+# @admin_required
+# @hospital_admin_required
+@admin_and_hospital_admin_required
 def addHiring(request):
     page_title = 'Add hiring'
     blocktitle = 'Add hiring'
@@ -690,7 +700,9 @@ def addHiring(request):
     return render(request, 'dashboard/addHiring.html', context)
 
 
-@admin_required
+# @admin_required
+# @hospital_admin_required
+@admin_and_hospital_admin_required
 def measuresView(request, hospital_id):
     hospital = Hospital.objects.get(id=hospital_id)
     hospitals = Hospital.objects.all()
