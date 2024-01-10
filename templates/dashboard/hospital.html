@@ -247,11 +247,13 @@
               </div>
               <div class="dropdown-content hspdropdown-content">
                 <a href="{% url 'add-measures' %}" class="button"
-                  ><span>Add data</span
+                  ><span>Add Measures</span
                   ><img
                     src="{% static '/dashboard/img/icons/plus.svg' %}"
                     alt=""
                 /></a>
+                <a href="{% url 'add-census' %}" class="button"><span>Add Census</span><img src="{% static '/dashboard/img/icons/plus.svg' %}"
+                  alt="" /></a>
                 {% for hospital in hospitals %} 
                 {% if hospital.id == user_hospital_id %}
                 <a href="{% url 'single-hospital' hospital_id=hospital.id %}">
@@ -286,6 +288,8 @@
                     src="{% static '/dashboard/img/icons/plus.svg' %}"
                     alt=""
                 /></a>
+                <a href="{% url 'add-census' %}" class="button"><span>Add data</span><img src="{% static '/dashboard/img/icons/plus.svg' %}"
+                  alt="" /></a>
                 {% comment %} This might change later. This is semantically
                 incorrect because the data displayed is from the hospital table
                 {% endcomment %} {% comment %} <a href="">Mangum</a>
@@ -561,7 +565,7 @@
                 class="number-img"
               />
               <div class="number-content">
-                <p class="text">Acute/swing bed transfers</p>
+                <p class="text">Acute swing bed transfers</p>
                 <div class="number">
                   <p>
                     {% if total_acute_swing_bed_transfers == None %}
@@ -651,12 +655,14 @@
               <form action="127.0.0.1:8000/get_measures_data/">
                 <select id="selected_year" name="selected_year">
                   <option value="" disabled>Select a year</option>
-                  <option value="2023" selected>2023</option>
+                  <option value="2024" selected>2024</option>
+                  <option value="2023">2023</option>
                   <option value="2022">2022</option>
                   <option value="2021">2021</option>
                   <!-- Add more options for available years in the database -->
                 </select>
               </form>
+              
           </div>
 
 

@@ -45,6 +45,11 @@
     
     </div>
     
-    <button type='submit' class='submit-btn blue-btn'>Submit</button>
+    <div class="measures-btns">
+        <button type='submit' class='submit-btn blue-btn'>Submit</button>
+        <button class="blue-btn">
+                <a href="{% url 'single-hospital' hospital_id=user_hospital_id %}">Back to dashboard</a>
+        </button>
+    </div>
 </form>
 {% endblock content %}
