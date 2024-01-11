@@ -32,6 +32,16 @@
       white-space: wrap;
       z-index: 1;
     }
+ 
+
+.no-data-message {
+  color:red;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:100%
+}
+
   </style>
   
   <!-- ========================== SCRIPT FOR AJAX ========================== -->
@@ -72,6 +82,20 @@
           var labels = [];
           var datasets = [];
           var colorPalette = ['#4BC0C0', '#FFB266', '#FFCD56', '#FF6384', '#36A2EB'];
+
+          if (measuresData.length === 0) {
+            $('#noDataMessage').show();
+            $('.selected-measure').text(selectedMeasure);
+            $('.selected-year').text(selectedYear);
+            $('#pieChart').hide();
+
+            var message = 'No data available for ' + selectedMeasure + ' in ' + selectedYear + '. Choose another year';
+            $('#noDataMessage').text(message)
+            return;
+          } else {
+            $('#noDataMessage').hide();
+            $('#pieChart').show();
+          }
 
           // Iterate over each hospital's measures data
           for (var i = 0; i < measuresData.length; i++) {
@@ -512,6 +536,8 @@
           </div> -->
           <div class="chart turnovers">
             <h3 class="title measure">Mortality rate</h3>
+            <!-- <div id="noDataMessage" class="no-data-message"></div> -->
+            <div id="noDataMessage" class="no-data-message"><span class="selected-measure"></span><span class="selected-year"></span></div>
             <canvas id="pieChart"></canvas>
           </div>
           <div class="chart turnovers">

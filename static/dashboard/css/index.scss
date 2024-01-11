@@ -352,7 +352,8 @@ body {
 
         .filter{
             display: flex;
-            justify-content: space-between;
+            // justify-content: space-between;
+            gap: 70px;
             align-items: center;
 
             form{
@@ -429,6 +430,10 @@ body {
             .turnovers {
                 background-color: white;
                 width: 60%;
+                height: 100vh;
+                justify-content: center;
+
+               
             }
         }
     }
@@ -603,6 +608,27 @@ body {
 
         .main-content {
             padding: 10px;
+            .filter{
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 24px;
+    
+                form{
+                    select{
+                        padding: 8px;
+                        border-radius: 10px;
+                        outline: none;
+                        width: 145px;
+    
+                        option{
+                            // background-color: #54bc0e;
+                            text-align: right;
+                        }
+                    }
+                }
+                
+            }
         }
 
         .numbers {

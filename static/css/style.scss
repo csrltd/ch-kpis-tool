@@ -27,20 +27,21 @@
             }
 
             .sidebar-details {
-                
+
                 display: flex;
                 flex-direction: column;
                 gap: 12px;
-                
+
             }
-            .sidebar-content-links{
-            
+
+            .sidebar-content-links {
+
                 overflow-y: scroll;
                 // overflow: auto;
             }
 
             .sidebar--content {
-                
+
                 padding-left: 25px;
 
                 .row {
@@ -67,48 +68,48 @@
                     }
                 }
             }
-        
+
             .help {
-                
-              display: flex;
-              flex-direction: column;
-              gap: 5px;
-              align-items: flex-start;
-              margin: 15px ;
-              padding: 25px;
-              
-              width: 213px;
-              height: 180px;
-  
-              background: #00AEEF;
-              border-radius: 6px;
-  
-              h1 {
-                  color: white;
-                  font-size: 22px;
-              }
-  
-              p {
-                  font-size: 16px;
-                  color: white;
-              }
-  
-              a {
-  
-                  text-decoration: none;
-                  color: black;
-              }
-          }
-            
+
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                align-items: flex-start;
+                margin: 15px;
+                padding: 25px;
+
+                width: 213px;
+                height: 180px;
+
+                background: #00AEEF;
+                border-radius: 6px;
+
+                h1 {
+                    color: white;
+                    font-size: 22px;
+                }
+
+                p {
+                    font-size: 16px;
+                    color: white;
+                }
+
+                a {
+
+                    text-decoration: none;
+                    color: black;
+                }
+            }
+
         }
-       
+
     }
 
     .col {
         .row {
-           
+
             .navbar {
-               position: absolute;
+                position: absolute;
                 background: #FFFFFF;
                 box-shadow: 3px 8px 4px rgba(101, 101, 101, 0.05);
                 width: 80%;
@@ -124,7 +125,7 @@
 
 
                 .nav-item {
-                    
+
                     display: flex;
                     gap: 6px;
 
@@ -187,6 +188,7 @@
                     display: flex;
                     gap: 67%;
                     margin-bottom: 10px;
+
                     .white-button {
                         background: #FFFFFF;
                         border: 1px solid rgba(0, 0, 0, 0.5);
@@ -287,9 +289,10 @@
                             width: 35vw;
                             padding: 20px;
                         }
-                        select{
+
+                        select {
                             width: 35vw;
-                            padding: 10px; 
+                            padding: 10px;
                             border-radius: 10px;
                         }
                     }
@@ -302,28 +305,30 @@
                 gap: 24px;
                 align-items: center;
                 padding-bottom: 20px;
-               
 
-                input{
-                    
+
+                input {
+
                     border-radius: 5px;
                     width: 13%;
                     height: 50px;
                     border: none;
                     font-size: 18px;
-                   
+
                 }
-                .ri-save-2-fill{
+
+                .ri-save-2-fill {
                     position: absolute;
                     left: 14%;
                     color: rgb(247, 242, 242);
                     font-size: 20px;
                     top: 87%;
                 }
-                .ri-file-4-line{
+
+                .ri-file-4-line {
                     position: absolute;
                     left: 27%;
-                    color:rgb(233, 231, 231);
+                    color: rgb(233, 231, 231);
                     font-size: 20px;
                     top: 87%;
                 }
@@ -331,8 +336,8 @@
         }
 
     }
-    
-    
+
+
 }
 
 
@@ -340,6 +345,7 @@
 //sign up
 .container {
     height: 100vh;
+
     .row {
         display: flex;
         gap: 48px;
@@ -371,10 +377,10 @@
             height: 100vh;
             overflow: scroll;
 
-            h4{
+            h4 {
                 width: 70%;
             }
-            
+
             .text {
                 display: flex;
                 flex-direction: column;
@@ -398,24 +404,26 @@
             form {
                 display: flex;
                 flex-direction: column;
-                
+
                 gap: 20px;
-        
+
 
                 input {
                     padding: 10px 20px;
                     border-radius: 10px;
                     border: 1px solid black;
-                    
+
                 }
 
                 .input-fields {
                     display: flex;
                     flex-wrap: wrap;
                     gap: 12px;
+
                     input {
                         width: 100%;
                     }
+
                     .field {
                         width: 45%;
                     }
@@ -431,12 +439,12 @@
                     }
                 }
 
-                select{
+                select {
                     width: 100%;
                     padding: 10px 20px;
                     border-radius: 10px;
                     border: 1px solid black;
-                    
+
                 }
 
                 .signup-btn {
@@ -454,11 +462,12 @@
                         color: #00AEEF;
                     }
                 }
+
                 .measures-btns {
                     display: flex;
                     align-items: center;
                     gap: 48px;
-                    
+
                     button {
                         padding: 15px 25px;
                         font-size: 16px;
@@ -470,20 +479,24 @@
                 }
             }
 
-            .smaller-forms{
-    
+            .smaller-forms {
+
                 width: 100%;
-                .input-fields{
+
+                .input-fields {
                     flex-direction: column;
                     height: 100%;
-                    .field{
+
+                    .field {
                         width: 70%;
-                        input{
+
+                        input {
                             width: 100%;
                         }
                     }
                 }
             }
+
             .links {
                 margin-top: 10px;
 
@@ -548,7 +561,7 @@
                     flex-direction: column;
                 }
 
-                .password{
+                .password {
                     gap: 14px;
                     display: flex;
                     flex-direction: column;
@@ -667,18 +680,21 @@
             }
 
             .col-2 {
-                
-                padding-left: 40px;
+
+                padding-left: 20px;
 
                 .text {
                     p {
 
                         font-size: 18px;
                     }
+                    h1{
+                        font-size: 32px;
+                    }
                 }
 
                 form {
-                    
+
                     .names {
                         display: flex;
                         flex-direction: column;
@@ -709,8 +725,27 @@
                         }
                     }
 
-                  
+                    .input-fields {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 12px;
 
+                        .field {
+                            width: 100%;
+                        }
+                    }
+                    .measures-btns{
+                        flex-direction: column;
+                        gap: 24px;
+                    }
+
+                }
+                .smaller-forms{
+                    .input-fields{
+                        .field{
+                            width: 100%;
+                        }
+                    }
                 }
 
             }

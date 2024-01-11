@@ -60,6 +60,42 @@ measure_definitions = {
 }
 
 
+# def turnover_data(request, hospital_id=None):
+#     current_year = datetime.datetime.now().year
+#     hospitals = Hospital.objects.all()
+#     data = {
+#         'labels': [],
+#         'datasets': []
+#     }
+#     unique_months = set()  # Collect unique months across all hospitals
+#     for hospital in hospitals:
+#         turnover_data = Turnover.objects.filter(hospital=hospital) \
+#                                         .annotate(month=TruncMonth('date_entered')) \
+#                                         .values('month') \
+#                                         .annotate(total=Sum('total'), voluntary=Sum('voluntary')) \
+#                                         .values('month', 'total', 'voluntary')
+#         turnover_data = sorted(
+#             turnover_data, key=lambda item: item['month'].date())
+#         turnover_dataset = {
+#             'label': hospital.name,
+#             'data': [],
+#             'fill': False
+#         }
+#         for item in turnover_data:
+#             month = item['month'].strftime('%b %y')
+#             turnover_dataset['data'].append(item['total'])
+#             unique_months.add(month)  # Add month to the unique_months set
+#         data['datasets'].append(turnover_dataset)
+
+#     # Sort the unique months in chronological order
+#     sorted_months = sorted(
+#         unique_months, key=lambda x: datetime.datetime.strptime(x, '%b %y'))
+
+#     # Populate the labels only with the unique months that have data
+#     data['labels'] = sorted_months
+
+#     return JsonResponse(data)
+
 def turnover_data(request, hospital_id=None):
     current_year = datetime.datetime.now().year
     hospitals = Hospital.objects.all()
@@ -68,8 +104,10 @@ def turnover_data(request, hospital_id=None):
         'datasets': []
     }
     unique_months = set()  # Collect unique months across all hospitals
+
     for hospital in hospitals:
-        turnover_data = Turnover.objects.filter(hospital=hospital) \
+        # Update the queryset to filter data for the current year
+        turnover_data = Turnover.objects.filter(hospital=hospital, date_entered__year=2022) \
                                         .annotate(month=TruncMonth('date_entered')) \
                                         .values('month') \
                                         .annotate(total=Sum('total'), voluntary=Sum('voluntary')) \
@@ -82,9 +120,10 @@ def turnover_data(request, hospital_id=None):
             'fill': False
         }
         for item in turnover_data:
-            month = item['month'].strftime('%b %y')
+            month_year = item['month'].strftime('%b %y')  # Display both month and year
             turnover_dataset['data'].append(item['total'])
-            unique_months.add(month)  # Add month to the unique_months set
+            unique_months.add(month_year)
+        
         data['datasets'].append(turnover_dataset)
 
     # Sort the unique months in chronological order
@@ -95,6 +134,7 @@ def turnover_data(request, hospital_id=None):
     data['labels'] = sorted_months
 
     return JsonResponse(data)
+
 
 
 @require_http_methods(['GET'])
@@ -328,7 +368,7 @@ def loginPage(request):
                     elif request.user.groups.filter(name='CEO').exists():
                         return redirect('index')
                     elif request.user.groups.filter(name='Employee').exists():
-                        hospital_id = user.Profile.hospital_id
+                        hospital_id = user.profile.hospital_id
                         return redirect('single-hospital', hospital_id=hospital_id)
                     elif request.user.groups.filter(name='Hospital Admin').exists():
                         hospital_id = user.profile.hospital_id
@@ -577,14 +617,49 @@ def singleHospital(request, hospital_id):
 # @admin_required
 # @hospital_admin_required
 @admin_and_hospital_admin_required
+# def singleHospitalData(request, hospital_id):
+#     hospital = Hospital.objects.get(id=hospital_id)
+#     data = {
+#         'labels': [],
+#         'datasets': []
+#     }
+#     turnover_data = Turnover.objects.filter(hospital=hospital) \
+#         .annotate(month=TruncMonth('date_entered')) \
+#         .values('month') \
+#         .annotate(total=Sum('total'), voluntary=Sum('voluntary')) \
+#         .values('month', 'total', 'voluntary')
+
+#     # sorts the months on the chart in chronological order(Jan - Dec)
+#     turnover_data = sorted(
+#         turnover_data, key=lambda item: item['month'].date())
+
+#     turnover_dataset = {
+#         'label': hospital.name,
+#         'data': [],
+#         'fill': False
+#     }
+
+#     for item in turnover_data:
+#         month = item['month'].strftime('%b %y')
+#         turnover_dataset['data'].append(item['total'])
+#         data['labels'].append(month)
+
+#     data['datasets'].append(turnover_dataset)
+#     return JsonResponse(data)
+
 def singleHospitalData(request, hospital_id):
     hospital = Hospital.objects.get(id=hospital_id)
+    current_year = datetime.datetime.now().year
+
     data = {
         'labels': [],
         'datasets': []
     }
-    turnover_data = Turnover.objects.filter(hospital=hospital) \
-        .annotate(month=TruncMonth('date_entered')) \
+
+    turnover_data = Turnover.objects.filter(
+        hospital=hospital,
+        date_entered__year=2022
+    ).annotate(month=TruncMonth('date_entered')) \
         .values('month') \
         .annotate(total=Sum('total'), voluntary=Sum('voluntary')) \
         .values('month', 'total', 'voluntary')
@@ -664,7 +739,7 @@ def addTurnover(request):
     form = TurnoverForm(user_hospital_id=user_hospital_id)
 
     context = {'form': form, 'page_title': page_title,
-               'blocktitle': blocktitle}
+               'blocktitle': blocktitle, 'user_hospital_id': user_hospital_id}
 
     if request.method == 'POST':
 
@@ -683,12 +758,13 @@ def addTurnover(request):
 # @hospital_admin_required
 @admin_and_hospital_admin_required
 def addHiring(request):
+    user_hospital_id = request.user.profile.hospital.id
     page_title = 'Add hiring'
     blocktitle = 'Add hiring'
     form = HiringForm()
 
     context = {'form': form, 'page_title': page_title,
-               'blocktitle': blocktitle}
+               'blocktitle': blocktitle, 'user_hospital_id': user_hospital_id}
 
     if request.method == 'POST':
         form = HiringForm(request.POST)

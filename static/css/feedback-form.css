@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  padding: 2px;
 }
 
 input,
@@ -75,4 +76,14 @@ input[type=submit] {
 }
 .form form .yes-no .satisfaction {
   width: 50px;
+}
+
+@media screen and (max-width: 540px) {
+  .form form .fields {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .form form .fields .field {
+    width: 100%;
+  }
 }/*# sourceMappingURL=feedback-form.css.map */

@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    padding: 2px;
 }
 
 input,
@@ -85,5 +86,20 @@ input[type="submit"] {
             }
         }
 
+    }
+}
+
+@media screen and (max-width:540px) {
+    .form{
+        form{
+            .fields{
+                flex-direction: column;
+                align-items: flex-start;
+                .field{
+                    width: 100%;
+                }
+            }
+        }
+        
     }
 }

@@ -501,10 +501,13 @@
     padding-top: 100px;
   }
   .container .row .col-2 {
-    padding-left: 40px;
+    padding-left: 20px;
   }
   .container .row .col-2 .text p {
     font-size: 18px;
+  }
+  .container .row .col-2 .text h1 {
+    font-size: 32px;
   }
   .container .row .col-2 form .names {
     display: flex;
@@ -529,6 +532,21 @@
   }
   .container .row .col-2 form .password input {
     width: 80%;
+  }
+  .container .row .col-2 form .input-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .container .row .col-2 form .input-fields .field {
+    width: 100%;
+  }
+  .container .row .col-2 form .measures-btns {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .container .row .col-2 .smaller-forms .input-fields .field {
+    width: 100%;
   }
 }
 @media screen and (max-width: 540px) {

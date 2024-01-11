@@ -286,7 +286,7 @@ body {
 }
 .content .main-content .filter {
   display: flex;
-  justify-content: space-between;
+  gap: 70px;
   align-items: center;
 }
 .content .main-content .filter form select {
@@ -339,6 +339,8 @@ body {
 .content .charts .charts-container .turnovers {
   background-color: white;
   width: 60%;
+  height: 100vh;
+  justify-content: center;
 }
 .content .measures table {
   background-color: white;
@@ -456,6 +458,21 @@ body {
   }
   .content .main-content {
     padding: 10px;
+  }
+  .content .main-content .filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  .content .main-content .filter form select {
+    padding: 8px;
+    border-radius: 10px;
+    outline: none;
+    width: 145px;
+  }
+  .content .main-content .filter form select option {
+    text-align: right;
   }
   .content .numbers .cards {
     flex-wrap: wrap;

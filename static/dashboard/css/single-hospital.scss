@@ -340,7 +340,8 @@ body {
 
         .filter{
             display: flex;
-            justify-content: space-between;
+            // justify-content: space-between;
+            gap: 70px;
             align-items: center;
 
             form{
@@ -585,13 +586,37 @@ body {
 
                 .profile-popup {
                     color: rgb(56, 56, 56);
+                    padding: 72px;
+                    font-size: 14px;
                 }
             }
         }
 
         .main-content {
             padding: 10px;
+            .filter{
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 24px;
+    
+                form{
+                    select{
+                        padding: 8px;
+                        border-radius: 10px;
+                        outline: none;
+                        width: 145px;
+    
+                        option{
+                            // background-color: #54bc0e;
+                            text-align: right;
+                        }
+                    }
+                }
+                
+            }
         }
+
 
         .numbers {
             .cards {

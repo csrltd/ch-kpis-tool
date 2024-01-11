@@ -26,7 +26,7 @@ fetch("/turnover-data/")
               display: true,
               scaleLabel: {
                 display: true,
-                labelString: "Months",
+                labelString: "Month-Year",  // Adjust the label if needed
               },
             },
           ],
@@ -83,6 +83,16 @@ fetch(`/single-hospital-data/${hospitalId}`)
                 display: true,
                 labelString: "Months",
               },
+              ticks: {
+                maxTicksLimit: 12,  // Limit the number of ticks to 12 (for 12 months)
+                callback: function (value, index, values) {
+                  // Format the date as month-year (e.g., Apr 22)
+                  const date = new Date(value);
+                  const month = date.toLocaleString('default', { month: 'short' });
+                  const year = date.getFullYear().toString().substr(-2);
+                  return `${month} ${year}`;
+                }
+              },
             },
           ],
           yAxes: [
@@ -103,3 +113,4 @@ fetch(`/single-hospital-data/${hospitalId}`)
     });
   })
   .catch((error) => console.error(error));
+
