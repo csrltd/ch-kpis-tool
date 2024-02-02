@@ -31,6 +31,7 @@ urlpatterns = [
     path('get_general_measures_data/', views.get_general_measures_data, name='get_general_measures_data'),
     path('single-hospital-data/<int:hospital_id>',
          views.singleHospitalData, name="single-hospital-data"),
+    path('filter-measures-table/', views.filter_measures_table, name='filter-measures-table'),
 
 
     # feedback

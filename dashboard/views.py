@@ -23,6 +23,7 @@ from django.utils.timezone import make_aware
 from django.db.models.functions import ExtractMonth, ExtractYear
 import datetime
 from .decorators import *
+from .models import Measures
 
 # all view are secured to admin level. If you want to work on it, go
 # the admin dashboard and change your user group to admin
@@ -167,10 +168,8 @@ def get_general_measures_data(request):
     selected_measure = request.GET.get('selected_measure')
     selected_year = request.GET.get('selected_year')
 
-    # Convert the selected_year to an integer if needed
     selected_year = int(selected_year) if selected_year else None
 
-    # Retrieve the measures data for all hospitals and the selected measure
     selected_measures_data = Measures.objects.filter(date_entered__year=selected_year).annotate(
         month=ExtractMonth('date_entered')).values('hospital_id', 'month', selected_measure)
 
@@ -182,7 +181,6 @@ def get_general_measures_data(request):
         hospital_id = measure_data['hospital_id']
         month = measure_data['month']
         value = measure_data[selected_measure]
-
         if hospital_id not in grouped_data:
             grouped_data[hospital_id] = []
 
@@ -195,7 +193,6 @@ def get_general_measures_data(request):
     hospital_names_dict = {hospital['id']: hospital['name']
                            for hospital in hospital_names}
 
-    # Populate the measures data dictionary
     measures_data_dict['data'] = [{'hospital_id': hospital_id, 'hospital_name': hospital_names_dict[hospital_id],
                                    'data': data} for hospital_id, data in grouped_data.items()]
 
@@ -203,6 +200,46 @@ def get_general_measures_data(request):
     measures_data_dict['selected_year'] = selected_year
 
     return JsonResponse(measures_data_dict)
+
+
+def filter_measures_table(request):
+    selected_month = request.GET.get('selected_month', None)
+    selected_year = request.GET.get('selected_year', None)
+    selected_hospital = request.GET.get('selected_hospital', None)
+
+    filter_conditions = {}
+    if selected_month:
+        filter_conditions['date_entered__month'] = selected_month
+    if selected_year:
+        filter_conditions['date_entered__year'] = selected_year
+    if selected_hospital:
+        filter_conditions['hospital__name'] = selected_hospital
+
+    measures_data = []
+    fields = ['mortality_rate', 'readmissions', 'pressure_ulcer', 'discharges_home', 'emergency_room_transfers', 'acute_swing_bed_transfers', 'medication_errors', 'falls',
+              'against_medical_advice', 'left_without_being_seen', 'hospital_acquired_infection', 'covid_vaccination_total_percentage_of_compliance', 'complaint', 'grievances'
+              ]
+
+    for field in fields:
+        data = [{'field_name': field.replace('_', ' ').capitalize(), 'definition': measure_definitions[field]}]
+
+        for month in range(1, 13):
+            single_column = Measures.objects.annotate(month=ExtractMonth('date_entered')) \
+                .order_by('month') \
+                .filter(month=month, **filter_conditions) \
+                .aggregate(sum_values=Sum(field))
+            data.append(single_column)
+        measures_data.append(data)
+
+    data_for_json = []
+    for item in measures_data:
+        data_for_json.append({
+            'field_name': item[0]['field_name'],
+            'definition': item[0]['definition'],
+            'monthly_values': [round(item[i + 1]['sum_values'], 2) if item[i + 1]['sum_values'] is not None else None for i in range(12)],
+        })
+
+    return JsonResponse(data_for_json, safe=False)
 
 
 @admin_required
@@ -726,8 +763,6 @@ def addCensus(request):
 
     return render(request, 'dashboard/addCensus.html', context)
 
-# Adding Turnover data template
-
 
 # @admin_required
 # @hospital_admin_required
@@ -750,8 +785,6 @@ def addTurnover(request):
             form.save()
 
     return render(request, 'dashboard/addTurnover.html', context)
-
-# Adding Hiring data template
 
 
 # @admin_required
