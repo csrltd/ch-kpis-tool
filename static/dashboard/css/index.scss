@@ -660,6 +660,10 @@ body {
 
         .measures {
             overflow-x: scroll;
+
+            .filter {
+                display: flex;
+            }
         }
     }
 }

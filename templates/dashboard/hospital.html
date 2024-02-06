@@ -247,7 +247,7 @@
               </div>
               <div class="dropdown-content hspdropdown-content">
                 <a href="{% url 'add-measures' %}" class="button"
-                  ><span>Add Measures</span
+                  ><span>Add Data</span
                   ><img
                     src="{% static '/dashboard/img/icons/plus.svg' %}"
                     alt=""
@@ -504,7 +504,7 @@
 
         <div class="main-content numbers">
           <div class="filter">
-            <h1 class="title">{{hospital_name}} quick numbers</h1>
+            <h1 class="title">{{hospital_name}} Quick Numbers</h1>
             
           </div>
           <div class="cards">
@@ -694,46 +694,51 @@
             </div>
           </div>
         </div>
+
         <div class="main-content measures">
           <h1 class="title">Measures</h1>
-          {% comment %} <table id="myTable">
-            <thead>
-              <tr class="tableHead">
-                <th>Measures</th>
 
-                <th>Jan</th>
-                <th>Feb</th>
-                <th>Mar</th>
-                <th>Apr</th>
-                <th>May</th>
-                <th>Jun</th>
-                <th>Jul</th>
-                <th>Aug</th>
-                <th>Sep</th>
-                <th>Oct</th>
-                <th>Nov</th>
-                <th>Dec</th>
-              </tr>
-            </thead>
-            <tbody id="tableBody">
-              {% for data in measures_data %}
-              <tr>
-                {% for objects in data%} {% for obj in objects.values %}
-
-                <td>{% if obj == None %} -- {% else %} {{obj}} {% endif %}</td>
-                {% endfor %} {% endfor %}
-              </tr>
-
-              <tr>
-                {% endfor %}
-              </tr>
-            </tbody>
-          </table> {% endcomment %}
+          <div class="filter">
+          <form action="{% url 'filter-measures-table' %}">
+                <select id="selected_month" name="selected_month">
+                  <option value="" disabled selected>Select a month</option>
+                  <option value="1">January</option>
+                  <option value="2">February</option>
+                  <option value="3">March</option>
+                  <option value="4">April</option>
+                  <option value="5">May</option>
+                  <option value="6">June</option>
+                  <option value="7">July</option>
+                  <option value="8">August</option>
+                  <option value="9">September</option>
+                  <option value="10">October</option>
+                  <option value="11">November</option>
+                  <option value="12">December</option>
+                </select>
+          </form>
+          
+          <form action="{% url 'filter-measures-table' %}">
+            <select id="select_year" name="select_year">
+              <option value="" disabled selected>Select a year</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+            </select>
+          </form>
+          <form action="{% url 'filter-measures-table' %}">
+            <select id="selected_hospital" name="selected_hospital">
+              <option value="" disabled selected>Select a Hospital</option>
+              <option value="Carnegie">Carnegie</option>
+              <option value="Pawhuska">Pawhuska</option>
+              <option value="Mangum">Mangum</option>
+              <option value="Seiling">Seiling</option>
+              <option value="Prague">Prague</option>
+            </select>
+          </form>
+          </div>
 
           <table id="myTable">
-            {% comment %} <div id="tooltip">
-              <span id="tooltipContent"></span>
-            </div> {% endcomment %}
             <thead>
               <tr class="tableHead">
                 <th>Measures</th>
@@ -752,14 +757,7 @@
               </tr>
             </thead>
             <tbody>
-              {% comment %} {% for data in measures_data %}
-              <tr>
-                <td class="measure-cell" data-tooltip="{{ data.0.definition }}">{{ data.0.field_name }}</td>
-                {% for value in data.1 %}
-                <td>{{ value.average }}</td>
-                {% endfor %}
-              </tr>
-              {% endfor %} {% endcomment %}
+             
               {% for data in measures_data %}
                 {% for item in data %}
                   {% if forloop.counter == 1 %}
@@ -782,6 +780,7 @@
         </div>
       </div>
     </div>
+
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         var tooltip = document.getElementById("tooltip");
@@ -808,6 +807,62 @@
         });
       });
     </script>
+
+
+    <script>
+    $(document).ready(function() {
+      function updateTable() {
+        var selectedMonth = $('#selected_month').val();
+        var selectedYear = $('#select_year').val();
+        var selectedHospital = $('#selected_hospital').val();
+
+        $.ajax({
+          url: '/filter-measures-table/',
+          data: {
+            selected_month: selectedMonth,
+            select_year: selectedYear,
+            selected_hospital: selectedHospital
+          },
+          dataType: 'json',
+          success: function(response) {
+            updateTableContent(response);
+            addTooltip();
+          },
+          error: function(xhr, status, error) {
+            console.error('Error:', error);
+          }
+        });
+      }
+
+      function updateTableContent(data) {
+        $('#myTable tbody').empty();
+        for (var i = 0; i < data.length; i++) {
+          var row = '<tr>';
+          row += '<td>' + data[i].field_name + '</td>';
+          for (var j = 0; j < data[i].monthly_values.length; j++) {
+            var value = data[i].monthly_values[j] !== null ? data[i].monthly_values[j] : '--';
+            row += '<td>' + value + '</td>';
+          }
+          row += '</tr>';
+          $('#myTable tbody').append(row);
+        }
+      }
+
+      function addTooltip() {
+        $('.measure-cell').each(function() {
+          var tooltipContent = $(this).data('tooltip');
+          if (tooltipContent) {
+            $(this).attr('title', tooltipContent);
+          }
+        });
+      }
+
+      $('#selected_month, #select_year, #selected_hospital').change(function() {
+        updateTable();
+      });
+    });
+  </script>
+
     <script src="{% static '/dashboard/js/navigation.js' %}"></script>
     <script src="{% static '/dashboard/js/chartTurnover.js' %}"></script>
     <script src="{% static '/dashboard/js/piChart.js' %}"></script>

@@ -493,4 +493,7 @@ body {
   .content .measures {
     overflow-x: scroll;
   }
+  .content .measures .filter {
+    display: flex;
+  }
 }/*# sourceMappingURL=index.css.map */

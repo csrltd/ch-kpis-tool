@@ -248,7 +248,7 @@
               <a href="{% url 'single-hospital' hospital_id=hospital.id %}">{{ hospital.name }}</a>
               {% endfor %}
 
-              <a href="{% url 'add-measures' %}" class="button"><span>Add Measures</span><img src="{% static '/dashboard/img/icons/plus.svg' %}"
+              <a href="{% url 'add-measures' %}" class="button"><span>Add Data</span><img src="{% static '/dashboard/img/icons/plus.svg' %}"
                   alt="" /></a>
               <a href="{% url 'add-census' %}" class="button"><span>Add Census</span><img src="{% static '/dashboard/img/icons/plus.svg' %}"
                   alt="" /></a>
@@ -548,44 +548,46 @@
 
       <div class="main-content measures">
         <h1 class="title">Measures</h1>
-        <form action="{% url 'filter-measures-table' %}">
-              <select id="selected_month" name="selected_month">
-                <option value="" disabled selected>Select a month</option>
-                <option value="1">January</option>
-                <option value="2">February</option>
-                <option value="3">March</option>
-                <option value="4">April</option>
-                <option value="5">May</option>
-                <option value="6">June</option>
-                <option value="7">July</option>
-                <option value="8">August</option>
-                <option value="9">September</option>
-                <option value="10">October</option>
-                <option value="11">November</option>
-                <option value="12">December</option>
-              </select>
-        </form>
-         
-        <form action="{% url 'filter-measures-table' %}">
-          <select id="selected_year" name="selected_year">
-            <option value="" disabled selected>Select a year</option>
-            <option value="2024">2024</option>
-            <option value="2023">2023</option>
-            <option value="2022">2022</option>
-            <option value="2021">2021</option>
-          </select>
-        </form>
 
-        <form action="{% url 'filter-measures-table' %}">
-          <select id="selected_hospital" name="selected_hospital">
-            <option value="" disabled selected>Select a Hospital</option>
-            <option value="Carnegie">Carnegie</option>
-            <option value="Pawhuska">Pawhuska</option>
-            <option value="Mangum">Mangum</option>
-            <option value="Seiling">Seiling</option>
-            <option value="Prague">Prague</option>
-          </select>
-        </form>
+        <div class="filter">
+          <form action="{% url 'filter-measures-table' %}">
+                <select id="selected_month" name="selected_month">
+                  <option value="" disabled selected>Select a month</option>
+                  <option value="1">January</option>
+                  <option value="2">February</option>
+                  <option value="3">March</option>
+                  <option value="4">April</option>
+                  <option value="5">May</option>
+                  <option value="6">June</option>
+                  <option value="7">July</option>
+                  <option value="8">August</option>
+                  <option value="9">September</option>
+                  <option value="10">October</option>
+                  <option value="11">November</option>
+                  <option value="12">December</option>
+                </select>
+          </form>
+          
+          <form action="{% url 'filter-measures-table' %}">
+            <select id="select_year" name="select_year">
+              <option value="" disabled selected>Select a year</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+            </select>
+          </form>
+          <form action="{% url 'filter-measures-table' %}">
+            <select id="selected_hospital" name="selected_hospital">
+              <option value="" disabled selected>Select a Hospital</option>
+              <option value="Carnegie">Carnegie</option>
+              <option value="Pawhuska">Pawhuska</option>
+              <option value="Mangum">Mangum</option>
+              <option value="Seiling">Seiling</option>
+              <option value="Prague">Prague</option>
+            </select>
+          </form>
+        </div>
 
         <table id="myTable">
           <thead>
@@ -656,62 +658,59 @@
   </script>
 
 
-<script>
-  $(document).ready(function() {
-    function updateTable() {
-      var selectedMonth = $('#selected_month').val();
-      var selectedYear = $('#selected_year').val();
-      var selectedHospital = $('#selected_hospital').val();
+  <script>
+    $(document).ready(function() {
+      function updateTable() {
+        var selectedMonth = $('#selected_month').val();
+        var selectedYear = $('#select_year').val();
+        var selectedHospital = $('#selected_hospital').val();
 
-      $.ajax({
-        url: '/filter-measures-table/',
-        data: {
-          selected_month: selectedMonth,
-          selected_year: selectedYear,
-          selected_hospital: selectedHospital
-        },
-        dataType: 'json',
-        success: function(response) {
-          // Update the table content based on the API response
-          updateTableContent(response);
-        },
-        error: function(xhr, status, error) {
-          console.error('Error:', error);
-        }
-      });
-    }
-
-    // Function to update the table content
-    // Function to update the table content
-  function updateTableContent(data) {
-    // Clear the existing table content
-    $('#myTable tbody').empty();
-
-    // Iterate through the data and append rows to the table
-    for (var i = 0; i < data.length; i++) {
-      var row = '<tr>';
-      row += '<td>' + data[i].field_name + '</td>';
-      for (var j = 0; j < data[i].monthly_values.length; j++) {
-        // Replace null with '--'
-        var value = data[i].monthly_values[j] !== null ? data[i].monthly_values[j] : '--';
-        row += '<td>' + value + '</td>';
+        $.ajax({
+          url: '/filter-measures-table/',
+          data: {
+            selected_month: selectedMonth,
+            select_year: selectedYear,
+            selected_hospital: selectedHospital
+          },
+          dataType: 'json',
+          success: function(response) {
+            updateTableContent(response);
+            addTooltip();
+          },
+          error: function(xhr, status, error) {
+            console.error('Error:', error);
+          }
+        });
       }
-      row += '</tr>';
-      $('#myTable tbody').append(row);
-    }
-  }
 
+      function updateTableContent(data) {
+        $('#myTable tbody').empty();
+        for (var i = 0; i < data.length; i++) {
+          var row = '<tr>';
+          row += '<td>' + data[i].field_name + '</td>';
+          for (var j = 0; j < data[i].monthly_values.length; j++) {
+            var value = data[i].monthly_values[j] !== null ? data[i].monthly_values[j] : '--';
+            row += '<td>' + value + '</td>';
+          }
+          row += '</tr>';
+          $('#myTable tbody').append(row);
+        }
+      }
 
-    // Event listeners for select elements
-    $('#selected_month, #selected_year, #selected_hospital').change(function() {
-      // Update the table when any of the filters change
-      updateTable();
+      function addTooltip() {
+        $('.measure-cell').each(function() {
+          var tooltipContent = $(this).data('tooltip');
+          if (tooltipContent) {
+            $(this).attr('title', tooltipContent);
+          }
+        });
+      }
+
+      $('#selected_month, #select_year, #selected_hospital').change(function() {
+        updateTable();
+      });
     });
-
-    // Initial table update when the page loads
-    updateTable();
-  });
-</script>
+  </script>
 
   
   <script src="{% static '/dashboard/js/navigation.js' %}"></script>

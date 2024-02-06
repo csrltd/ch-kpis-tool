@@ -6,7 +6,7 @@
 {% block content %}
 <form method='POST'>
     {% csrf_token %}
-    {% comment %} {{form.as_p}} {% endcomment %}
+   
     <div class="input-fields">
         <div class="field">
             {{form.hospital.label}}

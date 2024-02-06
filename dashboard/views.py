@@ -204,14 +204,16 @@ def get_general_measures_data(request):
 
 def filter_measures_table(request):
     selected_month = request.GET.get('selected_month', None)
-    selected_year = request.GET.get('selected_year', None)
+    select_year = request.GET.get('select_year', None)
     selected_hospital = request.GET.get('selected_hospital', None)
+    
 
     filter_conditions = {}
     if selected_month:
         filter_conditions['date_entered__month'] = selected_month
-    if selected_year:
-        filter_conditions['date_entered__year'] = selected_year
+    if select_year:
+        filter_conditions['date_entered__year'] = select_year
+        
     if selected_hospital:
         filter_conditions['hospital__name'] = selected_hospital
 
@@ -238,6 +240,10 @@ def filter_measures_table(request):
             'definition': item[0]['definition'],
             'monthly_values': [round(item[i + 1]['sum_values'], 2) if item[i + 1]['sum_values'] is not None else None for i in range(12)],
         })
+    # response_data = {
+    #     'measures_data': data_for_json,
+    #     'measure_definitions': measure_definitions,  # Include measure definitions here
+    # }
 
     return JsonResponse(data_for_json, safe=False)
 
@@ -727,7 +733,7 @@ def addMeasures(request):
     user_hospital_id = request.user.profile.hospital.id
     form = MeasuresForm(user_hospital_id=user_hospital_id)
     page_title = 'Add Measures'
-    blocktitle = 'Add Measures'
+    blocktitle = 'DATA FORM'
 
     context = {'form': form, 'page_title': page_title,
                'blocktitle': blocktitle, 'user_hospital_id': user_hospital_id}
