@@ -3,6 +3,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils import timezone
 
 
 # Create your models here.
@@ -176,6 +177,10 @@ class Turnover(models.Model):
     def __str__(self):
         return self.hospital.name
 
+    def save(self, *args, **kwargs):
+        if not self.pk:  # Check if the instance is being created for the first time
+            self.date_created = timezone.now()  # Set date_created to current date and time
+        super().save(*args, **kwargs)
 
 class Hiring(models.Model):
     new_hires = models.IntegerField()

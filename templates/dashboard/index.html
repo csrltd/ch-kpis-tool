@@ -527,6 +527,8 @@
               </select>
             </form>
           </div>
+
+
             
           
         <div class="charts-container">
@@ -539,8 +541,20 @@
             <div id="noDataMessage" class="no-data-message"><span class="selected-measure"></span><span class="selected-year"></span></div>
             <canvas id="pieChart"></canvas>
           </div>
+
           <div class="chart turnovers">
-            <h3 class="title">Turnovers</h3>
+            <div class="filters">
+              <h3 class="title">Turnovers</h3>
+              <form action="{% url 'turnover-data' %}">
+                <select name="year" id="year">
+                  <option value="" disabled>Select a year</option>
+                  <option value="2024" selected>2024</option>
+                  <option value="2023">2023</option>
+                  <option value="2022">2022</option>
+                  <option value="2021">2021</option>
+                </select>
+              </form>
+            </div>
             <canvas id="turnOvers"></canvas>
           </div>
         </div>
@@ -711,6 +725,35 @@
       });
     });
   </script>
+
+
+  <!-- <script>
+    // JavaScript code to handle form submission via AJAX
+    document.getElementById("year").addEventListener("change", function() {
+      // Get the selected year from the form
+      var selectedYear = this.value;
+
+      // Make an AJAX request to fetch turnover data for the selected year
+      fetch("/turnover-data/?year=" + selectedYear)
+        .then((response) => response.json())
+        .then((data) => {
+          // Update the chart with the new data (code here will depend on your chart implementation)
+          // For example:
+          updateChart(data);
+        })
+        .catch((error) => console.error(error));
+    });
+
+    function updateChart(data) {
+      // Code to update the chart with new data (implementation depends on your chart library)
+      // For example, if using Chart.js:
+      // Assuming `myChart` is the Chart.js chart instance
+      myChart.data.labels = data.labels;
+      myChart.data.datasets = data.datasets;
+      myChart.update();
+    }
+
+  </script> -->
 
   
   <script src="{% static '/dashboard/js/navigation.js' %}"></script>

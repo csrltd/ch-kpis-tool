@@ -433,7 +433,20 @@ body {
                 height: 100vh;
                 justify-content: center;
 
-               
+               .filters {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        form {
+                            // padding: 10px;
+                            outline: none;
+                            select {
+                                outline: none;
+                                // border: 1px solid #333;
+                            }
+                        }
+                    }
             }
         }
     }
@@ -652,6 +665,8 @@ body {
 
                 .turnovers {
                     width: 100%;
+
+                    
                 }
             }
 

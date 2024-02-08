@@ -164,14 +164,14 @@ class TurnoverForm(ModelForm):
     class Meta:
         model = Turnover
         fields = ['total', 'voluntary', 'hospital',
-                  'date_entered', 'date_created']
+                  'date_entered']
 
         widgets = {
             'total': NumberInput(),
             'voluntary': NumberInput(),
             'hospital': Select(),
             'date_entered': DateTimeInput(attrs={'type': 'datetime-local'}),
-            'date_created': DateTimeInput(attrs={'type': 'datetime-local'}),
+            # 'date_created': DateTimeInput(attrs={'type': 'datetime-local'}),
         }
 
 

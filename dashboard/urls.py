@@ -12,6 +12,7 @@ urlpatterns = [
     # hospital dashboards
     path('', views.index, name='index'),
     path('turnover-data/', views.turnover_data, name='turnover-data'),
+    path('single-hospital-turnover-data/<int:hospital_id>/', views.single_hospital_turnover_data, name='single-turnover-data'),
     path('charts-data/', views.chart_data, name='charts-data'),
     path('filter-patients-by-month/', views.filter_patients_by_month,
          name='filter-patients-by-month'),

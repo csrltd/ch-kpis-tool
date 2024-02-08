@@ -678,20 +678,27 @@
 
 
           <div class="charts-container">
-            {% comment %}
-            <div class="chart census">
-              <h3 class="title">Mortality rate</h3>
-              <canvas id="mortality-rate"></canvas>
-            </div>
-            {% endcomment %}
+            
             <div class="chart turnovers">
               <h3 class="title measure">Mortality rate</h3>
               <canvas id="pieChart"></canvas>
             </div>
+
             <div class="chart turnovers">
+            <div class="filters">
               <h3 class="title">Turnovers</h3>
-              <canvas id="singleturnOvers"></canvas>
+              <form action="{% url 'single-turnover-data' hospital_id=hospital_id %}">
+                <select name="year" id="year">
+                  <option value="" disabled>Select a year</option>
+                  <option value="2024" selected>2024</option>
+                  <option value="2023">2023</option>
+                  <option value="2022">2022</option>
+                  <option value="2021">2021</option>
+                </select>
+              </form>
             </div>
+            <canvas id="turnOvers"></canvas>
+          </div>
           </div>
         </div>
 
@@ -777,6 +784,7 @@
               {% endfor %}
             </tbody>
           </table>
+
         </div>
       </div>
     </div>
@@ -861,10 +869,15 @@
         updateTable();
       });
     });
-  </script>
+    </script>
+
+    <script>
+      const hospitalId = "{{ hospital_id }}";
+    </script>
+
 
     <script src="{% static '/dashboard/js/navigation.js' %}"></script>
-    <script src="{% static '/dashboard/js/chartTurnover.js' %}"></script>
+    <script src="{% static '/dashboard/js/singleHospital_turnover.js' %}"></script>
     <script src="{% static '/dashboard/js/piChart.js' %}"></script>
     <script
       type="text/javascript"

@@ -342,6 +342,17 @@ body {
   height: 100vh;
   justify-content: center;
 }
+.content .charts .charts-container .turnovers .filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.content .charts .charts-container .turnovers .filters form {
+  outline: none;
+}
+.content .charts .charts-container .turnovers .filters form select {
+  outline: none;
+}
 .content .measures table {
   background-color: white;
   border-radius: 6px;

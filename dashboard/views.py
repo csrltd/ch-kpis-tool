@@ -25,6 +25,8 @@ import datetime
 from .decorators import *
 from .models import Measures
 
+
+
 # all view are secured to admin level. If you want to work on it, go
 # the admin dashboard and change your user group to admin
 
@@ -97,45 +99,140 @@ measure_definitions = {
 
 #     return JsonResponse(data)
 
-def turnover_data(request, hospital_id=None):
-    current_year = datetime.datetime.now().year
-    hospitals = Hospital.objects.all()
+# def turnover_data(request, hospital_id=None):
+#     current_year = datetime.datetime.now().year
+#     hospitals = Hospital.objects.all()
+#     data = {
+#         'labels': [],
+#         'datasets': []
+#     }
+#     unique_months = set() 
+
+#     for hospital in hospitals:
+#         # Update the queryset to filter data for the current year
+#         turnover_data = Turnover.objects.filter(hospital=hospital, date_entered__year=2023) \
+#                                         .annotate(month=TruncMonth('date_entered')) \
+#                                         .values('month') \
+#                                         .annotate(total=Sum('total'), voluntary=Sum('voluntary')) \
+#                                         .values('month', 'total', 'voluntary')
+#         turnover_data = sorted(
+#             turnover_data, key=lambda item: item['month'].date())
+#         turnover_dataset = {
+#             'label': hospital.name,
+#             'data': [],
+#             'fill': False
+#         }
+#         for item in turnover_data:
+#             month_year = item['month'].strftime('%b %y')  # Display both month and year
+#             turnover_dataset['data'].append(item['total'])
+#             unique_months.add(month_year)
+        
+#         data['datasets'].append(turnover_dataset)
+
+#     # Sort the unique months in chronological order
+#     sorted_months = sorted(
+#         unique_months, key=lambda x: datetime.datetime.strptime(x, '%b %y'))
+
+#     # Populate the labels only with the unique months that have data
+#     data['labels'] = sorted_months
+
+#     return JsonResponse(data)
+
+
+
+def turnover_data(request):
+    selected_year = request.GET.get('year')
+    if not selected_year:
+        selected_year = datetime.datetime.now().year
+    # selected_year = int(selected_year)
+
+    turnover_data = Turnover.objects.filter(date_entered__year=selected_year) \
+        .annotate(month=TruncMonth('date_entered')) \
+        .values('month', 'hospital') \
+        .annotate(total=Sum('total'), voluntary=Sum('voluntary'))
+
+    hospital_data = {}
+    unique_months = set()
+
+    for item in turnover_data:
+        month_year = item['month'].strftime('%b %y')
+        hospital_id = item['hospital']
+        
+        if hospital_id not in hospital_data:
+            hospital_data[hospital_id] = {
+                'name': Hospital.objects.get(id=hospital_id).name,
+                'data': {month_year: item['total']}
+            }
+        else:
+            hospital_data[hospital_id]['data'][month_year] = item['total']
+            
+        unique_months.add(month_year)
+
+    sorted_months = sorted(unique_months, key=lambda x: datetime.datetime.strptime(x, '%b %y'))
+
+    data = {
+        'labels': sorted_months,
+        'datasets': []
+    }
+    for hospital_id, hospital_info in hospital_data.items():
+        turnover_dataset = {
+            'label': hospital_info['name'],
+            'data': [],
+            'fill': False
+        }
+        
+        for month_year in sorted_months:
+            if month_year in hospital_info['data']:
+                turnover_dataset['data'].append(hospital_info['data'][month_year])
+            else:
+                turnover_dataset['data'].append(None)
+        data['datasets'].append(turnover_dataset)
+
+    return JsonResponse(data)
+
+
+
+def single_hospital_turnover_data(request, hospital_id):
+    selected_year = request.GET.get('year')
+    if not selected_year:
+        selected_year = datetime.datetime.now().year
+
+    hospital = Hospital.objects.get(id=hospital_id)
+
+    # Filter turnover data for the selected hospital and selected year
+    turnover_data = Turnover.objects.filter(hospital=hospital, date_entered__year=selected_year) \
+                                    .annotate(month=TruncMonth('date_entered')) \
+                                    .values('month') \
+                                    .annotate(total=Sum('total'), voluntary=Sum('voluntary')) \
+                                    .values('month', 'total', 'voluntary')
+
     data = {
         'labels': [],
         'datasets': []
     }
-    unique_months = set()  # Collect unique months across all hospitals
 
-    for hospital in hospitals:
-        # Update the queryset to filter data for the current year
-        turnover_data = Turnover.objects.filter(hospital=hospital, date_entered__year=2022) \
-                                        .annotate(month=TruncMonth('date_entered')) \
-                                        .values('month') \
-                                        .annotate(total=Sum('total'), voluntary=Sum('voluntary')) \
-                                        .values('month', 'total', 'voluntary')
-        turnover_data = sorted(
-            turnover_data, key=lambda item: item['month'].date())
-        turnover_dataset = {
-            'label': hospital.name,
-            'data': [],
-            'fill': False
-        }
-        for item in turnover_data:
-            month_year = item['month'].strftime('%b %y')  # Display both month and year
-            turnover_dataset['data'].append(item['total'])
-            unique_months.add(month_year)
-        
-        data['datasets'].append(turnover_dataset)
+    unique_months = set()
+
+    turnover_dataset = {
+        'label': hospital.name,
+        'data': [],
+        'fill': False
+    }
+
+    for item in turnover_data:
+        month_year = item['month'].strftime('%b %y')
+        turnover_dataset['data'].append(item['total'])
+        unique_months.add(month_year)
+
+    data['datasets'].append(turnover_dataset)
 
     # Sort the unique months in chronological order
-    sorted_months = sorted(
-        unique_months, key=lambda x: datetime.datetime.strptime(x, '%b %y'))
+    sorted_months = sorted(unique_months, key=lambda x: datetime.datetime.strptime(x, '%b %y'))
 
     # Populate the labels only with the unique months that have data
     data['labels'] = sorted_months
 
     return JsonResponse(data)
-
 
 
 @require_http_methods(['GET'])
